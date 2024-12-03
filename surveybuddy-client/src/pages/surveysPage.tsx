@@ -26,7 +26,7 @@ async function getSurveys(): Promise<Survey[]> {
   return data.json();
 }
 
-const Surveys: React.FC = () => {
+const SurveysPage: React.FC = () => {
   const [surveys, setSurveys] = useState<Survey[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -84,4 +84,4 @@ const Surveys: React.FC = () => {
   );
 };
 
-export default Surveys;
+export default SurveysPage;

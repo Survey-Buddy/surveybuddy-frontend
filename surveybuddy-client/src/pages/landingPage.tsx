@@ -10,7 +10,7 @@ function LandingPage() {
         <div
           //   className="flex justify-center items-center h-full"
           style={{
-            marginTop: "5%",
+            marginTop: "7%",
             backgroundImage: `url(/assets/images/8582990.jpg)`,
             height: "60%",
             width: "60%",
@@ -25,12 +25,10 @@ function LandingPage() {
         </div>
 
         {/* <h1>SurveyBuddy</h1>
-          <Surveys></Surveys>
+          
           <Register></Register>
           <ComboboxDemo></ComboboxDemo> */}
       </main>
-      {/* <Footer1></Footer1> */}
-      {/* </div> */}
     </>
   );
 }

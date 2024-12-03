@@ -1,12 +1,13 @@
-import React from "react";
 import "./App.css";
-import Surveys from "./pages/surveys";
 import { Footer1 } from "./components/main/footer";
 import { Header1 } from "./components/main/navbar";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/landingPage";
 import { Home } from "lucide-react";
+import SurveysPage from "./pages/surveysPage";
+import LoginPage from "./pages/loginSignup";
+import RegisterPage from "./pages/registerPage";
 
 function App() {
   return (
@@ -16,8 +17,10 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/home/:userId" element={<Home />} />
-            <Route path="/surveys/:userId" element={<Surveys />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/home/" element={<Home />} />
+            <Route path="/surveys/" element={<SurveysPage />} />
           </Routes>
         </main>
         <Footer1 />
