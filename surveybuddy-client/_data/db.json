@@ -4,24 +4,31 @@
       "id": "1",
       "title": "Survey 1",
       "description": "Survey 1 Desc",
+      "organisation": "Coder Academy",
+      "active": true,
       "date": "2024-12-02T02:30:22.462+00:00"
     },
     {
       "id": "2",
       "title": "Survey 2",
       "description": "Survey 2 Desc",
+      "active": true,
       "date": "2024-12-02T02:30:22.462+00:00"
     },
     {
       "id": "3",
       "title": "Survey 3",
       "description": "Survey 3 Desc",
+      "organisation": "RMIT",
+      "active": true,
       "date": "2024-12-02T02:30:22.462+00:00"
     },
     {
       "id": "4",
       "title": "Survey 4",
+      "active": false,
       "description": "Survey 4 Desc",
+      "organisation": "RMIT",
       "date": "2024-12-02T02:30:22.462+00:00"
     }
   ]

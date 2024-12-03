@@ -1,9 +1,20 @@
 import React, { useEffect, useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 interface Survey {
   id: string;
   title: string;
+  organisation: string;
   description: string;
+  active: boolean;
   date: string;
 }
 
@@ -41,15 +52,31 @@ const Surveys: React.FC = () => {
     <div>
       <h1>Surveys</h1>
       {surveys.length > 0 ? (
-        <ul>
-          {surveys.map((survey) => (
-            <li key={survey.id}>
-              <h2>{survey.title}</h2>
-              <p>{survey.description}</p>
-              <p>Date: {survey.date}</p>
-            </li>
-          ))}
-        </ul>
+        <div className="grid grid-cols-3 gap-8">
+          <ul>
+            {surveys.map((survey) => (
+              <Card key={survey.id} className="flex flex-col justify-between">
+                <CardHeader className="flex-row gap-4 items-center">
+                  {/* avatar */}
+                  <div>
+                    <CardTitle>{survey.title}</CardTitle>
+                    <CardDescription>{survey.organisation}</CardDescription>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div>
+                    <p>{survey.date}</p>
+                    <p>{survey.description}</p>
+                  </div>
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                  <Button>View Analytics</Button>
+                  {survey.active ? <p>Active</p> : <p>Complete</p>}
+                </CardFooter>
+              </Card>
+            ))}
+          </ul>
+        </div>
       ) : (
         <p>No surveys found.</p>
       )}
