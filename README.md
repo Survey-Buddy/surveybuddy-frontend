@@ -51,7 +51,7 @@ I chose Option 1 because it’s the most efficient and professional design for a
 - Developed JWT functions for token generation.
 - Tested signup functionality using Insomnia.
 
-![25th Nov Trelllo](./surveybuddy-client/src/assets/trello/trello_25:11.png)
+![25th Nov Trelllo](/surveybuddy-client/src/assets/trello/trello_25:11.png)
 
 #### 27th of November
 
@@ -63,7 +63,7 @@ I chose Option 1 because it’s the most efficient and professional design for a
 - Enhanced error handling with detailed response messages and server-side logging.
 - Tested all question-related endpoints for proper functionality.
 
-![27th Nov Trelllo](./surveybuddy-client/src/assets/trello/trello_27:11.png)
+![27th Nov Trelllo](/surveybuddy-client/src/assets/trello/trello_27:11.png)
 
 #### 28th of November
 
@@ -78,7 +78,7 @@ I chose Option 1 because it’s the most efficient and professional design for a
 
 Due to underestimating how long building the backend MVP would take, the frontend cards due today were assigned a new due date of the 4th of Decemeber. After finishing the backend the next sprint will be to get these cards complete. Since I am behind schedule and working hard on getting the backend complete, the time extension is in no way an issue.
 
-![28th Nov Trello Update](./surveybuddy-client/src/assets/trello/trello_28:11.png)
+![28th Nov Trello Update](/surveybuddy-client/src/assets/trello/trello_28:11.png)
 
 #### 1st of December
 
@@ -98,7 +98,7 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - Made sure the middleware works correctly for both Survey and Question routes.
 - Verified that only the creator (based on userId) can perform specific actions.
 
-![1st Dec Trello Update](./surveybuddy-client/src/assets/trello/trello_1:12.png)
+![1st Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_1:12.png)
 
 #### 2nd of December
 
@@ -141,7 +141,7 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - **Database Integration**:
   - Integrated MongoDB (or another database) to store survey data, answers, and user-related information.
 
-![2nd Dec Trello Update](./surveybuddy-client/src/assets/trello/trello_2:12.png)
+![2nd Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_2:12.png)
 
 
 #### 2nd of December
@@ -185,7 +185,7 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - **Database Integration**:
   - Integrated MongoDB (or another database) to store survey data, answers, and user-related information.
 
-## ![2nd Dec Trello Update](./surveybuddy-client/src/assets/trello/trello_2:12.png)
+![2nd Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_2:12.png)
 
 #### 3rd of December
 
@@ -197,7 +197,7 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - Ensured consistent margins for grid components, maintaining balanced layouts.
 - Refined your app's router setup, making navigation seamless for future development.
 
-![3rd Dec Trello Update](./surveybuddy-client/src/assets/trello/trello_3:12.png)
+![3rd Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_3:12.png)
 
 #### 5th of December
 
@@ -207,4 +207,4 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - Verified that navigation items in the header (e.g., Survey, About, Community) lead to the correct pages.
 - Created a responsive navigation menu with ShadCN and lucide-react icons for improved user interaction.
 
-![5th Dec Trello Update](./surveybuddy-client/src/assets/trello/trello_5:12.png)
+![5th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_5:12.png)
