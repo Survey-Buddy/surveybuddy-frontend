@@ -122,12 +122,19 @@ export const Header1 = () => {
           <p className="font-semibold">SurveyBuddy</p>
         </div>
         <div className="flex justify-end w-full gap-4">
+          <Link to="/community">
           <Button variant="ghost" className="hidden md:inline">
             Community
           </Button>
+          </Link>
           <div className="border-r hidden md:inline"></div>
+          <Link to="/signin">
           <Button variant="outline">Sign in</Button>
+          </Link>
+          <Link to="/register">
           <Button>Register</Button>
+          </Link>
+          
         </div>
         <div className="flex w-12 shrink lg:hidden items-end justify-end">
           <Button variant="ghost" onClick={() => setOpen(!isOpen)}>

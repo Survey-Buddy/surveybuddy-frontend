@@ -4,10 +4,15 @@ import { Header1 } from "./components/main/navbar";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/landingPage";
-import { Home } from "lucide-react";
+import Home from "lucide-react";
 import SurveysPage from "./pages/surveysPage";
 import LoginPage from "./pages/loginSignup";
 import RegisterPage from "./pages/registerPage";
+import CommunityPage from "./pages/communityPage";
+import TargetedPage from "./pages/targetedPage";
+import ContactPage from "./pages/contactPage";
+import HomePage from "./pages/homePage";
+import MarketingPage from "./pages/marketingPage";
 
 function App() {
   return (
@@ -17,10 +22,14 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signin" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/home" element={<HomePage />} />
             <Route path="/surveys/" element={<SurveysPage />} />
+            <Route path="/community" element={<CommunityPage />} />
+            <Route path="/targeted" element={<TargetedPage />} />
+            <Route path="/marketing" element={<MarketingPage />} />
+            <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </main>
         <Footer1 />

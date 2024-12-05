@@ -198,3 +198,13 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - Refined your app's router setup, making navigation seamless for future development.
 
 ![3rd Dec Trello Update](./vite-project/src/assets/trello/trello_3:12.png)
+
+#### 5th of December
+
+- Completed the setup for routing and navigation across all pages.
+- Implemented links to the respective pages (e.g., Home, Surveys, Analytics, Targeted, etc.) using React Router.
+- Ensured that all pages are connected properly, and links are functioning as expected on the client-side.
+- Verified that navigation items in the header (e.g., Survey, About, Community) lead to the correct pages.
+- Created a responsive navigation menu with ShadCN and lucide-react icons for improved user interaction.
+
+![5th Dec Trello Update](./vite-project/src/assets/trello/trello_5:12.png)
