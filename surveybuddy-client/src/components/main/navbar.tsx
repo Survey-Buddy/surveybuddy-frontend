@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -22,32 +20,32 @@ export const Header1 = () => {
     },
     {
       title: "Surveys",
-      description: "Managing a small business today is already tough.",
+      description: "Simple, beautiful, and intuitive surveys made easy.",
       items: [
         {
-          title: "Reports",
-          href: "/reports",
+          title: "Surveys",
+          href: "/surveys",
         },
         {
-          title: "Statistics",
-          href: "/statistics",
+          title: "Analytics",
+          href: "/analytics",
         },
         {
-          title: "Dashboards",
-          href: "/dashboards",
+          title: "Targeted",
+          href: "/targeted",
         },
         {
-          title: "Recordings",
-          href: "/recordings",
+          title: "Distribution",
+          href: "/usecases",
         },
       ],
     },
     {
-      title: "Analytics",
-      description: "Managing a small business today is already tough.",
+      title: "About",
+      description: "Simple, beautiful, and intuitive surveys made easy.",
       items: [
         {
-          title: "About us",
+          title: "About Us",
           href: "/about",
         },
         {
@@ -55,11 +53,11 @@ export const Header1 = () => {
           href: "/fundraising",
         },
         {
-          title: "Investors",
+          title: "Marketing",
           href: "/investors",
         },
         {
-          title: "Contact us",
+          title: "Contact",
           href: "/contact",
         },
       ],
@@ -77,9 +75,9 @@ export const Header1 = () => {
                 <NavigationMenuItem key={item.title}>
                   {item.href ? (
                     <>
-                      <NavigationMenuLink>
+                      <Link to={item.href} className="no-underline">
                         <Button variant="ghost">{item.title}</Button>
-                      </NavigationMenuLink>
+                      </Link>
                     </>
                   ) : (
                     <>
@@ -142,7 +140,7 @@ export const Header1 = () => {
                   <div className="flex flex-col gap-2">
                     {item.href ? (
                       <Link
-                        href={item.href}
+                        to={item.href}
                         className="flex justify-between items-center"
                       >
                         <span className="text-lg">{item.title}</span>
@@ -155,7 +153,7 @@ export const Header1 = () => {
                       item.items.map((subItem) => (
                         <Link
                           key={subItem.title}
-                          href={subItem.href}
+                          to={subItem.href}
                           className="flex justify-between items-center"
                         >
                           <span className="text-muted-foreground">
