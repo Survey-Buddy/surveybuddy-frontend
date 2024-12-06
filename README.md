@@ -208,3 +208,25 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - Created a responsive navigation menu with ShadCN and lucide-react icons for improved user interaction.
 
 ![5th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_5:12.png)
+
+#### 6th December
+
+- Created a combined login and registration form using React, TypeScript, and react-hook-form.
+- Implemented form validation using zod and integrated it with react-hook-form via zodResolver.
+- Sent POST requests to backend /signup and /login endpoints using axios.
+- Displayed success or error alerts upon form submission based on response status.
+- Implemented conditional rendering for login/register forms based on the isRegister state.
+- Managed form field validation errors and displayed relevant error messages on the UI.
+- Dynamically switched form header and button texts based on the isRegister flag.
+- Navigated to /home page upon successful form submission using useNavigate.
+- Integrated react-router-dom for navigation and passed query parameters (isRegister=true/false) to manage form state.
+- Used useLocation to extract URL query parameters for dynamic form switching.
+- Designed a responsive, user-friendly registration/login form with card-based layout.
+- Explored how to handle API response data types in TypeScript when using axios.
+- Researched how to use URLSearchParams to manage form state via URL parameters.
+- Applied TypeScript types for API responses and react-hook-form data to ensure type safety.
+
+![6th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_6:12.png)
+
+
+
