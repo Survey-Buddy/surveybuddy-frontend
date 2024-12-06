@@ -12,16 +12,28 @@ import { Label } from "@/components/ui/label";
 import { FormEvent, useState } from "react";
 import axios from "axios";
 import { FieldValues, useForm } from "react-hook-form";
-import { z } from "zod";
+import { optional, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
-  username:z.string().min(3, { message: "Username must be at least 3 characters."}),
-  firstName: z.string().min(3, { message: "Name must be at least 3 characters."}),
-  lastName: z.string().min(3, { message: "Name must be at least 3 characters."}),
+  username: z.string().min(3, { message: "Username must be at least 3 characters."})
+  .optional(),
+  firstName: z.string().min(3, { message: "Name must be at least 3 characters."})
+  .optional(),
+  // lastName: z.string().min(3, { message: "Name must be at least 3 characters."}),
   email: z.string().min(6),
   password: z.string().min(6, { message: "Password must be at least 3 characters."})
 })
+.refine(
+  (data) => {
+    const isRegister = new URLSearchParams(window.location.search).get("isRegister") === "true";
+    if (isRegister) {
+      return data.username && data.firstName;
+    }
+    return true;
+  },
+  { message: "Please fill out all required fields for registration."}
+);
 
 // Like interface
 type FormaData = z.infer<typeof schema>;
@@ -39,7 +51,9 @@ export function RegisterForm() {
     register, 
     handleSubmit, 
     formState: { errors, isValid }, 
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<FormData>({ resolver: zodResolver(schema),
+    mode: "onChange",
+   });
 
   
 
@@ -94,6 +108,63 @@ export function RegisterForm() {
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} >
         <div className="grid gap-4">
+
+          {/* Register only fields */}
+        {isRegister && (
+          <>
+        <div className="grid gap-2">
+            <Label htmlFor="username">Username</Label>
+            <Input
+              id="username"
+              type="text"
+              placeholder="Username"
+              
+              { ...register("username")}
+              // value={formData.userName}
+              // onChange={(event) => setFormData({
+              //   ...formData, userName: event.target.value
+              // })}
+            />
+
+            { errors.username && <p className="text-red-500">{errors.username.message}</p>}
+            
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="firstName">Name</Label>
+            <Input
+              id="firstName"
+              type="text"
+              placeholder="First Name"
+              
+              { ...register("firstName")}
+              // value={formData.firstName}
+              // onChange={(event) => setFormData({
+              //   ...formData, firstName: event.target.value
+              // })}
+            />
+
+            { errors.firstName && <p className="text-red-500">{errors.firstName.message}</p>}
+            
+          </div>
+          {/* <div className="grid gap-2">
+            <Label htmlFor="lastName">Last Name</Label>
+            <Input
+              id="lastName"
+              type="text"
+              placeholder="Last Name"
+              
+              { ...register("lastName") }
+              // value={formData.lastName}
+              // onChange={(event) => setFormData({
+              //   ...formData, lastName: event.target.value
+              // })}
+            />
+            { errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
+            
+          </div> */}
+          </>
+        )}
+
         {/* Common Fields */}
         <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
@@ -129,61 +200,7 @@ export function RegisterForm() {
             { errors.password && <p className="text-red-500">{errors.password.message}</p>}
           </div>
 
-        {/* Register only fields */}
-        {isRegister && (
-          <>
-        <div className="grid gap-2">
-            <Label htmlFor="username">Username</Label>
-            <Input
-              id="username"
-              type="text"
-              placeholder="Username"
-              
-              { ...register("username")}
-              // value={formData.userName}
-              // onChange={(event) => setFormData({
-              //   ...formData, userName: event.target.value
-              // })}
-            />
-
-            { errors.username && <p className="text-red-500">{errors.username.message}</p>}
-            
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="firstName">First Name</Label>
-            <Input
-              id="firstName"
-              type="text"
-              placeholder="First Name"
-              
-              { ...register("firstName")}
-              // value={formData.firstName}
-              // onChange={(event) => setFormData({
-              //   ...formData, firstName: event.target.value
-              // })}
-            />
-
-            { errors.firstName && <p className="text-red-500">{errors.firstName.message}</p>}
-            
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="lastName">Last Name</Label>
-            <Input
-              id="lastName"
-              type="text"
-              placeholder="Last Name"
-              
-              { ...register("lastName") }
-              // value={formData.lastName}
-              // onChange={(event) => setFormData({
-              //   ...formData, lastName: event.target.value
-              // })}
-            />
-            { errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
-            
-          </div>
-          </>
-        )}
+        
           
           <Button disabled={!isValid} type="submit" className="w-full"   >
             Submit
