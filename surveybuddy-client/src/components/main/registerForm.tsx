@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,6 +16,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
+  username:z.string().min(3, { message: "Username must be at least 3 characters."}),
   firstName: z.string().min(3, { message: "Name must be at least 3 characters."}),
   lastName: z.string().min(3, { message: "Name must be at least 3 characters."}),
   email: z.string().min(6),
@@ -33,6 +34,7 @@ export function RegisterForm() {
     formState: { errors, isValid }, 
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
+  const navigate = useNavigate();
 
   // const [formData, setFormData] = useState({
   //   firstName: "",
@@ -51,7 +53,20 @@ export function RegisterForm() {
   //   }
   // }
 
-  const onSubmit = (data: FieldValues) => console.log(data)
+  const onSubmit = async (data: FieldValues) => {
+    
+
+    try {
+      const response = await axios.post("http://localhost:8080/users/signup", data);
+      console.log("User registered successfully", response.data);
+      
+      alert(`Welcome to SurveyBuddy ${data.username}!`);
+      navigate("/home");
+    } catch (error) {
+      console.error("Error registering user:", error);
+      alert("Registration failed. Please try again.");
+    }
+  }
 
   // if (data) {
   //   setToken(data.token);
@@ -74,6 +89,24 @@ export function RegisterForm() {
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} >
         <div className="grid gap-4">
+        
+        <div className="grid gap-2">
+            <Label htmlFor="username">Username</Label>
+            <Input
+              id="username"
+              type="text"
+              placeholder="Username"
+              
+              { ...register("username")}
+              // value={formData.userName}
+              // onChange={(event) => setFormData({
+              //   ...formData, userName: event.target.value
+              // })}
+            />
+
+            { errors.username && <p className="text-red-500">{errors.username.message}</p>}
+            
+          </div>
           <div className="grid gap-2">
             <Label htmlFor="firstName">First Name</Label>
             <Input
