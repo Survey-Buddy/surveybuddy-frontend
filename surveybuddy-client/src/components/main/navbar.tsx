@@ -128,10 +128,10 @@ export const Header1 = () => {
           </Button>
           </Link>
           <div className="border-r hidden md:inline"></div>
-          <Link to="/signin">
+          <Link to="/register?isRegister=false" >
           <Button variant="outline">Sign in</Button>
           </Link>
-          <Link to="/register">
+          <Link to="/register?isRegister=true" >
           <Button>Register</Button>
           </Link>
           

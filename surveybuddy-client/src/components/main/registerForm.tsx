@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -27,6 +27,13 @@ const schema = z.object({
 type FormaData = z.infer<typeof schema>;
 
 export function RegisterForm() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const urlParams = new URLSearchParams(location.search);
+  const isRegister = urlParams.get("isRegister") === "true";
+  // const { isRegister } = location.state || { isRegister: true }
+
+  // const [ isRegister, setIsRegister ] = useState(true);
 
   const { 
     register, 
@@ -34,7 +41,7 @@ export function RegisterForm() {
     formState: { errors, isValid }, 
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const navigate = useNavigate();
+  
 
   // const [formData, setFormData] = useState({
   //   firstName: "",
@@ -54,42 +61,77 @@ export function RegisterForm() {
   // }
 
   const onSubmit = async (data: FieldValues) => {
-    
-
+  
     try {
-      const response = await axios.post("http://localhost:8080/users/signup", data);
-      console.log("User registered successfully", response.data);
+      const endpoint = isRegister ?
+      "http://localhost:8080/users/signup" :
+      "http://localhost:8080/users/login"
+
+      const response = await axios.post(endpoint, data);
+
+      const username = response.data.username;
+
+      const message = isRegister ?
+      `Welcome to SurveyBuddy, ${username}!` :
+       `Welcome back to SurveyBuddy, ${username}!`
       
-      alert(`Welcome to SurveyBuddy ${data.username}!`);
+      alert(message);
       navigate("/home");
     } catch (error) {
-      console.error("Error registering user:", error);
-      alert("Registration failed. Please try again.");
+      const errorMessage = error.response?.data?.message || "An error occurred. Please try again.";
+      alert(errorMessage);
     }
   }
-
-  // if (data) {
-  //   setToken(data.token);
-
-  //   alert(`Welcome to SurveyBuddy ${data.firstName}, we hope you enjoy your experience with us.`)
-
-  //   setFormData({ name: '', username: '', email: '', password: '' });
-  // } else {
-
-  // }
 
   return (
     <Card className="mx-auto max-w-sm" >
       <CardHeader>
-        <CardTitle className="text-2xl">Register</CardTitle>
+        <CardTitle className="text-2xl">{isRegister ? "Register" : "Login"}</CardTitle>
         <CardDescription>
-          Enter your details to create a new account.
+          {isRegister ? "Enter your details to create a new account." : "Enter your login details."}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} >
         <div className="grid gap-4">
-        
+        {/* Common Fields */}
+        <div className="grid gap-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="m@example.com"
+              required
+              { ...register("email", { required: true, minLength: 6 })}
+              // value={formData.email}
+              // onChange={(event) => setFormData({
+              //   ...formData, email: event.target.value
+              // })}
+            />
+            { errors.email && <p className="text-red-500">{errors.email.message}</p>}
+            
+          </div>
+          <div className="grid gap-2">
+            <div className="flex items-center">
+              <Label htmlFor="password">Password</Label>
+              {/* <Link href="#" className="ml-auto inline-block text-sm underline">
+                Forgot your password?
+              </Link> */}
+            </div>
+            <Input id="password" type="password" required 
+            { ...register("password")}
+              // value={formData.password}
+              // onChange={(event) => setFormData({
+              //   ...formData, password: event.target.value
+              // })}
+            />
+            
+            { errors.password && <p className="text-red-500">{errors.password.message}</p>}
+          </div>
+
+        {/* Register only fields */}
+        {isRegister && (
+          <>
         <div className="grid gap-2">
             <Label htmlFor="username">Username</Label>
             <Input
@@ -140,39 +182,9 @@ export function RegisterForm() {
             { errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
             
           </div>
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-              { ...register("email", { required: true, minLength: 6 })}
-              // value={formData.email}
-              // onChange={(event) => setFormData({
-              //   ...formData, email: event.target.value
-              // })}
-            />
-            { errors.email && <p className="text-red-500">{errors.email.message}</p>}
-            
-          </div>
-          <div className="grid gap-2">
-            <div className="flex items-center">
-              <Label htmlFor="password">Password</Label>
-              {/* <Link href="#" className="ml-auto inline-block text-sm underline">
-                Forgot your password?
-              </Link> */}
-            </div>
-            <Input id="password" type="password" required 
-            { ...register("password")}
-              // value={formData.password}
-              // onChange={(event) => setFormData({
-              //   ...formData, password: event.target.value
-              // })}
-            />
-            
-            { errors.password && <p className="text-red-500">{errors.password.message}</p>}
-          </div>
+          </>
+        )}
+          
           <Button disabled={!isValid} type="submit" className="w-full"   >
             Submit
           </Button>
@@ -182,10 +194,16 @@ export function RegisterForm() {
         </div>
         </form>
         <div className="mt-4 text-center text-sm">
-          Don&apos;t have an account?{" "}
+          {isRegister ? "Already have an account?" : "Don't have an account?"}{" "}
+          <Link to={`/register?isRegister=${!isRegister}`}
+            className="underline text-blue-600 hover:text-blue-800"
+            >
+              {isRegister ? "Login" : "Register"}
+          </Link>
           {/* <Link href="#" className="underline">
             Sign up
           </Link> */}
+          
         </div>
       </CardContent>
     </Card>
