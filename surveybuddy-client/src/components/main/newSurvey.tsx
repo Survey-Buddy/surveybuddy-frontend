@@ -21,24 +21,32 @@ import {
 import { DatePicker } from "./datePicker"
 
 export function NewSurveyCard() {
+
+
   return (
-    <Card className="w-[350px]">
+    <Card className="w-[400px]">
       <CardHeader>
-        <CardTitle>Create project</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
+        <CardTitle>Create New Survey</CardTitle>
+        <CardDescription></CardDescription>
       </CardHeader>
       <CardContent>
         <form>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Survey Name</Label>
-              <Input id="name" placeholder="Name of your survey" />
+              <Label htmlFor="name">Name</Label>
+              <Input id="name" placeholder="Survey name..." />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="description">Description</Label>
-              <Input id="description" placeholder="Description of your survey" />
+              {/* <Input id="description" placeholder="Survey description..." 
+              className="border border-gray-300 rounded p-2 h-16 w-full"/> */}
+              <textarea
+                className="border border-gray-300 rounded p-2 w-full h-32"
+                placeholder="Enter your text here"
+                rows={5} // Optional, defines the number of visible rows
+                />
             </div>
-            <div className="flex flex-col space-y-1.5">
+            <div className="flex flex-col space-y-1.5 ">
               <Label htmlFor="purpose">Purpose</Label>
               <Select>
                 <SelectTrigger id="purpose">
@@ -53,13 +61,27 @@ export function NewSurveyCard() {
                 </SelectContent>
               </Select>
             </div>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="purpose">Respondents</Label>
+              <Select>
+                <SelectTrigger id="purpose">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent position="popper">
+                  <SelectItem value="next">Public</SelectItem>
+                  <SelectItem value="registered">Registered Only</SelectItem>
+                  <SelectItem value="private">Private</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <Label htmlFor="purpose">End Date</Label>
             <DatePicker></DatePicker>
           </div>
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="outline">Cancel</Button>
-        <Button>Deploy</Button>
+        <Button>Submit</Button>
       </CardFooter>
     </Card>
   )
