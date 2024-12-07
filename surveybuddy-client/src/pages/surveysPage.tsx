@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { SurveyCard } from "@/components/main/surveysCards";
+import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 interface Survey {
   id: string;
@@ -50,30 +45,36 @@ const SurveysPage: React.FC = () => {
 
   return (
     <div>
-      <h1>Surveys</h1>
+       <div className="w-full py-20 lg:py-40">
+    <div className="container mx-auto">
+      <div className="flex flex-col gap-10">
+        <div className="flex gap-4 flex-col items-start">
+          <div>
+            <Badge>Surveys</Badge>
+          </div>
+          <div className="flex gap-2 flex-col">
+            <h2 className="text-3xl md:text-5xl tracking-tighter max-w-xl font-regular text-left">
+              Your Surveys!
+            </h2>
+            <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-muted-foreground  text-left">
+              Survey history. 
+            </p>
+            <Link to="/surveys/newsurvey">
+            <Button>New Survey</Button>
+            </Link>
+          </div>
+        </div>
       {surveys.length > 0 ? (
-        <div className="grid grid-cols-3 gap-8">
+        <div >
           <ul>
             {surveys.map((survey) => (
-              <Card key={survey.id} className="flex flex-col justify-between">
-                <CardHeader className="flex-row gap-4 items-center">
-                  {/* avatar */}
-                  <div>
-                    <CardTitle>{survey.title}</CardTitle>
-                    <CardDescription>{survey.organisation}</CardDescription>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div>
-                    <p>{survey.date}</p>
-                    <p>{survey.description}</p>
-                  </div>
-                </CardContent>
-                <CardFooter className="flex justify-between">
-                  <Button>View Analytics</Button>
-                  {survey.active ? <p>Active</p> : <p>Complete</p>}
-                </CardFooter>
-              </Card>
+              <li key={survey.id}>
+                <SurveyCard
+                  title={survey.title}
+                  description={survey.description}
+                  active={survey.active}
+                />
+              </li>
             ))}
           </ul>
         </div>
@@ -81,6 +82,9 @@ const SurveysPage: React.FC = () => {
         <p>No surveys found.</p>
       )}
     </div>
+    </div>
+    </div>
+  </div>
   );
 };
 
