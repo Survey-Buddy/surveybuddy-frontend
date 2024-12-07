@@ -6,8 +6,12 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
+    "allowJs": true,
+    "checkJs": false, // Optionally set to true to get TypeScript checking in .js files
+    "jsx": "react",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+   
   }
 }

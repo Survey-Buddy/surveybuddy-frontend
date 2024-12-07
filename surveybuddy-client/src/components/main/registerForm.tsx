@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,69 +11,38 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormEvent, useState } from "react";
-import axios from "axios";
+
 import { FieldValues, useForm } from "react-hook-form";
 import { optional, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+// import { useUserData } from "../../context/userContext";
 
-const schema = z.object({
-  username: z.string().min(3, { message: "Username must be at least 3 characters."})
-  .optional(),
-  firstName: z.string().min(3, { message: "Name must be at least 3 characters."})
-  .optional(),
-  // lastName: z.string().min(3, { message: "Name must be at least 3 characters."}),
-  email: z.string().min(6),
-  password: z.string().min(6, { message: "Password must be at least 3 characters."})
-})
-.refine(
-  (data) => {
-    const isRegister = new URLSearchParams(window.location.search).get("isRegister") === "true";
-    if (isRegister) {
-      return data.username && data.firstName;
-    }
-    return true;
-  },
-  { message: "Please fill out all required fields for registration."}
-);
+// Login Schema Validation
+const loginSchema = z.object({
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z.string().min(6, { message: "Password must be at least 6 characters long" }),
+});
 
-// Like interface
-type FormaData = z.infer<typeof schema>;
+const registerSchema = loginSchema.extend({
+  username: z.string().min(3, { message: "Username must be at least 3 characters" }),
+  firstName: z.string().min(3, { message: "Name must be at least 3 characters" }),
+});
 
 export function RegisterForm() {
   const location = useLocation();
   const navigate = useNavigate();
   const urlParams = new URLSearchParams(location.search);
   const isRegister = urlParams.get("isRegister") === "true";
-  // const { isRegister } = location.state || { isRegister: true }
-
-  // const [ isRegister, setIsRegister ] = useState(true);
+  // const { setToken, userData } = useUserData();
+  const schema = isRegister ? registerSchema : loginSchema;
 
   const { 
     register, 
     handleSubmit, 
     formState: { errors, isValid }, 
-  } = useForm<FormData>({ resolver: zodResolver(schema),
-    mode: "onChange",
+  } = useForm<FormData>({ resolver: zodResolver(schema), mode: "onChange"
    });
-
-  
-
-  // const [formData, setFormData] = useState({
-  //   firstName: "",
-  //   lastName: "",
-  //   email: "",
-  //   password: ""
-  // });
-
-  // const handleSubmit = async (event: FormEvent) => {
-  //   event.preventDefault();
-  //   try {
-  //     const response = await axios.get("http://localhost:8080/users/signup")
-  //     const data = await response.json();
-  //   } catch (error) {
-  //     throw new Error("Error signing up user:", error);
-  //   }
-  // }
 
   const onSubmit = async (data: FieldValues) => {
   
@@ -82,8 +52,16 @@ export function RegisterForm() {
       "http://localhost:8080/users/login"
 
       const response = await axios.post(endpoint, data);
+      if (!response) {
+        throw new Error("Client did not recieve a response.")
+      }
 
-      const username = response.data.username;
+      console.log(response);
+
+      const { username, token } = response.data;
+      localStorage.setItem("Username", username);
+
+      Cookies.set('token', token, { expires: 7, secure: true, sameSite: 'Strict' });
 
       const message = isRegister ?
       `Welcome to SurveyBuddy, ${username}!` :
