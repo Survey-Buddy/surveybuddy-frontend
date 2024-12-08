@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { DatePicker } from "./datePicker"
+import { Link } from "react-router-dom"
 
 export function NewSurveyCard() {
 
@@ -73,15 +74,22 @@ export function NewSurveyCard() {
                   <SelectItem value="private">Private</SelectItem>
                 </SelectContent>
               </Select>
+              <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="name">Organisation</Label>
+              <Input id="name" placeholder="Organisation..." />
             </div>
-            <Label htmlFor="purpose">End Date</Label>
+            </div>
+            <Label htmlFor="purpose">Completion Date</Label>
             <DatePicker></DatePicker>
           </div>
         </form>
+        
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline">Cancel</Button>
-        <Button>Submit</Button>
+        <Link to="/surveys">
+        <Button variant="outline">Back</Button>
+        </Link>
+        <Button>Continue</Button>
       </CardFooter>
     </Card>
   )

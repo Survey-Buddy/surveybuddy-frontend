@@ -27,16 +27,16 @@ export const Header1 = () => {
           href: "/surveys",
         },
         {
+          title: "New Survey",
+          href: "/surveys/newsurvey",
+        },
+        {
+          title: "Respondents",
+          href: "/respondents",
+        },
+        {
           title: "Analytics",
           href: "/analytics",
-        },
-        {
-          title: "Targeted",
-          href: "/targeted",
-        },
-        {
-          title: "Distribution",
-          href: "/usecases",
         },
       ],
     },
