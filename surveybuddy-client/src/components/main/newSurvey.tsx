@@ -17,9 +17,23 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { DatePicker } from "./datePicker"
-import { Link } from "react-router-dom"
+} from "@/components/ui/select";
+import { DatePicker } from "./datePicker";
+import { Link } from "react-router-dom";
+import { optional, z } from "zod";
+
+const schema = z.object({
+    name: z.string().min(3, { message: "Name must be at least 3 characters long." }),
+    description: z.string().min(5, { message: "Description must be at least 5 characters long." }),
+    purpose: z.enum(["Work", "Research", "School", "Fun", "Other"]),
+    respondents: z.enum(["Public", "Registered", "Invite Only"]),
+    organisation: z.string().min(3, { message: "Description must be at least 5 characters long." }),
+    completionDate: z.date().refine((date) => date > new Date(), {
+        message: "Completion date must be in the future."
+    })
+
+})
+
 
 export function NewSurveyCard() {
 
@@ -70,8 +84,8 @@ export function NewSurveyCard() {
                 </SelectTrigger>
                 <SelectContent position="popper">
                   <SelectItem value="next">Public</SelectItem>
-                  <SelectItem value="registered">Registered Only</SelectItem>
-                  <SelectItem value="private">Private</SelectItem>
+                  <SelectItem value="registered">Registered</SelectItem>
+                  <SelectItem value="private">Invite Only</SelectItem>
                 </SelectContent>
               </Select>
               <div className="flex flex-col space-y-1.5">

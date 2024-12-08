@@ -93,9 +93,11 @@ export const Header1 = () => {
                                 {item.description}
                               </p>
                             </div>
+                            <Link to="/surveys/newsurvey">
                             <Button size="sm" className="mt-10">
-                              Surveys made simple.
+                              New Survey
                             </Button>
+                            </Link>
                           </div>
                           <div className="flex flex-col text-sm h-full justify-end">
                             {item.items?.map((subItem) => (
@@ -119,7 +121,7 @@ export const Header1 = () => {
           </NavigationMenu>
         </div>
         <div className="flex lg:justify-center">
-          <p className="font-semibold">SurveyBuddy</p>
+         <h1 className="font-semibold">SurveyBuddy</h1>
         </div>
         <div className="flex justify-end w-full gap-4">
           <Link to="/community">

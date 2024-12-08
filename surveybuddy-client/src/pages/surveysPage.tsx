@@ -64,6 +64,7 @@ const SurveysPage: React.FC = () => {
             <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-muted-foreground  ">
               Survey history. 
             </p>
+            
             <div className="flex flex-row">
             <Tabs defaultValue="account" className="w-[400px]">
   <TabsList className="mt-8">
@@ -82,7 +83,7 @@ const SurveysPage: React.FC = () => {
         </div>
       {surveys.length > 0 ? (
         <div className="w-full flex justify-center ">
-          <ul className="flex flex-col items-center gap-8 w-full max-w-lg">
+          <ul className="flex flex-col items-center justify-center gap-8 w-full max-w-2xl">
 
             
             { isList ? (
@@ -95,6 +96,7 @@ const SurveysPage: React.FC = () => {
                 surveys.map((survey) => (
               <li key={survey.id} className="w-full">
                 <SurveyCard
+                
                   title={survey.title}
                   description={survey.description}
                   active={survey.active}
