@@ -32,15 +32,22 @@ const schema = z.object({
     .min(3, { message: "Name must be at least 3 characters long." }),
   description: z
     .string()
-    .min(5, { message: "Description must be at least 5 characters long." }),
-  purpose: z.enum(["work", "research", "school", "fun", "other"]),
-  respondents: z.enum(["public", "registered", "inviteOnly"]),
+    .min(5, { message: "Description must be at least 5 characters long." })
+    .optional(),
+  purpose: z
+    .enum(["work", "research", "school", "fun", "other"])
+    .default("other"),
+  respondents: z.enum(["public", "registered", "inviteOnly"]).default("public"),
   organisation: z
     .string()
-    .min(3, { message: "Organisation must be at least 3 characters long." }),
-  completionDate: z.date().refine((date) => date > new Date(), {
-    message: "Completion date must be in the future.",
-  }),
+    .min(3, { message: "Organisation must be at least 3 characters long." })
+    .optional(),
+  completionDate: z
+    .date()
+    .refine((date) => date > new Date(), {
+      message: "Completion date must be in the future.",
+    })
+    .optional(),
 });
 
 export function NewSurveyCard() {
@@ -77,8 +84,9 @@ export function NewSurveyCard() {
         throw new Error("Error submitting survey.");
       }
 
-      console.log(response.data);
-      const { _id } = response.data.survey;
+      // Exract _id to use in url params
+      const { name, _id } = response.data.survey;
+      // Navigate to create questions
       navigate(`/surveys/${_id}/questions`);
     } catch (error) {
       console.error("Error sending data", error);
