@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,9 +8,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -19,24 +19,71 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { DatePicker } from "./datePicker";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { optional, z } from "zod";
+import { FieldValues, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { getToken, isTokenExpired, removeToken } from "../../utils/jwtToken.js";
 
 const schema = z.object({
-    name: z.string().min(3, { message: "Name must be at least 3 characters long." }),
-    description: z.string().min(5, { message: "Description must be at least 5 characters long." }),
-    purpose: z.enum(["Work", "Research", "School", "Fun", "Other"]),
-    respondents: z.enum(["Public", "Registered", "Invite Only"]),
-    organisation: z.string().min(3, { message: "Description must be at least 5 characters long." }),
-    completionDate: z.date().refine((date) => date > new Date(), {
-        message: "Completion date must be in the future."
-    })
-
-})
-
+  name: z
+    .string()
+    .min(3, { message: "Name must be at least 3 characters long." }),
+  description: z
+    .string()
+    .min(5, { message: "Description must be at least 5 characters long." }),
+  purpose: z.enum(["work", "research", "school", "fun", "other"]),
+  respondents: z.enum(["public", "registered", "inviteOnly"]),
+  organisation: z
+    .string()
+    .min(3, { message: "Organisation must be at least 3 characters long." }),
+  completionDate: z.date().refine((date) => date > new Date(), {
+    message: "Completion date must be in the future.",
+  }),
+});
 
 export function NewSurveyCard() {
+  const token = getToken();
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    setValue,
+  } = useForm<FormData>({ resolver: zodResolver(schema), mode: "onChange" });
 
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      schema.parse(data);
+      console.log("Validation Passed");
+    } catch (error) {
+      console.error("Validation Error:", error);
+    }
+
+    console.log(data);
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/surveys/",
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response) {
+        throw new Error("Error submitting survey.");
+      }
+
+      console.log(response.data);
+      const { _id } = response.data.survey;
+      navigate(`/surveys/${_id}/questions`);
+    } catch (error) {
+      console.error("Error sending data", error);
+    }
+  };
 
   return (
     <Card className="w-[400px]">
@@ -45,11 +92,16 @@ export function NewSurveyCard() {
         <CardDescription></CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">Name</Label>
-              <Input id="name" placeholder="Survey name..." />
+              <Input
+                id="name"
+                type="text"
+                placeholder="Survey name..."
+                {...register("name")}
+              />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="description">Description</Label>
@@ -59,52 +111,69 @@ export function NewSurveyCard() {
                 className="border border-gray-300 rounded p-2 w-full h-32"
                 placeholder="Enter your text here"
                 rows={5} // Optional, defines the number of visible rows
-                />
+                id="description"
+                {...register("description")}
+              />
             </div>
             <div className="flex flex-col space-y-1.5 ">
               <Label htmlFor="purpose">Purpose</Label>
-              <Select>
+              <Select
+                onValueChange={(value) => setValue("purpose", value)}
+                defaultValue=""
+              >
                 <SelectTrigger id="purpose">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent position="popper">
-                  <SelectItem value="next">Work</SelectItem>
-                  <SelectItem value="sveltekit">Research</SelectItem>
-                  <SelectItem value="astro">School</SelectItem> 
-                  <SelectItem value="nuxt">Fun</SelectItem>
-                  <SelectItem value="nuxt">Other</SelectItem>
+                  <SelectItem value="work">Work</SelectItem>
+                  <SelectItem value="research">Research</SelectItem>
+                  <SelectItem value="school">School</SelectItem>
+                  <SelectItem value="fun">Fun</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="purpose">Respondents</Label>
-              <Select>
-                <SelectTrigger id="purpose">
+              <Label htmlFor="respondents">Respondents</Label>
+              <Select onValueChange={(value) => setValue("respondents", value)}>
+                <SelectTrigger id="respondents">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent position="popper">
-                  <SelectItem value="next">Public</SelectItem>
+                  <SelectItem value="public">Public</SelectItem>
                   <SelectItem value="registered">Registered</SelectItem>
-                  <SelectItem value="private">Invite Only</SelectItem>
+                  <SelectItem value="inviteOnly">Invite Only</SelectItem>
                 </SelectContent>
               </Select>
               <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Organisation</Label>
-              <Input id="name" placeholder="Organisation..." />
+                <Label htmlFor="organisation">Organisation</Label>
+                <Input
+                  id="organisation"
+                  placeholder="Organisation..."
+                  type="text"
+                  {...register("organisation")}
+                />
+              </div>
             </div>
-            </div>
-            <Label htmlFor="purpose">Completion Date</Label>
-            <DatePicker></DatePicker>
+            <Label htmlFor="completionDate">Completion Date</Label>
+            <DatePicker
+              onChange={(date) =>
+                setValue("completionDate", date, { shouldValidate: true })
+              }
+            ></DatePicker>
           </div>
+
+          <CardFooter className="flex justify-between">
+            <Link to="/surveys">
+              <Button variant="outline">Back</Button>
+            </Link>
+
+            <Button type="submit" disabled={!isValid}>
+              Continue
+            </Button>
+          </CardFooter>
         </form>
-        
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <Link to="/surveys">
-        <Button variant="outline">Back</Button>
-        </Link>
-        <Button>Continue</Button>
-      </CardFooter>
     </Card>
-  )
+  );
 }
