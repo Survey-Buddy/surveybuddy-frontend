@@ -13,6 +13,7 @@ import HomePage from "./pages/homePage";
 import MarketingPage from "./pages/marketingPage";
 import NewSurveyPage from "./pages/NewSurveyPage";
 import QuestionPage from "./pages/questionPage";
+import SurveyCompletePage from "./pages/surveyCompletionPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               path="/surveys/:surveyId/questions/:questionNumber"
               element={<QuestionPage />}
             />
+            <Route path="/surveys/complete" element={<SurveyCompletePage />} />
             <Route path="/community" element={<CommunityPage />} />
             <Route path="/targeted" element={<TargetedPage />} />
             <Route path="/marketing" element={<MarketingPage />} />
