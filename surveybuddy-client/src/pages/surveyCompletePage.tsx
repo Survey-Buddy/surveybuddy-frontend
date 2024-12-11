@@ -25,10 +25,16 @@ interface Survey {
   _v: number;
 }
 
+interface Question {
+  question: string;
+  questionNum: number;
+}
+
 function SurveyCompletePage() {
   const { surveyId } = useParams();
   const token = getToken();
   const [surveyData, setSurveyData] = useState<Survey | null>(null);
+  const [questionData, setQuestionData] = useState<Question[]>([]);
 
   async function getSurveyData(): Promise<void> {
     try {
@@ -48,8 +54,34 @@ function SurveyCompletePage() {
     }
   }
 
+  async function getQuestionData(): Promise<void> {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/surveys/${surveyId}/questions/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setQuestionData(response.data.data);
+      console.log(response.data.data);
+    } catch (error) {
+      console.error("Error fetching question data", error);
+    }
+  }
+
+  // Depends on surveyId to run
   useEffect(() => {
     getSurveyData();
+  }, [surveyId]);
+
+  // Depends on surveyId
+  useEffect(() => {
+    if (surveyId) {
+      getQuestionData();
+    }
   }, [surveyId]);
 
   return (
@@ -78,17 +110,12 @@ function SurveyCompletePage() {
             </div>
           </div>
           <Accordion type="single" collapsible className="w-full">
-            {Array.from({ length: 8 }).map((_, index) => (
+            {questionData.map((question, index) => (
               <AccordionItem key={index} value={"index-" + index}>
                 <AccordionTrigger>
-                  This is the start of something new
+                  Question number {question.questionNum}
                 </AccordionTrigger>
-                <AccordionContent>
-                  Managing a small business today is already tough. Avoid
-                  further complications by ditching outdated, tedious trade
-                  methods. Our goal is to streamline SMB trade, making it easier
-                  and faster than ever.
-                </AccordionContent>
+                <AccordionContent>{question.question}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
