@@ -17,15 +17,6 @@ import {
 import { optional, z } from "zod";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { toast } from "@/components/hooks/use-toast";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import {
   Popover,
   PopoverContent,
@@ -38,7 +29,7 @@ const multiChoiceSchema = z.object({
   question: z
     .string()
     .min(5, { message: "Question must be at least 5 characters long." }),
-  answer: z.enum(["answerA", "answerB", "answerC", "answerD"]),
+  answer: z.enum(["answerA", "answerB", "answerC", "answerD"]).optional(),
   answerA: z
     .string()
     .min(3, { message: "Answer A must be at least 3 characters long." }),
@@ -65,7 +56,7 @@ const rangeSchema = z.object({
   question: z
     .string()
     .min(5, { message: "Question must be at least 5 characters long." }),
-  answer: z.enum(["no", "notAtAll", "disagree"]),
+  answer: z.enum(["no", "notAtAll", "disagree"]).default("no"),
   questionFormat: z.enum(["rangeSlider"]).default("rangeSlider"),
 });
 
@@ -74,6 +65,8 @@ export function NewQuestionCard() {
   const token = getToken();
   const navigate = useNavigate();
   const { surveyId } = useParams();
+  const [questionNum, setQuestionNum] = useState(1);
+  const [radioChoice, setRadioChoice] = useState("no");
 
   const getSchema = () => {
     if (activeTab === "writtenResponse") return writtenResponseSchema;
@@ -102,14 +95,14 @@ export function NewQuestionCard() {
     ) => {
       const buttonValue = (event.nativeEvent.submitter as HTMLButtonElement)
         .value;
-      console.log(buttonValue);
-      try {
-        const logData = { ...data, surveyId };
 
-        console.log(logData);
+      data.answer = radioChoice;
+
+      try {
+        console.log({ ...data, surveyId, questionNum });
         const response = await axios.post(
           `http://localhost:8080/surveys/${surveyId}/questions`,
-          { ...data, surveyId },
+          { ...data, surveyId, questionNum },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -122,10 +115,13 @@ export function NewQuestionCard() {
 
         console.log(response);
 
+        setQuestionNum(questionNum + 1);
+        console.log(questionNum);
+
         reset();
 
         if (buttonValue === "nextQuestion") {
-          navigate(`/surveys/${surveyId}/questions`);
+          navigate(`/surveys/${surveyId}/questions/${questionNum}`);
         }
 
         if (buttonValue === "surveySubmit") {
@@ -135,7 +131,7 @@ export function NewQuestionCard() {
         console.error("Error sending data", error);
       }
     },
-    [navigate, surveyId, token]
+    [navigate, surveyId, questionNum, token, radioChoice]
   );
 
   useEffect(() => {
@@ -145,6 +141,11 @@ export function NewQuestionCard() {
   useEffect(() => {
     console.log(activeTab);
   }, [activeTab]);
+
+  useEffect(() => {
+    setValue("answer", radioChoice);
+    console.log(radioChoice);
+  }, [radioChoice, setValue]);
 
   return (
     <Tabs
@@ -308,7 +309,11 @@ export function NewQuestionCard() {
 
                 <Slider defaultValue={[33]} max={10} step={1} />
               </div>
-              <RadioGroup defaultValue="no" className="mt-[6]">
+              <RadioGroup
+                value={radioChoice}
+                className="mt-[6]"
+                onValueChange={(value) => setRadioChoice(value)}
+              >
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="no" id="no" />
                   <Label htmlFor="no">No, Maybe, Yes</Label>

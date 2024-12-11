@@ -87,7 +87,7 @@ export function NewSurveyCard() {
       // Exract _id to use in url params
       const { name, _id } = response.data.survey;
       // Navigate to create questions
-      navigate(`/surveys/${_id}/questions`);
+      navigate(`/surveys/${_id}/questions/1`);
     } catch (error) {
       console.error("Error sending data", error);
     }

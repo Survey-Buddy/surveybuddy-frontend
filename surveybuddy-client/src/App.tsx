@@ -28,7 +28,7 @@ function App() {
             <Route path="/surveys/" element={<SurveysPage />} />
             <Route path="/surveys/newsurvey" element={<NewSurveyPage />} />
             <Route
-              path="/surveys/:surveyId/questions/"
+              path="/surveys/:surveyId/questions/:questionNumber"
               element={<QuestionPage />}
             />
             <Route path="/community" element={<CommunityPage />} />
