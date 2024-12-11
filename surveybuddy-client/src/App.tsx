@@ -27,7 +27,10 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/surveys/" element={<SurveysPage />} />
             <Route path="/surveys/newsurvey" element={<NewSurveyPage />} />
-            <Route path="/surveys/:id/questions/" element={<QuestionPage />} />
+            <Route
+              path="/surveys/:surveyId/questions/"
+              element={<QuestionPage />}
+            />
             <Route path="/community" element={<CommunityPage />} />
             <Route path="/targeted" element={<TargetedPage />} />
             <Route path="/marketing" element={<MarketingPage />} />
