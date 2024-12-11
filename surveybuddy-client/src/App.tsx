@@ -12,6 +12,7 @@ import ContactPage from "./pages/contactPage";
 import HomePage from "./pages/homePage";
 import MarketingPage from "./pages/marketingPage";
 import NewSurveyPage from "./pages/NewSurveyPage";
+import QuestionPage from "./pages/questionPage";
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/surveys/" element={<SurveysPage />} />
             <Route path="/surveys/newsurvey" element={<NewSurveyPage />} />
+            <Route
+              path="/surveys/:surveyId/questions/:questionNumber"
+              element={<QuestionPage />}
+            />
             <Route path="/community" element={<CommunityPage />} />
             <Route path="/targeted" element={<TargetedPage />} />
             <Route path="/marketing" element={<MarketingPage />} />

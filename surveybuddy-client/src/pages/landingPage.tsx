@@ -12,6 +12,7 @@ function LandingPage() {
             src="/assets/images/8582990.jpg"
             alt="Survey image designed by Freepik”"
           ></img>
+          
         </div>
 
         {/* <h1>SurveyBuddy</h1>
