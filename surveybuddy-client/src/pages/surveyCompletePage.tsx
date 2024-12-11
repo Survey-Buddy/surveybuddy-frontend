@@ -7,8 +7,51 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { getToken } from "@/utils/jwtToken";
+import { useEffect, useState } from "react";
+
+interface Survey {
+  name: string;
+  description: string;
+  date: Date;
+  completionDate: Date;
+  organisation: string;
+  purpose: string;
+  _id: string;
+  userId: string;
+  respondents: string;
+  _v: number;
+}
 
 function SurveyCompletePage() {
+  const { surveyId } = useParams();
+  const token = getToken();
+  const [surveyData, setSurveyData] = useState<Survey | null>(null);
+
+  async function getSurveyData(): Promise<void> {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/surveys/${surveyId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response.data);
+      setSurveyData(response.data.data);
+    } catch (error) {
+      console.error("Error fetch survey data", error);
+    }
+  }
+
+  useEffect(() => {
+    getSurveyData();
+  }, [surveyId]);
+
   return (
     <div className="w-full py-20 lg:py-40">
       <div className="container mx-auto">
@@ -20,14 +63,11 @@ function SurveyCompletePage() {
               </div>
               <div className="flex gap-2 flex-col">
                 <h4 className="text-3xl md:text-5xl tracking-tighter max-w-xl text-left font-regular">
-                  Congratulations! <br />
-                  You've created a new survey .
+                  Congratulations, You've created a new survey...
+                  {surveyData?.name ? ` ${surveyData.name}!` : ""}
                 </h4>
                 <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-muted-foreground  text-left">
-                  Managing a small business today is already tough. Avoid
-                  further complications by ditching outdated, tedious trade
-                  methods. Our goal is to streamline SMB trade, making it easier
-                  and faster than ever.
+                  {surveyData?.description}
                 </p>
               </div>
               <div className="">
