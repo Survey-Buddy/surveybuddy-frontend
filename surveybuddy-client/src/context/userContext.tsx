@@ -9,19 +9,32 @@ interface UserData {
   email: string;
 }
 
-// Value is either UserData or null (default)
-const UserDataContext = createContext<UserData | null>(null);
-
-// Custom hook to use user data in components
-export function useUserData() {
-  return useContext(UserDataContext);
+// Define the context type including userData and updateUserData
+interface UserDataContextType {
+  userData: UserData | null;
+  updateUserData: () => void;
 }
 
-export const UserDataProvider: React.FC = ({ children }) => {
+// Create the context with a default value of null for userData and a no-op for updateUserData
+const UserDataContext = createContext<UserDataContextType | undefined>(
+  undefined
+);
+
+// Custom hook to use user data in components
+export function useUserData(): UserDataContextType {
+  const context = useContext(UserDataContext);
+  if (!context) {
+    throw new Error("useUserData must be used within a UserDataProvider");
+  }
+  return context;
+}
+
+export const UserDataProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [userData, setUserData] = useState<UserData | null>(null);
 
-  useEffect(() => {
-    // Check if the user is logged in and update the state with user data from the token
+  const updateUserData = () => {
     const token = getToken();
     if (token && isUserLoggedIn()) {
       const decoded = decodeJWT(token);
@@ -33,11 +46,22 @@ export const UserDataProvider: React.FC = ({ children }) => {
           email: decoded.email,
         });
       }
+    } else {
+      setUserData(null);
     }
+  };
+
+  useEffect(() => {
+    updateUserData();
+    // Listen for token updates (e.g., in localStorage)
+    const tokenChangeHandler = () => updateUserData();
+    window.addEventListener("storage", tokenChangeHandler);
+
+    return () => window.removeEventListener("storage", tokenChangeHandler);
   }, []);
 
   return (
-    <UserDataContext.Provider value={userData}>
+    <UserDataContext.Provider value={{ userData, updateUserData }}>
       {children}
     </UserDataContext.Provider>
   );

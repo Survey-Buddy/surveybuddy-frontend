@@ -13,12 +13,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const Header1 = () => {
-  const userData = useUserData();
+  const { userData } = useUserData();
   console.log("navbar log:", userData);
   const signedInNavigationItems = [
     {
       title: "Home",
-      href: "/",
+      href: "/home",
       description: "",
     },
     {
@@ -123,11 +123,15 @@ export const Header1 = () => {
                                 {item.description}
                               </p>
                             </div>
-                            <Link to="/surveys/newsurvey">
-                              <Button size="sm" className="mt-10">
-                                New Survey
-                              </Button>
-                            </Link>
+                            {userData ? (
+                              <Link to="/surveys/newsurvey">
+                                <Button size="sm" className="mt-10">
+                                  New Survey
+                                </Button>
+                              </Link>
+                            ) : (
+                              ""
+                            )}
                           </div>
                           <div className="flex flex-col text-sm h-full justify-end">
                             {item.items?.map((subItem) => (
@@ -151,12 +155,14 @@ export const Header1 = () => {
           </NavigationMenu>
         </div>
         <div className="flex lg:justify-center">
-          <h1 className="font-semibold">SurveyBuddy</h1>
+          <Link to={userData ? "/home" : "/"}>
+            <h1 className="font-semibold text-xl ">SurveyBuddy</h1>
+          </Link>
         </div>
         <div className="flex justify-end w-full gap-4">
-          <Link to="/community">
+          <Link to="/about">
             <Button variant="ghost" className="hidden md:inline">
-              Community
+              Our Journey
             </Button>
           </Link>
 

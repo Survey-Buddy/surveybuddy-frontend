@@ -6,10 +6,12 @@ import { Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SurveyList } from "@/components/main/surveyList";
 import { useUserData } from "@/context/userContext";
+import axios from "axios";
+import { getToken } from "@/utils/jwtToken";
 
 interface Survey {
   id: string;
-  title: string;
+  name: string;
   organisation: string;
   respondents: string;
   description: string;
@@ -18,19 +20,33 @@ interface Survey {
   endDate: Date;
 }
 
+// async function getSurveys(): Promise<Survey[]> {
+//   const data = await fetch("http://localhost:3000/surveys");
+//   if (!data) {
+//     throw new Error("Failed to fetch surveys.");
+//   }
+//   return data.json();
+// }
+
 async function getSurveys(): Promise<Survey[]> {
-  const data = await fetch("http://localhost:3000/surveys");
+  const token = getToken();
+  const data = await axios.get("http://localhost:8080/surveys/", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   if (!data) {
     throw new Error("Failed to fetch surveys.");
   }
-  return data.json();
+
+  return data.data.data;
 }
 
 const SurveysPage: React.FC = () => {
   const [surveys, setSurveys] = useState<Survey[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [isList, setIsList] = useState<boolean>(false);
-  const userData = useUserData();
+  const { userData } = useUserData();
 
   useEffect(() => {
     const fetchSurveys = async () => {
@@ -91,8 +107,14 @@ const SurveysPage: React.FC = () => {
               </div>
             </div>
             {surveys.length > 0 ? (
-              <div className="w-full flex justify-center ">
-                <ul className="flex flex-col items-center justify-center gap-8 w-full max-w-2xl">
+              <div className="w-full flex gap-4 justify-center ">
+                <ul
+                  className={`${
+                    isList
+                      ? "flex flex-col items-center justify-center gap-8 w-full max-w-2xl"
+                      : "grid grid-cols-2 items-center justify-center gap-8 w-full max-w-2xl"
+                  }`}
+                >
                   {isList ? (
                     //  <div key={survey.id} className="w-full flex flex-col gap-8">
                     <SurveyList surveys={surveys} />
@@ -101,7 +123,7 @@ const SurveysPage: React.FC = () => {
                     surveys.map((survey) => (
                       <li key={survey.id} className="w-full">
                         <SurveyCard
-                          title={survey.title}
+                          name={survey.name}
                           description={survey.description}
                           active={survey.active}
                         />

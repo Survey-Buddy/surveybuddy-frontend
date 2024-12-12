@@ -16,11 +16,15 @@ export const getToken = (): string | undefined => {
 };
 
 // Set the token to cookies and decode it
-export const setToken = (token: string): DecodedToken => {
+export const setToken = (
+  token: string,
+  updateUserData: () => void
+): DecodedToken => {
   // Set the token in cookies with a 7-day expiration
   Cookies.set("jwtToken", token, { expires: 7 });
-  // Decode the token and return the decoded payload
-  return jwtDecode(token);
+  const decoded = jwtDecode(token);
+  updateUserData();
+  return decoded;
 };
 
 // Remove the token from cookies

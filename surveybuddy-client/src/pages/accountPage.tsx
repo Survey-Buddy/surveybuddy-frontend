@@ -4,24 +4,40 @@ import { Button } from "@/components/ui/button";
 import { removeToken } from "@/utils/jwtToken";
 import { useNavigate } from "react-router-dom";
 
-const AccountPage = () => {
-  const userData = useUserData();
+const AccountPage: React.FC = () => {
+  const { userData, updateUserData } = useUserData();
   const navigate = useNavigate();
 
   const handleLogOut = () => {
-    removeToken();
+    try {
+      if (userData) {
+        alert(
+          `Successfully logged out of ${userData.username}'s account. We hope to see you again soon!`
+        );
+      } else {
+        alert(`Successfully logged out. We hope to see you again soon!`);
+      }
 
-    alert(
-      `Successfully logged out of ${userData?.username}'s account. We hope to see you again soon!`
-    );
-    userData = null;
-    navigate("/");
+      // Remove the token and update user date
+      removeToken();
+      updateUserData();
+
+      // Navigate to the landing page
+      navigate("/");
+    } catch (error) {
+      console.error("Error during logout:", error);
+      alert("An error occurred while logging out. Please try again.");
+    }
   };
 
   return (
     <>
-      <div className="mt-[20%]">
-        {userData ? `${userData.username}'s Account` : "Loading..."}
+      <div className="mt-[20%] flex flex-col items-center gap-4">
+        <h1 className="text-2xl font-semibold">
+          {userData
+            ? `${userData.username}'s Account`
+            : "Loading your account..."}
+        </h1>
       </div>
       <Button onClick={handleLogOut}>Logout</Button>
     </>

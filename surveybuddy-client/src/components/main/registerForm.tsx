@@ -10,14 +10,14 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import { FieldValues, useForm } from "react-hook-form";
 import { optional, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { setToken } from "@/utils/jwtToken";
-// import { useUserData } from "../../context/userContext";
+import { useUserData } from "../../context/userContext";
 
 // Login Schema Validation
 const loginSchema = z.object({
@@ -41,7 +41,8 @@ export function RegisterForm() {
   const navigate = useNavigate();
   const urlParams = new URLSearchParams(location.search);
   const isRegister = urlParams.get("isRegister") === "true";
-  // const { setToken, userData } = useUserData();
+  const { updateUserData } = useUserData();
+
   const schema = isRegister ? registerSchema : loginSchema;
 
   const {
@@ -61,12 +62,12 @@ export function RegisterForm() {
         throw new Error("Client did not recieve a response.");
       }
 
-      console.log(response);
+      console.log("Login / register response: ", response);
 
       const { username, token } = response.data;
       localStorage.setItem("Username", username);
 
-      setToken(token);
+      setToken(token, updateUserData);
 
       const message = isRegister
         ? `Welcome to SurveyBuddy, ${username}!`
@@ -77,7 +78,7 @@ export function RegisterForm() {
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "An error occurred. Please try again.";
-      alert(errorMessage);
+      console.error("Error during submission:", error);
     }
   };
 
