@@ -7,12 +7,15 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { useUserData } from "@/context/userContext";
 import { Menu, MoveRight, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const Header1 = () => {
-  const navigationItems = [
+  const userData = useUserData();
+  console.log("navbar log:", userData);
+  const signedInNavigationItems = [
     {
       title: "Home",
       href: "/",
@@ -63,8 +66,35 @@ export const Header1 = () => {
       ],
     },
   ];
+  const notSignedInNavigationItems = [
+    {
+      title: "About",
+      description: "Simple, beautiful, and intuitive surveys made easy.",
+      items: [
+        {
+          title: "About Us",
+          href: "/about",
+        },
+        {
+          title: "Fundraising",
+          href: "/fundraising",
+        },
+        {
+          title: "Marketing",
+          href: "/investors",
+        },
+        {
+          title: "Contact",
+          href: "/contact",
+        },
+      ],
+    },
+  ];
 
   const [isOpen, setOpen] = useState(false);
+  const navigationItems = userData
+    ? signedInNavigationItems
+    : notSignedInNavigationItems;
   return (
     <header className="w-full z-40 fixed top-0 left-0 bg-background ">
       <div className="container relative mx-auto min-h-20 flex gap-4 flex-row lg:grid lg:grid-cols-3 items-center">
@@ -94,9 +124,9 @@ export const Header1 = () => {
                               </p>
                             </div>
                             <Link to="/surveys/newsurvey">
-                            <Button size="sm" className="mt-10">
-                              New Survey
-                            </Button>
+                              <Button size="sm" className="mt-10">
+                                New Survey
+                              </Button>
                             </Link>
                           </div>
                           <div className="flex flex-col text-sm h-full justify-end">
@@ -121,22 +151,30 @@ export const Header1 = () => {
           </NavigationMenu>
         </div>
         <div className="flex lg:justify-center">
-         <h1 className="font-semibold">SurveyBuddy</h1>
+          <h1 className="font-semibold">SurveyBuddy</h1>
         </div>
         <div className="flex justify-end w-full gap-4">
           <Link to="/community">
-          <Button variant="ghost" className="hidden md:inline">
-            Community
-          </Button>
+            <Button variant="ghost" className="hidden md:inline">
+              Community
+            </Button>
           </Link>
+
           <div className="border-r hidden md:inline"></div>
-          <Link to="/register?isRegister=false" >
-          <Button variant="outline">Sign in</Button>
-          </Link>
-          <Link to="/register?isRegister=true" >
-          <Button>Register</Button>
-          </Link>
-          
+          {userData ? (
+            <Link to="/account">
+              <Button>Account</Button>
+            </Link>
+          ) : (
+            <div>
+              <Link to="/register?isRegister=false">
+                <Button variant="outline">Sign in</Button>
+              </Link>
+              <Link to="/register?isRegister=true">
+                <Button>Register</Button>
+              </Link>
+            </div>
+          )}
         </div>
         <div className="flex w-12 shrink lg:hidden items-end justify-end">
           <Button variant="ghost" onClick={() => setOpen(!isOpen)}>

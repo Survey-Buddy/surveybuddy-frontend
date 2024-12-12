@@ -14,37 +14,44 @@ import MarketingPage from "./pages/marketingPage";
 import NewSurveyPage from "./pages/NewSurveyPage";
 import QuestionPage from "./pages/questionPage";
 import SurveyCompletePage from "./pages/surveyCompletePage";
+import { AboutPage } from "./pages/aboutPage";
+import { UserDataProvider } from "./context/userContext";
+import AccountPage from "./pages/accountPage";
 
 function App() {
   return (
-    <Router>
-      <div className="flex flex-col min-h-screen">
-        <Header1 />
-        <main>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/signin" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/surveys/" element={<SurveysPage />} />
-            <Route path="/surveys/newsurvey" element={<NewSurveyPage />} />
-            <Route
-              path="/surveys/:surveyId/questions/:questionNumber"
-              element={<QuestionPage />}
-            />
-            <Route
-              path="/surveys/:surveyId/complete"
-              element={<SurveyCompletePage />}
-            />
-            <Route path="/community" element={<CommunityPage />} />
-            <Route path="/targeted" element={<TargetedPage />} />
-            <Route path="/marketing" element={<MarketingPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-          </Routes>
-        </main>
-        <Footer1 />
-      </div>
-    </Router>
+    <UserDataProvider>
+      <Router>
+        <div className="flex flex-col min-h-screen">
+          <Header1 />
+          <main>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/signin" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/account" element={<AccountPage />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/surveys/" element={<SurveysPage />} />
+              <Route path="/surveys/newsurvey" element={<NewSurveyPage />} />
+              <Route
+                path="/surveys/:surveyId/questions/:questionNumber"
+                element={<QuestionPage />}
+              />
+              <Route
+                path="/surveys/:surveyId/complete"
+                element={<SurveyCompletePage />}
+              />
+              <Route path="/community" element={<CommunityPage />} />
+              <Route path="/targeted" element={<TargetedPage />} />
+              <Route path="/marketing" element={<MarketingPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+            </Routes>
+          </main>
+          <Footer1 />
+        </div>
+      </Router>
+    </UserDataProvider>
   );
 }
 
