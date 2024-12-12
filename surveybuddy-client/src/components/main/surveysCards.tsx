@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 
 interface SurveyCardProps {
-  id: string;
+  _id: string;
   name: string;
   description: string;
   active: boolean;
@@ -14,7 +14,7 @@ interface SurveyCardProps {
 }
 
 export const SurveyCard: React.FC<SurveyCardProps> = ({
-  id,
+  _id,
   name,
   description,
   active,
@@ -30,7 +30,10 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({
       <div className="bg-muted rounded-md aspect-video mb-1">
         <p>{respondents}</p>
         <h3 className="text-xl tracking-tight">
-          <Link to={`/surveys/${id}`} className="text-blue-500 hover:underline">
+          <Link
+            to={`/surveys/${_id}/complete/`}
+            className="text-blue-500 hover:underline"
+          >
             {name}
           </Link>
         </h3>

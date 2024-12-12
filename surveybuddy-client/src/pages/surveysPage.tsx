@@ -10,7 +10,7 @@ import axios from "axios";
 import { getToken } from "@/utils/jwtToken";
 
 interface Survey {
-  id: string;
+  _id: string;
   name: string;
   organisation: string;
   respondents: string;
@@ -19,14 +19,6 @@ interface Survey {
   date: string;
   endDate: Date;
 }
-
-// async function getSurveys(): Promise<Survey[]> {
-//   const data = await fetch("http://localhost:3000/surveys");
-//   if (!data) {
-//     throw new Error("Failed to fetch surveys.");
-//   }
-//   return data.json();
-// }
 
 async function getSurveys(): Promise<Survey[]> {
   const token = getToken();
@@ -38,7 +30,7 @@ async function getSurveys(): Promise<Survey[]> {
   if (!data) {
     throw new Error("Failed to fetch surveys.");
   }
-
+  console.log("survey data: ", data.data);
   return data.data.data;
 }
 
@@ -121,11 +113,15 @@ const SurveysPage: React.FC = () => {
                   ) : (
                     // </div>
                     surveys.map((survey) => (
-                      <li key={survey.id} className="w-full">
+                      <li key={survey._id} className="w-full">
                         <SurveyCard
                           name={survey.name}
                           description={survey.description}
                           active={survey.active}
+                          _id={survey._id}
+                          respondents={survey.respondents}
+                          organisation={survey.organisation}
+                          endDate={survey.endDate}
                         />
                       </li>
                     ))
