@@ -1,4 +1,3 @@
-
 # SurveyBuddy Client
 
 ## Part B
@@ -143,7 +142,6 @@ Due to underestimating how long building the backend MVP would take, the fronten
 
 ![2nd Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_2:12.png)
 
-
 #### 2nd of December
 
 ### Frontend:
@@ -228,5 +226,50 @@ Due to underestimating how long building the backend MVP would take, the fronten
 
 ![6th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_6:12.png)
 
+#### 7th December
 
+- Implemented and completed user client authentication.
+- Set up storing JWT tokens in cookies for enhanced security and ease of use.
+- Created a new SurveyCard component to dynamically display survey details.
+- Integrated the SurveyCard component with fetched survey data for better UI presentation.
+- Improved application logic by handling API responses and managing state effectively.
 
+![7th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_7:12.png)
+
+#### 8th December
+
+- Implemented survey list and card displays for better layout and presentation.
+- Created a Zod schema to validate survey inputs.
+- Integrated and imported Framer Motion for animations.
+- Completed a single community page.
+- Troubleshot UI issues with Tailwind.
+
+![8th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_8:12.png)
+
+#### 9th December
+
+- Implemented a tabbed interface for survey question types (Written Response and Multiple Choice).
+- Added input fields for Written Response question type.
+- Added input fields for Multiple Choice question type (radio buttons).
+- Integrated basic tab functionality to switch between Written Response, Range Slider and Multiple Choice question inputs.
+- Applied Tailwind CSS for styling the tabs and inputs.
+
+![9th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_9:12.png)
+
+#### 11th December
+
+- Completed new Survey and Question forms that send data successfully to backend.
+- Completed survey completion page that dynamically maps questions to accordions to view. Will complete styling tomorrow and move card to done.
+- Fixed backend mongoose bugs so question data is stored properly.
+
+![11th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_11:12.png)
+
+#### 12th December
+
+- Completed survey completion card.
+- Fixed userContext not fetching user data before rendering.
+- Moved TypeScript learning into the _Done_ column.
+- Continued with Survey CRUD card and start on backend MVP testing.
+- Created account page skeleton and logout button to test signin and register userData functionality.
+
+![12th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_12:12.png)
