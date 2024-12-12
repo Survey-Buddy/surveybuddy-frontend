@@ -17,6 +17,7 @@ import SurveyCompletePage from "./pages/surveyCompletePage";
 import { AboutPage } from "./pages/aboutPage";
 import { UserDataProvider } from "./context/userContext";
 import AccountPage from "./pages/accountPage";
+import EditSurveyPage from "./pages/editSurvey";
 
 function App() {
   return (
@@ -34,6 +35,10 @@ function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/surveys/" element={<SurveysPage />} />
               <Route path="/surveys/newsurvey" element={<NewSurveyPage />} />
+              <Route
+                path="/surveys/:surveyId/edit"
+                element={<EditSurveyPage />}
+              />
               <Route
                 path="/surveys/:surveyId/questions/:questionNumber"
                 element={<QuestionPage />}
