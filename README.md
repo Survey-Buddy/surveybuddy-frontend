@@ -262,8 +262,6 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - Completed survey completion page that dynamically maps questions to accordions to view. Will complete styling tomorrow and move card to done.
 - Fixed backend mongoose bugs so question data is stored properly.
 
-![11th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_11:12.png)
-
 #### 12th December
 
 - Completed survey completion card.
@@ -271,5 +269,17 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - Moved TypeScript learning into the _Done_ column.
 - Continued with Survey CRUD card and start on backend MVP testing.
 - Created account page skeleton and logout button to test signin and register userData functionality.
+- Gave Trello cards labels based on difficulty so level was visiable from a high level.
+- Gave Trello cards coloured covers based on frontend, backend, and logic.
 
 ![12th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_12:12.png)
+
+#### 13th December
+
+- Completed Survey CRUD card.
+- Completed DRY Survey CRUD endpoints.
+- Created DRY survey card that can handle new survey creation and editable auto populated survey data to update.
+- Continued with backend MVP testing with Jest.
+- Extended the time on all remaining cards due to unforeseeable commitments that slowed development.
+
+![13th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_13:12.png)
