@@ -30,7 +30,7 @@ function HomePage() {
       <main>
         <div className="landing-image-container">
           <h1 className="mt-[20%]">
-            {userData ? `Welcome back ${userData.username} 👋` : "Loading..."}
+            {/* {userData ? `Welcome back ${userData.username} 👋` : "Loading..."} */}
           </h1>
           <img
             className="max-w-full max-h-full object-contain mt-[5%]"

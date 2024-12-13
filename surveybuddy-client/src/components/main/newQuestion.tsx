@@ -125,7 +125,7 @@ export function NewQuestionCard() {
         }
 
         if (buttonValue === "surveySubmit") {
-          navigate(`/surveys/${surveyId}/complete`);
+          navigate(`/surveys/${surveyId}`);
         }
       } catch (error) {
         console.error("Error sending data", error);
