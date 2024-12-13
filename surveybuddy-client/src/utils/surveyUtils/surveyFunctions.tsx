@@ -19,10 +19,69 @@ interface ApiResponse<T> {
   data: T;
 }
 
+export async function updateSurvey(
+  surveyId: string,
+  updatedSurvey: Partial<Survey>
+): Promise<Survey> {
+  try {
+    const token = getToken();
+    if (!token) {
+      throw new Error("User is not authenticated. Token is missing.");
+    }
+
+    const response = await axios.patch(
+      `http://localhost:8080/surveys/${surveyId}/editSurvey`,
+      updatedSurvey,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error: any) {
+    console.error("Error updating the survey:", error);
+
+    throw new Error(
+      error.response?.data?.message ||
+        "Failed to update the survey. Please try again."
+    );
+  }
+}
+
+export async function createSurvey(data: string): Promise<Survey> {
+  try {
+    const token = getToken();
+    if (!token) {
+      throw new Error("User is not authenticated. Token is missing.");
+    }
+    const response = await axios.post("http://localhost:8080/surveys", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response) {
+      throw new Error("Error submitting survey.");
+    }
+
+    return response.data;
+  } catch (error: any) {
+    console.error("Error creating the survey:", error);
+    throw new Error(
+      error.response?.data?.message ||
+        "Failed to create the survey. Please try again."
+    );
+  }
+}
+
 // Default - do not need to destructure when importing
 export default async function getSurveys(): Promise<Survey[]> {
   try {
     const token = getToken();
+    if (!token) {
+      throw new Error("User is not authenticated. Token is missing.");
+    }
     const response = await axios.get("http://localhost:8080/surveys/", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -45,7 +104,7 @@ export async function getSurveyData(surveyId: string): Promise<Survey | null> {
   try {
     const token = getToken();
     if (!token) {
-      throw new Error("Token not found");
+      throw new Error("User is not authenticated. Token is missing.");
     }
 
     const response = await axios.get(
