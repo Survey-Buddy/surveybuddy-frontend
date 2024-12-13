@@ -117,10 +117,10 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
         console.log("Survey created successfully:", createdSurvey);
         alert("Survey created successfully!");
 
-        if (createdSurvey?._id) {
+        if (createdSurvey?.survey._id) {
           // Redirect to create questions for the new survey
 
-          navigate(`/surveys/${createdSurvey._id}/questions/1`);
+          navigate(`/surveys/${createdSurvey.survey._id}/questions/1`);
         }
       }
     } catch (error) {

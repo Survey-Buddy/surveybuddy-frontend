@@ -92,7 +92,7 @@ export default async function getSurveys(): Promise<Survey[]> {
     }
 
     const surveys = response.data.data;
-    return sortSurveys(surveys, "asc");
+    return sortSurveys(surveys, "desc");
   } catch (error) {
     console.error("Error fetching survey data: ", error);
     // If error, return an empty string
