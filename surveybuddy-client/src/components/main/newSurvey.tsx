@@ -78,7 +78,7 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
   const { surveyId } = useParams<{ surveyId: string }>();
 
   // Get surveyData from props or location state
-  const surveyData = propsSurveyData.surveyData || location.state?.surveyData;
+  const surveyData = propsSurveyData || location.state?.surveyData || null;
 
   const {
     register,
@@ -105,7 +105,7 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
       schema.parse(data); // Validate the form data
       console.log("Validation Passed:", data);
 
-      if (propsSurveyData && surveyId) {
+      if (surveyData && surveyId) {
         // Update an existing survey
         const updatedSurvey = await updateSurvey(surveyId, data);
         console.log("Survey updated successfully:", updatedSurvey);
@@ -113,12 +113,15 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
         navigate(`/surveys/${surveyId}`);
       } else {
         // Create a new survey
-        const response = await createSurvey(data);
-        console.log("Survey created successfully:", response);
+        const createdSurvey = await createSurvey(data);
+        console.log("Survey created successfully:", createdSurvey);
         alert("Survey created successfully!");
-        // Redirect to create questions for the new survey
-        const { _id } = response;
-        navigate(`/surveys/${_id}/questions/1`);
+
+        if (createdSurvey?._id) {
+          // Redirect to create questions for the new survey
+
+          navigate(`/surveys/${createdSurvey._id}/questions/1`);
+        }
       }
     } catch (error) {
       console.error("Error submitting survey:", error);
@@ -229,7 +232,7 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
           </div>
 
           <CardFooter className="flex justify-between">
-            <Link to="/surveys">
+            <Link to={surveyData ? `/surveys/${surveyId}` : "/surveys"}>
               <Button variant="outline">Back</Button>
             </Link>
             <Button type="submit" disabled={!isValid}>

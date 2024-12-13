@@ -28,18 +28,20 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({
       <Badge>{active ? "Active" : "Complete"}</Badge>
       {endDate}
       <div className="bg-muted rounded-md aspect-video mb-1">
-        <p>{respondents}</p>
+        <p>Respondents: {respondents}</p>
         <h3 className="text-xl tracking-tight">
           <Link
-            to={`/surveys/${_id}/complete/`}
+            to={`/surveys/${_id}`}
             className="text-blue-500 hover:underline"
           >
             {name}
           </Link>
         </h3>
-        <h2>{organisation}</h2>
+        <h2>Organisation: {organisation}</h2>
 
-        <p className="text-muted-foreground text-base">{description}</p>
+        <p className="text-muted-foreground text-base">
+          Description: {description}
+        </p>
       </div>
       <Button>Results</Button>
     </div>

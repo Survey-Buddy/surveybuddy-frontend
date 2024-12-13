@@ -158,21 +158,18 @@ const SurveyPage: React.FC = () => {
   };
 
   return (
-    <div className="w-full py-20 lg:py-40">
+    <div className=" w-full py-20 lg:py-40 min-w-700">
       <div className="container mx-auto">
-        <div className="grid lg:grid-cols-2 gap-10">
-          <div className="flex gap-10 flex-col">
-            <div className="flex gap-4 flex-col">
+        <div className=" grid flex flex-col justify-center  gap-10">
+          <div className="flex gap-10 flex flex-row ">
+            <div className="flex gap-4 flex-col ">
               <div>{/* <Badge variant="outline">Survey</Badge> */}</div>
-              <div className="flex gap-2 flex-col">
-                <h4 className="text-3xl md:text-5xl tracking-tighter max-w-xl text-left font-regular">
-                  Survey:
+              <div className="flex gap-2  flex-col">
+                <h4 className="text-3xl md:text-5xl tracking-tighter max-w-xl font-regular">
                   {surveyData?.name ? ` ${surveyData.name}!` : ""}
                 </h4>
-                <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-muted-foreground  text-left">
-                  {surveyData?.description
-                    ? `Description: ${surveyData?.description}`
-                    : ""}
+                <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-muted-foreground">
+                  {surveyData?.description ? `${surveyData?.description}` : ""}
                 </p>
 
                 <p>
@@ -187,15 +184,15 @@ const SurveyPage: React.FC = () => {
                   <Link to={`/surveys/${surveyId}/edit`}>
                     <Button>Edit</Button>
                   </Link>
-                  <Link to={`/surveys/${surveyId}/edit`}>
+                  <Link to={`/surveys/${surveyId}/analytics`}>
                     <Button>Analytics</Button>
                   </Link>
                 </div>
               </div>
               <div className="">
-                <Button className="gap-4" variant="outline">
+                {/* <Button className="gap-4" variant="outline">
                   Any questions? Reach out <PhoneCall className="w-4 h-4" />
-                </Button>
+                </Button> */}
               </div>
             </div>
           </div>
@@ -205,8 +202,11 @@ const SurveyPage: React.FC = () => {
                 <AccordionTrigger>
                   Question number {question.questionNum}
                 </AccordionTrigger>
-                <AccordionContent>{question.question}</AccordionContent>
                 <AccordionContent>
+                  Question: {question.question}
+                </AccordionContent>
+                <AccordionContent>
+                  Question format:{" "}
                   {questionFormatResponse(question.questionFormat)}
                 </AccordionContent>
               </AccordionItem>

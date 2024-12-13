@@ -44,7 +44,7 @@ const EditSurveyPage: React.FC = () => {
   return (
     <div className="mt-[10%] flex justify-center">
       {" "}
-      <NewSurveyCard propsSurveyData={{ surveyData }} />
+      <NewSurveyCard propsSurveyData={surveyData} />
     </div>
   );
 };

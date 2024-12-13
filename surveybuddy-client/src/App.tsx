@@ -43,10 +43,7 @@ function App() {
                 path="/surveys/:surveyId/questions/:questionNumber"
                 element={<QuestionPage />}
               />
-              <Route
-                path="/surveys/:surveyId/complete"
-                element={<SurveyPage />}
-              />
+              <Route path="/surveys/:surveyId" element={<SurveyPage />} />
               {/* <Route path="/community" element={<CommunityPage />} /> */}
               <Route path="/targeted" element={<TargetedPage />} />
               <Route path="/marketing" element={<MarketingPage />} />
