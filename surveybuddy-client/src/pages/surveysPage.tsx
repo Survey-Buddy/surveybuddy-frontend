@@ -8,6 +8,7 @@ import { SurveyList } from "@/components/main/surveyList";
 import { useUserData } from "@/context/userContext";
 import axios from "axios";
 import { getToken } from "@/utils/jwtToken";
+import getSurveys from "../utils/surveyUtils/surveyFunctions";
 
 interface Survey {
   _id: string;
@@ -20,31 +21,22 @@ interface Survey {
   endDate: Date;
 }
 
-async function getSurveys(): Promise<Survey[]> {
-  const token = getToken();
-  const data = await axios.get("http://localhost:8080/surveys/", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  if (!data) {
-    throw new Error("Failed to fetch surveys.");
-  }
-  console.log("survey data: ", data.data);
-  return data.data.data;
-}
-
 const SurveysPage: React.FC = () => {
   const [surveys, setSurveys] = useState<Survey[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [isList, setIsList] = useState<boolean>(false);
   const { userData } = useUserData();
 
+  // Fetch survey data
   useEffect(() => {
     const fetchSurveys = async () => {
       try {
         const data = await getSurveys();
-        setSurveys(data);
+        if (data) {
+          setSurveys(data);
+        } else {
+          console.error("Failed to fetch surveys.");
+        }
       } catch (error) {
         console.error(error);
       } finally {

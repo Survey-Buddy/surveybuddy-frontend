@@ -13,7 +13,7 @@ import HomePage from "./pages/homePage";
 import MarketingPage from "./pages/marketingPage";
 import NewSurveyPage from "./pages/NewSurveyPage";
 import QuestionPage from "./pages/questionPage";
-import SurveyCompletePage from "./pages/surveyCompletePage";
+import SurveyPage from "./pages/surveyCompletePage";
 import { AboutPage } from "./pages/aboutPage";
 import { UserDataProvider } from "./context/userContext";
 import AccountPage from "./pages/accountPage";
@@ -45,7 +45,7 @@ function App() {
               />
               <Route
                 path="/surveys/:surveyId/complete"
-                element={<SurveyCompletePage />}
+                element={<SurveyPage />}
               />
               {/* <Route path="/community" element={<CommunityPage />} /> */}
               <Route path="/targeted" element={<TargetedPage />} />
