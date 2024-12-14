@@ -84,7 +84,7 @@ export const AboutPage = () => {
                 </button>
               </div>
               <img
-                src="/public/assets/images/coral-reefs-2728211_16x9.avif"
+                src="/assets/images/coral-reefs-2728211_16x9.avif"
                 alt="feature8"
                 width={1920}
                 height={1080}
@@ -95,7 +95,7 @@ export const AboutPage = () => {
                 }}
               />
               <img
-                src="/public/assets/images/Chamelon2_Reptile_Lizard.jpg"
+                src="/assets/images/Chamelon2_Reptile_Lizard.jpg"
                 alt="darkmode-feature8.png"
                 width={1920}
                 height={1080}
