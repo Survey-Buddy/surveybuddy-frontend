@@ -10,17 +10,9 @@ import {
 } from "@/components/ui/table";
 import { Link } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
-interface Survey {
-  id: string;
-  name: string;
-  description: string;
-  active: boolean;
-  organisation: string;
-  respondents: string;
-  endDate: Date;
-  link: string;
-}
+import { format } from "date-fns";
+import { Survey } from "../../utils/surveyUtils/surveyTypes";
+import { Link2 } from "lucide-react";
 
 interface SurveyListProps {
   surveys: Survey[];
@@ -28,9 +20,10 @@ interface SurveyListProps {
 
 export const SurveyList: React.FC<SurveyListProps> = ({ surveys }) => {
   return (
-    <Table className="mt-10">
-      <TableCaption>A list of your recent surveys.</TableCaption>
-      <ScrollArea className="h-[auto] w-[600px] rounded-md border p-4">
+    <ScrollArea className="h-[auto] w-[600px] rounded-md border p-4">
+      <Table className="mt-10">
+        <TableCaption>A list of your recent surveys.</TableCaption>
+
         <TableHeader>
           <TableRow>
             <TableHead className="">Name</TableHead>
@@ -41,26 +34,38 @@ export const SurveyList: React.FC<SurveyListProps> = ({ surveys }) => {
             <TableHead>Link</TableHead>
           </TableRow>
         </TableHeader>
+
         <TableBody>
           {surveys.map((survey) => (
-            <TableRow key={survey.id}>
-              <Link
-                to={`/surveys/${survey.id}`}
-                className="text-blue-500 hover:underline"
-              >
-                {survey.name}
-              </Link>
+            <TableRow key={survey._id}>
+              <TableCell>
+                <Link
+                  to={`/surveys/${survey._id}`}
+                  className="text-blue-500 hover:underline"
+                >
+                  {survey.name}
+                </Link>
+              </TableCell>
 
               <TableCell>{survey.active ? "Active" : "Completed"}</TableCell>
               <TableCell>{survey.organisation}</TableCell>
               <TableCell>{survey.respondents}</TableCell>
-              <TableCell className="text-right">{survey.endDate}</TableCell>
-              <TableCell>{survey.link}</TableCell>
+              <TableCell className="text-right">
+                {survey.endDate
+                  ? format(new Date(survey.endDate), "MMMM dd, yyyy")
+                  : "No end date"}
+              </TableCell>
+              <TableCell>
+                <Link to={`/survey/${survey._id}`}>
+                  <Link2></Link2>
+                </Link>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
-      </ScrollArea>
-      <TableFooter></TableFooter>
-    </Table>
+
+        <TableFooter></TableFooter>
+      </Table>
+    </ScrollArea>
   );
 };

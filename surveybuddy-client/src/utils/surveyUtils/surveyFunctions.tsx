@@ -1,25 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { getToken } from "../jwtToken";
 import sortSurveys from "../surveyUtils/sortSurveys";
-
-interface Survey {
-  name: string;
-  description: string;
-  date: Date | string;
-  endDate: Date | string;
-  active: boolean;
-  completionDate: Date | string;
-  organisation: string;
-  purpose: string;
-  _id: string;
-  userId: string;
-  respondents: string;
-  _v: number;
-}
-
-// interface ApiResponse<T> {
-//   data: T;
-// }
+import { Survey } from "./surveyTypes";
 
 export async function updateSurvey(
   surveyId: string,
@@ -42,17 +24,23 @@ export async function updateSurvey(
     );
 
     return response.data;
-  } catch (error: any) {
-    console.error("Error updating the survey:", error);
-
-    throw new Error(
-      error.response?.data?.message ||
-        "Failed to update the survey. Please try again."
-    );
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Axios error updating the survey:", error.message);
+      throw new Error(
+        error.response?.data?.message ||
+          "Failed to update the survey. Please try again."
+      );
+    } else {
+      console.error("Unexpected error updating the survey:", error);
+      throw new Error("An unexpected error occurred. Please try again.");
+    }
   }
 }
 
-export async function createSurvey(data: string): Promise<Survey> {
+export async function createSurvey(
+  data: Record<string, unknown>
+): Promise<Survey> {
   try {
     const token = getToken();
     if (!token) {
@@ -68,12 +56,17 @@ export async function createSurvey(data: string): Promise<Survey> {
     }
 
     return response.data;
-  } catch (error: any) {
-    console.error("Error creating the survey:", error);
-    throw new Error(
-      error.response?.data?.message ||
-        "Failed to create the survey. Please try again."
-    );
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Axios error creating the survey:", error.message);
+      throw new Error(
+        error.response?.data?.message ||
+          "Failed to create the survey. Please try again."
+      );
+    } else {
+      console.error("Unexpected error creating the survey:", error);
+      throw new Error("An unexpected error occurred. Please try again.");
+    }
   }
 }
 
@@ -94,7 +87,8 @@ export default async function getSurveys(): Promise<Survey[]> {
     }
 
     const surveys = response.data.data;
-    return sortSurveys(surveys, "desc");
+    const sortedSurveys = sortSurveys(surveys, "desc");
+    return sortedSurveys;
   } catch (error) {
     console.error("Error fetching survey data: ", error);
     // If error, return an empty string

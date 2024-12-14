@@ -2,20 +2,7 @@ import { NewSurveyCard } from "@/components/main/newSurvey";
 import { getSurveyData } from "@/utils/surveyUtils/surveyFunctions";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
-interface Survey {
-  name: string;
-  description: string;
-  date: Date | null;
-  endDate?: Date | null;
-  active?: boolean;
-  organisation: string;
-  purpose: string;
-  _id: string;
-  userId: string;
-  respondents: string;
-  _v: number;
-}
+import { Survey } from "../utils/surveyUtils/surveyTypes";
 
 const EditSurveyPage: React.FC = () => {
   const [surveyData, setSurveyData] = useState<Survey | null>(null);

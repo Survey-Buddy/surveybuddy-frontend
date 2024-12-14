@@ -24,6 +24,7 @@ const loginSchema = z.object({
     .min(6, { message: "Password must be at least 6 characters long" }),
 });
 
+// Register Schema Validation
 const registerSchema = loginSchema.extend({
   username: z
     .string()

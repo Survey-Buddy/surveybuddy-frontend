@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
+import { format } from "date-fns";
 
 interface SurveyCardProps {
   _id: string;
@@ -9,7 +10,7 @@ interface SurveyCardProps {
   active: boolean;
   organisation: string;
   respondents: string;
-  endDate: Date | null;
+  endDate: Date | null | string;
 }
 
 export const SurveyCard: React.FC<SurveyCardProps> = ({
@@ -24,7 +25,9 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({
   <div className="grid gap-8 ">
     <div className="flex flex-col gap-2">
       <Badge>{active ? "Active" : "Complete"}</Badge>
-      {endDate}
+      <p>
+        {endDate ? format(new Date(endDate), "MMMM dd, yyyy") : "No end date"}
+      </p>
       <div className="bg-muted rounded-md aspect-video mb-1">
         <p>Respondents: {respondents}</p>
         <h3 className="text-xl tracking-tight">

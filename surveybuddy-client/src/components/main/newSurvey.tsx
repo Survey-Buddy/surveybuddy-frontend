@@ -25,20 +25,7 @@ import {
   createSurvey,
   updateSurvey,
 } from "@/utils/surveyUtils/surveyFunctions.js";
-
-interface Survey {
-  name: string;
-  description: string;
-  date: Date | null;
-  endDate: Date | null;
-  active: boolean;
-  organisation: string;
-  purpose: string;
-  _id: string;
-  userId: string;
-  respondents: string;
-  _v: number;
-}
+import { Survey } from "../../utils/surveyUtils/surveyTypes";
 
 interface NewSurveyCardProps {
   propsSurveyData?: Survey | null;
