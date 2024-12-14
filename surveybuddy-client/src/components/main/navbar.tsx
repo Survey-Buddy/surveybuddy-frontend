@@ -12,10 +12,17 @@ import { Menu, MoveRight, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+type NavigationItem = {
+  title: string;
+  description?: string;
+  href?: string;
+  items?: { title: string; href: string }[];
+};
+
 export const Header1 = () => {
   const { userData } = useUserData();
   console.log("navbar log:", userData);
-  const signedInNavigationItems = [
+  const signedInNavigationItems: NavigationItem[] = [
     {
       title: "Home",
       href: "/home",
@@ -66,7 +73,7 @@ export const Header1 = () => {
       ],
     },
   ];
-  const notSignedInNavigationItems = [
+  const notSignedInNavigationItems: NavigationItem[] = [
     {
       title: "About",
       description: "Simple, beautiful, and intuitive surveys made easy.",
@@ -104,11 +111,9 @@ export const Header1 = () => {
               {navigationItems.map((item) => (
                 <NavigationMenuItem key={item.title}>
                   {item.href ? (
-                    <>
-                      <Link to={item.href} className="no-underline">
-                        <Button variant="ghost">{item.title}</Button>
-                      </Link>
-                    </>
+                    <Link to={item.href} className="no-underline">
+                      <Button variant="ghost">{item.title}</Button>
+                    </Link>
                   ) : (
                     <>
                       <NavigationMenuTrigger className="font-medium text-sm">

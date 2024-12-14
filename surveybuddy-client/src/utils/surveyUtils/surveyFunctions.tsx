@@ -6,6 +6,8 @@ interface Survey {
   name: string;
   description: string;
   date: Date | string;
+  endDate: Date | string;
+  active: boolean;
   completionDate: Date | string;
   organisation: string;
   purpose: string;
@@ -15,9 +17,9 @@ interface Survey {
   _v: number;
 }
 
-interface ApiResponse<T> {
-  data: T;
-}
+// interface ApiResponse<T> {
+//   data: T;
+// }
 
 export async function updateSurvey(
   surveyId: string,

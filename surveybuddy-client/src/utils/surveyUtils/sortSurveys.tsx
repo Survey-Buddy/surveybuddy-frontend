@@ -2,7 +2,7 @@ interface Survey {
   name: string;
   description: string;
   date: Date | string;
-  completionDate: Date | string;
+  endDate: Date | string;
   organisation: string;
   purpose: string;
   _id: string;

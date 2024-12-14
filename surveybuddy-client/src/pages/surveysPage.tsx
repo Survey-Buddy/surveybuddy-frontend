@@ -1,13 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import React, { useEffect, useState } from "react";
 import { SurveyCard } from "@/components/main/surveysCards";
-import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SurveyList } from "@/components/main/surveyList";
 import { useUserData } from "@/context/userContext";
-import axios from "axios";
-import { getToken } from "@/utils/jwtToken";
 import getSurveys from "../utils/surveyUtils/surveyFunctions";
 
 interface Survey {
@@ -16,9 +11,9 @@ interface Survey {
   organisation: string;
   respondents: string;
   description: string;
-  active: boolean;
-  date: string;
-  endDate: Date;
+  active?: boolean;
+  date: Date | null;
+  endDate?: Date | null;
 }
 
 const SurveysPage: React.FC = () => {
@@ -32,8 +27,18 @@ const SurveysPage: React.FC = () => {
     const fetchSurveys = async () => {
       try {
         const data = await getSurveys();
-        if (data) {
-          setSurveys(data);
+        if (data.length > 0) {
+          const updatedData: Survey[] = data.map((survey: any) => ({
+            _id: survey._id,
+            name: survey.name,
+            organisation: survey.organisation || "N/A",
+            respondents: survey.respondents || "public",
+            description: survey.description || "",
+            active: survey.active || false, // Provide default value if missing
+            date: survey.date || new Date().toISOString(),
+            endDate: survey.endDate || "Unknown",
+          }));
+          setSurveys(updatedData);
         } else {
           console.error("Failed to fetch surveys.");
         }

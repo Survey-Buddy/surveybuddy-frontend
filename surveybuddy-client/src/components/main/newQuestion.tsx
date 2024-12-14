@@ -14,7 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { optional, z } from "zod";
+import { z } from "zod";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
@@ -131,7 +131,7 @@ export function NewQuestionCard() {
         console.error("Error sending data", error);
       }
     },
-    [navigate, surveyId, questionNum, token, radioChoice]
+    [navigate, surveyId, reset, questionNum, token, radioChoice]
   );
 
   useEffect(() => {
@@ -336,7 +336,7 @@ export function NewQuestionCard() {
               <Button type="submit" value="surveySubmit">
                 Submit Survey
               </Button>
-              <Button type="submit" value="nextQuestion">
+              <Button type="submit" disabled={!isValid} value="nextQuestion">
                 New Question
               </Button>
             </CardFooter>

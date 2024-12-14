@@ -1,5 +1,3 @@
-import { Check, PhoneCall } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import {
   Accordion,
   AccordionContent,
@@ -7,9 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getToken } from "@/utils/jwtToken";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import {
@@ -17,12 +13,14 @@ import {
   getSurveyData,
 } from "../utils/surveyUtils/surveyFunctions";
 import getQuestionsData from "@/utils/questionUtils/questionFunctions";
+import { Badge } from "@/components/ui/badge";
 
 interface Survey {
   name: string;
   description: string;
-  date: Date;
-  endDate: Date;
+  date: Date | null;
+  endDate?: Date | null;
+  active?: boolean;
   organisation: string;
   purpose: string;
   _id: string;
@@ -44,42 +42,6 @@ const SurveyPage: React.FC = () => {
   const [questionData, setQuestionData] = useState<Question[]>([]);
   const navigate = useNavigate();
 
-  // async function getSurveyData(): Promise<void> {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:8080/surveys/${surveyId}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-
-  //     console.log(response.data);
-  //     setSurveyData(response.data.data);
-  //   } catch (error) {
-  //     console.error("Error fetch survey data", error);
-  //   }
-  // }
-
-  // async function getQuestionData(): Promise<void> {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:8080/surveys/${surveyId}/questions`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-
-  //     setQuestionData(response.data.data);
-  //     console.log("Question response: ", response);
-  //   } catch (error) {
-  //     console.error("Error fetching question data", error);
-  //   }
-  // }
-
   useEffect(() => {
     const fetchSurveyData = async () => {
       if (!surveyId) {
@@ -90,7 +52,14 @@ const SurveyPage: React.FC = () => {
         const data = await getSurveyData(surveyId);
         if (data) {
           console.log("Survey data:", data);
-          setSurveyData(data);
+
+          const mappedData: Survey = {
+            ...data,
+            date: data.date ? new Date(data.date) : null,
+            endDate: data.completionDate ? new Date(data.completionDate) : null,
+            active: data.active ?? false,
+          };
+          setSurveyData(mappedData);
         }
       } catch (error) {
         console.error("Error fetching survey data: ", error);
@@ -133,18 +102,6 @@ const SurveyPage: React.FC = () => {
     }
   };
 
-  // // Depends on surveyId to run
-  // useEffect(() => {
-  //   getSurveyData();
-  // }, [surveyId]);
-
-  // // Depends on surveyId
-  // useEffect(() => {
-  //   if (surveyId) {
-  //     getQuestionData();
-  //   }
-  // }, [surveyId]);
-
   const questionFormatResponse = (questionFormat: string): string => {
     if (questionFormat === "multiChoice") {
       return "Multiple Choice";
@@ -163,7 +120,9 @@ const SurveyPage: React.FC = () => {
         <div className=" grid flex flex-col justify-center  gap-10">
           <div className="flex gap-10 flex flex-row ">
             <div className="flex gap-4 flex-col ">
-              <div>{/* <Badge variant="outline">Survey</Badge> */}</div>
+              <div>
+                <Badge variant="outline">Survey</Badge>
+              </div>
               <div className="flex gap-2  flex-col">
                 <h4 className="text-3xl md:text-5xl tracking-tighter max-w-xl font-regular">
                   {surveyData?.name ? ` ${surveyData.name}!` : ""}
@@ -179,7 +138,17 @@ const SurveyPage: React.FC = () => {
                     : "No end date provided"}
                 </p>
                 <div className="m-1">
-                  <Button onClick={() => handleDelete(surveyId)}>Delete</Button>
+                  <Button
+                    onClick={() => {
+                      if (surveyId) {
+                        handleDelete(surveyId);
+                      } else {
+                        alert("Survey ID is missing.");
+                      }
+                    }}
+                  >
+                    Delete
+                  </Button>
 
                   <Link to={`/surveys/${surveyId}/edit`}>
                     <Button>Edit</Button>

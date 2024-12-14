@@ -9,8 +9,7 @@ interface SurveyCardProps {
   active: boolean;
   organisation: string;
   respondents: string;
-  endDate: Date;
-  link: string;
+  endDate: Date | null;
 }
 
 export const SurveyCard: React.FC<SurveyCardProps> = ({
@@ -21,7 +20,6 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({
   organisation,
   respondents,
   endDate,
-  link,
 }) => (
   <div className="grid gap-8 ">
     <div className="flex flex-col gap-2">

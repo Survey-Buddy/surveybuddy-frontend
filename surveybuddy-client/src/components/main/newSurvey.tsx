@@ -1,10 +1,8 @@
-import * as React from "react";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -20,11 +18,9 @@ import {
 } from "@/components/ui/select";
 import { DatePicker } from "./datePicker";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { optional, z } from "zod";
+import { z } from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import { getToken, isTokenExpired, removeToken } from "../../utils/jwtToken.js";
 import {
   createSurvey,
   updateSurvey,
@@ -33,8 +29,9 @@ import {
 interface Survey {
   name: string;
   description: string;
-  date: Date;
-  endDate: Date;
+  date: Date | null;
+  endDate: Date | null;
+  active: boolean;
   organisation: string;
   purpose: string;
   _id: string;
@@ -45,6 +42,15 @@ interface Survey {
 
 interface NewSurveyCardProps {
   propsSurveyData?: Survey | null;
+}
+
+interface SurveyFormFields {
+  name: string;
+  description?: string;
+  purpose: string;
+  respondents: string;
+  organisation?: string;
+  endDate?: Date;
 }
 
 const schema = z.object({
@@ -72,7 +78,6 @@ const schema = z.object({
 });
 
 export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
-  const token = getToken();
   const navigate = useNavigate();
   const location = useLocation();
   const { surveyId } = useParams<{ surveyId: string }>();
@@ -85,7 +90,10 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
     handleSubmit,
     formState: { errors, isValid },
     setValue,
-  } = useForm<FormData>({ resolver: zodResolver(schema), mode: "onChange" });
+  } = useForm<SurveyFormFields>({
+    resolver: zodResolver(schema),
+    mode: "onChange",
+  });
 
   useEffect(() => {
     if (surveyData) {
@@ -96,9 +104,9 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
       setValue("purpose", surveyData.purpose || "other");
       setValue("respondents", surveyData.respondents || "public");
       setValue("organisation", surveyData.organisation || "");
-      setValue("completionDate", new Date(surveyData.endDate));
+      setValue("endDate", new Date(surveyData.endDate));
     }
-  }, [propsSurveyData, setValue]);
+  }, [propsSurveyData, surveyData, setValue]);
 
   const onSubmit = async (data: FieldValues) => {
     try {
@@ -217,10 +225,10 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
 
             {/* Completion Date Field */}
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="completionDate">Completion Date</Label>
+              <Label htmlFor="endDate">Completion Date</Label>
               <DatePicker
                 onChange={(date) =>
-                  setValue("completionDate", date, { shouldValidate: true })
+                  setValue("endDate", date, { shouldValidate: true })
                 }
                 defaultValue={
                   propsSurveyData?.endDate

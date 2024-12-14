@@ -6,8 +6,9 @@ import { useParams } from "react-router-dom";
 interface Survey {
   name: string;
   description: string;
-  date: Date;
-  endDate: Date;
+  date: Date | null;
+  endDate?: Date | null;
+  active?: boolean;
   organisation: string;
   purpose: string;
   _id: string;
@@ -17,8 +18,9 @@ interface Survey {
 }
 
 const EditSurveyPage: React.FC = () => {
-  const [surveyData, setSurveyData] = useState<Survey | null>();
+  const [surveyData, setSurveyData] = useState<Survey | null>(null);
   const { surveyId } = useParams<{ surveyId: string }>();
+
   useEffect(() => {
     const fetchSurveyData = async () => {
       if (!surveyId) {
@@ -29,7 +31,14 @@ const EditSurveyPage: React.FC = () => {
         const data = await getSurveyData(surveyId);
         if (data) {
           console.log("Survey data fetched:", data);
-          setSurveyData(data);
+
+          const mappedData: Survey = {
+            ...data,
+            date: data.date ? new Date(data.date) : new Date(),
+            endDate: data.endDate ? new Date(data.endDate) : null,
+            active: data.active ?? false,
+          };
+          setSurveyData(mappedData);
         } else {
           console.error("No data returned for survey");
         }

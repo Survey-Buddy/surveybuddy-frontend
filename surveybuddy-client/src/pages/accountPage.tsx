@@ -40,6 +40,8 @@ const AccountPage: React.FC = () => {
         </h1>
       </div>
       <Button onClick={handleLogOut}>Logout</Button>
+      <Button>Update Info</Button>
+      <Button>Reset Password</Button>
     </>
   );
 };

@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,10 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FormEvent, useEffect, useState } from "react";
-
 import { FieldValues, useForm } from "react-hook-form";
-import { optional, z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { setToken } from "@/utils/jwtToken";
@@ -78,7 +75,7 @@ export function RegisterForm() {
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "An error occurred. Please try again.";
-      console.error("Error during submission:", error);
+      console.error("Error during submission:", errorMessage);
     }
   };
 
