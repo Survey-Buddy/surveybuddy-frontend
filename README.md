@@ -283,3 +283,13 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - Extended the time on all remaining cards due to unforeseeable commitments that slowed development.
 
 ![13th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_13:12.png)
+
+#### 14th December
+
+- Implemented Jest and Superdry set up, DB connect, trial tests and teardown.
+- Create new MongoDB local database for testing and test environment.
+- Implemented POST, PATCH, DELETE and GET survey tests with edge cases.
+- Implemented signup testing with edge cases.
+- Fixed 40 TypeScript errors.
+
+![14th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_14:12.png)
