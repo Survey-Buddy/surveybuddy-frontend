@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SurveyCard } from "@/components/main/surveysCards";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SurveyList } from "@/components/main/surveyList";
