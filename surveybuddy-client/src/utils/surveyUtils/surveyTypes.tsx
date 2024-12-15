@@ -5,10 +5,9 @@ export interface Survey {
   respondents: string;
   description: string;
   active?: boolean;
-  date: Date | string | null;
-  endDate?: Date | string | null;
+  date: string;
+  endDate: string;
   userId: string;
   purpose: string;
-  completionDate?: Date | string | null;
   _v?: number;
 }

@@ -14,27 +14,9 @@ import {
 } from "../utils/surveyUtils/surveyFunctions";
 import getQuestionsData from "@/utils/questionUtils/questionFunctions";
 import { Badge } from "@/components/ui/badge";
-
-interface Survey {
-  name: string;
-  description: string;
-  date: Date | null;
-  endDate?: Date | null;
-  active?: boolean;
-  organisation: string;
-  purpose: string;
-  _id: string;
-  userId: string;
-  respondents: string;
-  _v: number;
-}
-
-interface Question {
-  question: string;
-  questionNum: number;
-  _id: string;
-  questionFormat: string;
-}
+import { Survey } from "@/utils/surveyUtils/surveyTypes";
+import CopyToClipboard from "@/components/main/copyToClipboard";
+import { Question } from "@/utils/questionUtils/questionTypes";
 
 const SurveyPage: React.FC = () => {
   const { surveyId } = useParams<{ surveyId: string }>();
@@ -55,8 +37,12 @@ const SurveyPage: React.FC = () => {
 
           const mappedData: Survey = {
             ...data,
-            date: data.date ? new Date(data.date) : null,
-            endDate: data.completionDate ? new Date(data.completionDate) : null,
+            date: data.date
+              ? new Date(data.date).toISOString()
+              : new Date().toISOString(),
+            endDate: data.endDate
+              ? new Date(data.endDate).toISOString()
+              : "Unknown",
             active: data.active ?? false,
           };
           setSurveyData(mappedData);
@@ -127,6 +113,11 @@ const SurveyPage: React.FC = () => {
                 <h4 className="text-3xl md:text-5xl tracking-tighter max-w-xl font-regular">
                   {surveyData?.name ? ` ${surveyData.name}!` : ""}
                 </h4>
+                <div className="flex flex-row justify-center">
+                  <CopyToClipboard
+                    textToCopy={`/survey/${surveyId}`}
+                  ></CopyToClipboard>
+                </div>
                 <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-muted-foreground">
                   {surveyData?.description ? `${surveyData?.description}` : ""}
                 </p>

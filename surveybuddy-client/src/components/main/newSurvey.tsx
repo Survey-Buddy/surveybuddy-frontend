@@ -33,11 +33,11 @@ interface NewSurveyCardProps {
 
 interface SurveyFormFields {
   name: string;
-  description?: string;
+  description: string;
   purpose: string;
   respondents: string;
   organisation?: string;
-  endDate?: string;
+  endDate: string;
 }
 
 export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
@@ -63,11 +63,11 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
       console.log("Populating form with survey data:", surveyData);
       // Populate fields with surveyData
       setValue("name", surveyData.name);
-      setValue("description", surveyData.description);
+      setValue("description", surveyData.description || "");
       setValue("purpose", surveyData.purpose || "other");
       setValue("respondents", surveyData.respondents || "public");
       setValue("organisation", surveyData.organisation || "");
-      setValue("endDate", surveyData.endDate);
+      setValue("endDate", surveyData.endDate || "Unknown");
     }
   }, [propsSurveyData, surveyData, setValue]);
 
@@ -86,9 +86,10 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
         // Create a new survey
         const formattedData = {
           ...data,
+          date: data.date ? data.date.toISOString() : new Date().toISOString(),
           endDate: data.endDate
             ? new Date(data.endDate).toISOString()
-            : undefined,
+            : "Unknown",
         };
         const createdSurvey = await createSurvey(formattedData);
         console.log("Survey created successfully:", createdSurvey);

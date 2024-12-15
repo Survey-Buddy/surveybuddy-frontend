@@ -1,8 +1,8 @@
 interface Survey {
   name: string;
   description: string;
-  date: Date | string;
-  endDate: Date | string;
+  date: string;
+  endDate: string;
   organisation: string;
   purpose: string;
   _id: string;
