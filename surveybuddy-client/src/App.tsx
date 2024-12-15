@@ -6,7 +6,6 @@ import LandingPage from "./pages/landingPage";
 import SurveysPage from "./pages/surveysPage";
 import LoginPage from "./pages/loginSignup";
 import RegisterPage from "./pages/registerPage";
-// import CommunityPage from "./pages/landingPage";
 import TargetedPage from "./pages/targetedPage";
 import ContactPage from "./pages/contactPage";
 import HomePage from "./pages/homePage";
