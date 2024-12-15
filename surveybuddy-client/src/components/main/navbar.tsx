@@ -130,7 +130,10 @@ export const Header1 = () => {
                             </div>
                             {userData ? (
                               <Link to="/surveys/newsurvey">
-                                <Button size="sm" className="mt-10">
+                                <Button
+                                  size="sm"
+                                  className="mt-10 hover:text-[#59E4A7] transition-colors duration-300"
+                                >
                                   New Survey
                                 </Button>
                               </Link>
@@ -161,7 +164,9 @@ export const Header1 = () => {
         </div>
         <div className="flex lg:justify-center">
           <Link to={userData ? "/home" : "/"}>
-            <h1 className="font-semibold text-xl ">SurveyBuddy</h1>
+            <h1 className="font-semibold text-2xl hover:text-[#59E4A7] transition-all duration-500">
+              SurveyBuddy
+            </h1>
           </Link>
         </div>
         <div className="flex justify-end w-full gap-4">
@@ -192,10 +197,10 @@ export const Header1 = () => {
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </Button>
           {isOpen && (
-            <div className="absolute top-20 border-t flex flex-col w-full right-0 bg-background shadow-lg py-4 container gap-8">
+            <div className="absolute top-20 border-t flex flex-col w-full right-0 bg-background shadow-lg py-4 container gap-8 ">
               {navigationItems.map((item) => (
                 <div key={item.title}>
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2 ">
                     {item.href ? (
                       <Link
                         to={item.href}
@@ -212,7 +217,7 @@ export const Header1 = () => {
                         <Link
                           key={subItem.title}
                           to={subItem.href}
-                          className="flex justify-between items-center"
+                          className="flex justify-between items-center "
                         >
                           <span className="text-muted-foreground">
                             {subItem.title}

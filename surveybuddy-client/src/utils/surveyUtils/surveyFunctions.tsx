@@ -77,11 +77,13 @@ export default async function getSurveys(): Promise<Survey[]> {
     if (!token) {
       throw new Error("User is not authenticated. Token is missing.");
     }
+
     const response = await axios.get("http://localhost:8080/surveys/", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+
     if (!response || !response.data || !response.data.data) {
       throw new Error("Failed to fetch surveys.");
     }
@@ -91,16 +93,17 @@ export default async function getSurveys(): Promise<Survey[]> {
     const normalisedSurveys = surveys.map((survey: Survey) => ({
       ...survey,
       active: survey.active ?? false,
-      date: survey.date
-        ? new Date(survey.date).toISOString()
-        : new Date().toISOString(), // Ensure `date` is properly converted
-      endDate: survey.endDate ? new Date(survey.endDate).toISOString() : null, // Ensure `endDate` is properly converted
+      date:
+        typeof survey.date === "string"
+          ? survey.date
+          : new Date(survey.date).toISOString(),
+      endDate: survey.endDate || "", // Always expect a string from the backend
     }));
+
     const sortedSurveys = sortSurveys(normalisedSurveys, "desc");
     return sortedSurveys;
   } catch (error) {
     console.error("Error fetching survey data: ", error);
-    // If error, return an empty string
     return [];
   }
 }
