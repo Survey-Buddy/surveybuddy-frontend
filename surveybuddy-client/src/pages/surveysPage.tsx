@@ -4,6 +4,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SurveyList } from "@/components/main/surveyList";
 import { useUserData } from "@/context/userContext";
 import getSurveys from "../utils/surveyUtils/surveyFunctions";
+import { ComboboxDemo } from "./surveyLinks";
 
 interface Survey {
   _id: string;
@@ -88,7 +89,9 @@ const SurveysPage: React.FC = () => {
                         List
                       </TabsTrigger>
                     </TabsList>
+                    <ComboboxDemo />
                   </Tabs>
+
                   {/* <Link to="/surveys/newsurvey">
             <Button>New Survey</Button>
             </Link> */}

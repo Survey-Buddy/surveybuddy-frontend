@@ -14,7 +14,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { z } from "zod";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
@@ -24,41 +23,11 @@ import {
 } from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
 import { useCallback, useEffect, useState } from "react";
-
-const multiChoiceSchema = z.object({
-  question: z
-    .string()
-    .min(5, { message: "Question must be at least 5 characters long." }),
-  answer: z.enum(["answerA", "answerB", "answerC", "answerD"]).optional(),
-  answerA: z
-    .string()
-    .min(3, { message: "Answer A must be at least 3 characters long." }),
-  answerB: z
-    .string()
-    .min(3, { message: "Answer B must be at least 3 characters long." }),
-  answerC: z
-    .string()
-    .min(3, { message: "Answer C must be at least 3 characters long." }),
-  answerD: z
-    .string()
-    .min(3, { message: "Answer D must be at least 3 characters long." }),
-  questionFormat: z.enum(["multiChoice"]).default("multiChoice"),
-});
-
-const writtenResponseSchema = z.object({
-  question: z
-    .string()
-    .min(5, { message: "Question must be at least 5 characters long." }),
-  questionFormat: z.enum(["writtenResponse"]).default("writtenResponse"),
-});
-
-const rangeSchema = z.object({
-  question: z
-    .string()
-    .min(5, { message: "Question must be at least 5 characters long." }),
-  answer: z.enum(["no", "notAtAll", "disagree"]).default("no"),
-  questionFormat: z.enum(["rangeSlider"]).default("rangeSlider"),
-});
+import {
+  writtenResponseSchema,
+  multiChoiceSchema,
+  rangeSchema,
+} from "@/utils/questionUtils/questionSchema";
 
 export function NewQuestionCard() {
   const [activeTab, setActiveTab] = useState("writtenResponse");
@@ -84,17 +53,13 @@ export function NewQuestionCard() {
     setValue,
   } = useForm<FormData>({
     resolver: zodResolver(getSchema()),
-    model: "onChange",
+    mode: "onChange", // Trigger validation on every change
   });
 
   const onSubmit = useCallback(
-    async (
-      data: FieldValues,
-
-      event: React.FormEvent<HTMLFormElement>
-    ) => {
-      const buttonValue = (event.nativeEvent.submitter as HTMLButtonElement)
-        .value;
+    async (data: FieldValues, event: React.FormEvent<HTMLFormElement>) => {
+      const buttonValue = (event.nativeEvent as SubmitEvent)
+        .submitter as HTMLButtonElement;
 
       data.answer = radioChoice;
 
@@ -120,11 +85,11 @@ export function NewQuestionCard() {
 
         reset();
 
-        if (buttonValue === "nextQuestion") {
+        if (buttonValue.value === "nextQuestion") {
           navigate(`/surveys/${surveyId}/questions/${questionNum}`);
         }
 
-        if (buttonValue === "surveySubmit") {
+        if (buttonValue.value === "surveySubmit") {
           navigate(`/surveys/${surveyId}`);
         }
       } catch (error) {
