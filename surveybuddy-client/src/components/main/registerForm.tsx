@@ -9,30 +9,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FieldValues, useForm } from "react-hook-form";
-import { z } from "zod";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { setToken } from "@/utils/jwtToken";
 import { useUserData } from "../../context/userContext";
-
-// Login Schema Validation
-const loginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z
-    .string()
-    .min(6, { message: "Password must be at least 6 characters long" }),
-});
-
-// Register Schema Validation
-const registerSchema = loginSchema.extend({
-  username: z
-    .string()
-    .min(3, { message: "Username must be at least 3 characters" }),
-  firstName: z
-    .string()
-    .min(3, { message: "Name must be at least 3 characters" }),
-});
+import { User } from "@/utils/userUtils/userTypes";
+import { loginSchema, registerSchema } from "@/utils/userUtils/userSchema";
 
 export function RegisterForm() {
   const location = useLocation();
@@ -47,9 +30,9 @@ export function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FormData>({ resolver: zodResolver(schema), mode: "onChange" });
+  } = useForm<User>({ resolver: zodResolver(schema), mode: "onChange" });
 
-  const onSubmit = async (data: FieldValues) => {
+  const onSubmit = async (data: User) => {
     try {
       const endpoint = isRegister
         ? "http://localhost:8080/users/signup"
@@ -74,9 +57,12 @@ export function RegisterForm() {
       alert(message);
       navigate("/home");
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || "An error occurred. Please try again.";
-      console.error("Error during submission:", errorMessage);
+      if (isAxiosError(error)) {
+        const errorMessage =
+          error.response?.data?.message ||
+          "An error occurred. Please try again.";
+        console.error("Error during submission:", errorMessage);
+      }
     }
   };
 

@@ -4,17 +4,8 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SurveyList } from "@/components/main/surveyList";
 import { useUserData } from "@/context/userContext";
 import getSurveys from "../utils/surveyUtils/surveyFunctions";
-
-interface Survey {
-  _id: string;
-  name: string;
-  organisation: string;
-  respondents: string;
-  description: string;
-  active?: boolean;
-  date: Date | null;
-  endDate?: Date | null;
-}
+import { ComboboxDemo } from "./surveyLinks";
+import { Survey } from "@/utils/surveyUtils/surveyTypes";
 
 const SurveysPage: React.FC = () => {
   const [surveys, setSurveys] = useState<Survey[]>([]);
@@ -28,15 +19,21 @@ const SurveysPage: React.FC = () => {
       try {
         const data = await getSurveys();
         if (data.length > 0) {
-          const updatedData: Survey[] = data.map((survey: any) => ({
+          const updatedData: Survey[] = data.map((survey: Survey) => ({
             _id: survey._id,
             name: survey.name,
             organisation: survey.organisation || "N/A",
             respondents: survey.respondents || "public",
             description: survey.description || "",
-            active: survey.active || false, // Provide default value if missing
-            date: survey.date || new Date().toISOString(),
-            endDate: survey.endDate || "Unknown",
+            active: survey.active ?? false,
+            date: survey.date
+              ? new Date(survey.date).toISOString()
+              : new Date().toISOString(),
+            endDate: survey.endDate
+              ? new Date(survey.endDate).toISOString()
+              : "Unknown",
+            userId: survey.userId || "Unknown",
+            purpose: survey.purpose || "General",
           }));
           setSurveys(updatedData);
         } else {
@@ -88,7 +85,9 @@ const SurveysPage: React.FC = () => {
                         List
                       </TabsTrigger>
                     </TabsList>
+                    <ComboboxDemo />
                   </Tabs>
+
                   {/* <Link to="/surveys/newsurvey">
             <Button>New Survey</Button>
             </Link> */}
@@ -112,9 +111,10 @@ const SurveysPage: React.FC = () => {
                     surveys.map((survey) => (
                       <li key={survey._id} className="w-full">
                         <SurveyCard
+                          date={survey.date}
                           name={survey.name}
                           description={survey.description}
-                          active={survey.active}
+                          active={survey.active || false}
                           _id={survey._id}
                           respondents={survey.respondents}
                           organisation={survey.organisation}

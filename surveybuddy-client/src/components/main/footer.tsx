@@ -73,8 +73,8 @@ export const Footer1 = () => {
                 <p>hello@surveybuddy.com</p>
               </div>
               <div className="flex flex-col text-sm max-w-lg leading-relaxed tracking-tight text-background/75 text-left">
-                {/* <Link to="/">Terms of service</Link>
-                <Link to="/">Privacy Policy</Link> */}
+                <Link to="/">Terms of service</Link>
+                <Link to="/">Privacy Policy</Link>
                 <p>Bowden, South Australia</p>
               </div>
             </div>
@@ -91,7 +91,7 @@ export const Footer1 = () => {
                     <p>About</p>
                   </div>
 
-                  {/* {item.to ? (
+                  {item.to ? (
                     <Link
                       to={item.to}
                       className="flex justify-between items-center"
@@ -112,7 +112,7 @@ export const Footer1 = () => {
                           {subItem.title}
                         </span>
                       </Link>
-                    ))} */}
+                    ))}
                 </div>
               </div>
             ))}

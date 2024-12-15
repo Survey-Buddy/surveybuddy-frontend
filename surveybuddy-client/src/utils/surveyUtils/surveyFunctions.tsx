@@ -87,7 +87,16 @@ export default async function getSurveys(): Promise<Survey[]> {
     }
 
     const surveys = response.data.data;
-    const sortedSurveys = sortSurveys(surveys, "desc");
+
+    const normalisedSurveys = surveys.map((survey: Survey) => ({
+      ...survey,
+      active: survey.active ?? false,
+      date: survey.date
+        ? new Date(survey.date).toISOString()
+        : new Date().toISOString(), // Ensure `date` is properly converted
+      endDate: survey.endDate ? new Date(survey.endDate).toISOString() : null, // Ensure `endDate` is properly converted
+    }));
+    const sortedSurveys = sortSurveys(normalisedSurveys, "desc");
     return sortedSurveys;
   } catch (error) {
     console.error("Error fetching survey data: ", error);

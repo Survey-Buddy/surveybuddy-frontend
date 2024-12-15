@@ -1,7 +1,5 @@
-import { getToken } from "@/utils/jwtToken";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,7 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { z } from "zod";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
@@ -23,46 +20,17 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
-import { useCallback, useEffect, useState } from "react";
-
-const multiChoiceSchema = z.object({
-  question: z
-    .string()
-    .min(5, { message: "Question must be at least 5 characters long." }),
-  answer: z.enum(["answerA", "answerB", "answerC", "answerD"]).optional(),
-  answerA: z
-    .string()
-    .min(3, { message: "Answer A must be at least 3 characters long." }),
-  answerB: z
-    .string()
-    .min(3, { message: "Answer B must be at least 3 characters long." }),
-  answerC: z
-    .string()
-    .min(3, { message: "Answer C must be at least 3 characters long." }),
-  answerD: z
-    .string()
-    .min(3, { message: "Answer D must be at least 3 characters long." }),
-  questionFormat: z.enum(["multiChoice"]).default("multiChoice"),
-});
-
-const writtenResponseSchema = z.object({
-  question: z
-    .string()
-    .min(5, { message: "Question must be at least 5 characters long." }),
-  questionFormat: z.enum(["writtenResponse"]).default("writtenResponse"),
-});
-
-const rangeSchema = z.object({
-  question: z
-    .string()
-    .min(5, { message: "Question must be at least 5 characters long." }),
-  answer: z.enum(["no", "notAtAll", "disagree"]).default("no"),
-  questionFormat: z.enum(["rangeSlider"]).default("rangeSlider"),
-});
+import { useEffect, useState } from "react";
+import {
+  writtenResponseSchema,
+  multiChoiceSchema,
+  rangeSchema,
+} from "@/utils/questionUtils/questionSchema";
+import { Question } from "@/utils/questionUtils/questionTypes";
+import { createQuestion } from "@/utils/questionUtils/questionFunctions";
 
 export function NewQuestionCard() {
   const [activeTab, setActiveTab] = useState("writtenResponse");
-  const token = getToken();
   const navigate = useNavigate();
   const { surveyId } = useParams();
   const [questionNum, setQuestionNum] = useState(1);
@@ -75,64 +43,92 @@ export function NewQuestionCard() {
     return writtenResponseSchema;
   };
 
-  // Initialise form with dynamic schema
+  // Initialise form with dynamic schema depending on question type
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isValid },
     setValue,
-  } = useForm<FormData>({
+  } = useForm<Question>({
     resolver: zodResolver(getSchema()),
-    model: "onChange",
+    mode: "onChange", // Trigger validation on every change
   });
 
-  const onSubmit = useCallback(
-    async (
-      data: FieldValues,
+  //   const onSubmit = useCallback(
+  //     async (data: Question, event: React.FormEvent<HTMLFormElement>) => {
+  //       const buttonValue = (event.nativeEvent as SubmitEvent)
+  //         .submitter as HTMLButtonElement;
 
-      event: React.FormEvent<HTMLFormElement>
-    ) => {
-      const buttonValue = (event.nativeEvent.submitter as HTMLButtonElement)
-        .value;
+  //       data.answer = radioChoice as "no" | "notAtAll" | "disagree";
 
-      data.answer = radioChoice;
+  //       try {
+  //         const payload: Question = { ...data, surveyId, questionNum };
+  //         console.log("Creating question: ", payload);
 
-      try {
-        console.log({ ...data, surveyId, questionNum });
-        const response = await axios.post(
-          `http://localhost:8080/surveys/${surveyId}/questions`,
-          { ...data, surveyId, questionNum },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (!response) {
-          throw new Error("Error submitting survey.");
-        }
+  //         const response = await createQuestion(payload);
 
-        console.log(response);
+  //         if (response) {
+  //           console.log("Question created successfully: ", response);
 
-        setQuestionNum(questionNum + 1);
-        console.log(questionNum);
+  //           setQuestionNum((prev) => prev + 1);
+
+  //           // Navigate dynamically based on the value of the button when clicked
+  //           if (buttonValue.value === "nextQuestion") {
+  //             navigate(`/surveys/${surveyId}/questions/${questionNum}`);
+  //           }
+
+  //           if (buttonValue.value === "surveySubmit") {
+  //             navigate(`/surveys/${surveyId}`);
+  //           }
+
+  //           reset();
+  //         }
+  //       } catch (error) {
+  //         console.error("Error during question submission: ", error);
+  //       }
+  //     },
+  //     [navigate, surveyId, reset, questionNum, radioChoice]
+  //   );
+  const onSubmit = async (
+    data: Question,
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    const buttonValue = (event.nativeEvent as SubmitEvent)
+      .submitter as HTMLButtonElement;
+
+    data.answer = radioChoice as "no" | "notAtAll" | "disagree";
+
+    try {
+      const payload: Question = { ...data, surveyId, questionNum };
+      console.log("Creating question: ", payload);
+
+      const response = await createQuestion(payload);
+
+      if (response) {
+        console.log("Question created successfully: ", response);
+
+        setQuestionNum((prev) => prev + 1);
 
         reset();
 
-        if (buttonValue === "nextQuestion") {
+        if (buttonValue.value === "nextQuestion") {
           navigate(`/surveys/${surveyId}/questions/${questionNum}`);
         }
 
-        if (buttonValue === "surveySubmit") {
+        if (buttonValue.value === "surveySubmit") {
           navigate(`/surveys/${surveyId}`);
         }
-      } catch (error) {
-        console.error("Error sending data", error);
       }
-    },
-    [navigate, surveyId, reset, questionNum, token, radioChoice]
-  );
+    } catch (error) {
+      console.error("Error during question submission: ", error);
+    }
+  };
+
+  // Wrap handleSubmit to manually inject the event
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    handleSubmit((data) => onSubmit(data, event))(event);
+  };
 
   useEffect(() => {
     reset();
@@ -143,7 +139,7 @@ export function NewQuestionCard() {
   }, [activeTab]);
 
   useEffect(() => {
-    setValue("answer", radioChoice);
+    setValue("answer", radioChoice as "no" | "notAtAll" | "disagree");
     console.log(radioChoice);
   }, [radioChoice, setValue]);
 
@@ -158,7 +154,7 @@ export function NewQuestionCard() {
         <TabsTrigger value="multiChoice">Multi Choice</TabsTrigger>
         <TabsTrigger value="rangeSlider">Range Slider</TabsTrigger>
       </TabsList>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleFormSubmit}>
         <TabsContent value="writtenResponse">
           <Card>
             <CardHeader>

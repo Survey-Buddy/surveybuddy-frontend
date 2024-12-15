@@ -1,12 +1,6 @@
 import axios from "axios";
 import { getToken } from "../jwtToken";
-
-interface Question {
-  question: string;
-  questionNum: number;
-  _id: string;
-  questionFormat: string;
-}
+import { Question } from "./questionTypes";
 
 export default async function getQuestionData(
   surveyId: string
@@ -29,6 +23,32 @@ export default async function getQuestionData(
     return response.data.data;
   } catch (error) {
     console.error("Error fetching question data: ", error);
+    return null;
+  }
+}
+
+export async function createQuestion(
+  payload: Question
+): Promise<Question | null> {
+  try {
+    const token = getToken();
+    if (!token) {
+      throw new Error("User is not authenticated. Token is missing.");
+    }
+
+    const response = await axios.post(
+      `http://localhost:8080/surveys/${payload.surveyId}/questions`,
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error creating question:", error);
     return null;
   }
 }

@@ -21,8 +21,12 @@ const EditSurveyPage: React.FC = () => {
 
           const mappedData: Survey = {
             ...data,
-            date: data.date ? new Date(data.date) : new Date(),
-            endDate: data.endDate ? new Date(data.endDate) : null,
+            date: data.date
+              ? new Date(data.date).toISOString()
+              : new Date().toISOString(),
+            endDate: data.endDate
+              ? new Date(data.endDate).toISOString()
+              : "Unknown",
             active: data.active ?? false,
           };
           setSurveyData(mappedData);

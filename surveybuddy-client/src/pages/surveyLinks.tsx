@@ -1,8 +1,5 @@
-"use client";
-
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -65,7 +62,7 @@ export function ComboboxDemo() {
         <Command>
           <CommandInput placeholder="Search framework..." />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>No project found.</CommandEmpty>
             <CommandGroup>
               {frameworks.map((framework) => (
                 <CommandItem

@@ -22,7 +22,7 @@ export const setToken = (
 ): DecodedToken => {
   // Set the token in cookies with a 7-day expiration
   Cookies.set("jwtToken", token, { expires: 7 });
-  const decoded = jwtDecode(token);
+  const decoded = jwtDecode<DecodedToken>(token);
   updateUserData();
   return decoded;
 };
@@ -63,11 +63,3 @@ export const isUserLoggedIn = (): boolean => {
   // Validate the token's valsidity
   return !!token && !isTokenExpired(token);
 };
-
-// // Get user data from the token
-// export const getUser = (): DecodedToken | null => {
-//   // Retrieve and decode the token to get user data
-//   const token = getToken();
-
-//   return decodeJWT(token);
-// };
