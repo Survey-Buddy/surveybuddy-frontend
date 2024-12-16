@@ -60,7 +60,7 @@ export const Footer1 = () => {
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <div className="flex gap-8 flex-col items-start">
             <div className="flex gap-2 flex-col">
-              <h3 className="text-3xl md:text-3xl tracking-tighter max-w-xl font-regular text-left hover:text-[#59E4A7] transition-colors duration-300">
+              <h3 className="text-3xl md:text-3xl tracking-tighter max-w-xl font-regular text-left hover:text-[#2B3594] transition-colors duration-300">
                 SurveyBuddy™
               </h3>
               <p className="text-m max-w-lg leading-relaxed tracking-tight text-background/75 text-left">
@@ -70,6 +70,7 @@ export const Footer1 = () => {
             <div className="flex gap-20 flex-row">
               <div className="flex flex-col text-sm max-w-lg leading-relaxed tracking-tight text-background/75 text-left ">
                 <p></p>
+
                 <p>hello@surveybuddy.com</p>
               </div>
               <div className="flex flex-col text-sm max-w-lg leading-relaxed tracking-tight text-background/75 text-left">
@@ -99,7 +100,7 @@ export const Footer1 = () => {
                       <span className="text-xl">{item.title}</span>
                     </Link>
                   ) : (
-                    <p className="text-xl hover:text-[#59E4A7] hover:text-[#59E4A7] transition-colors duration-300">
+                    <p className="text-xl hover:text-[#2B3594] transition-colors duration-300">
                       {item.title}
                     </p>
                   )}
@@ -110,7 +111,7 @@ export const Footer1 = () => {
                         to={subItem.to}
                         className="flex justify-between items-center "
                       >
-                        <span className="text-background/75 hover:text-[#59E4A7] transition-colors duration-300">
+                        <span className="text-background/75 hover:text-[#2B3594] transition-colors duration-300">
                           {subItem.title}
                         </span>
                       </Link>

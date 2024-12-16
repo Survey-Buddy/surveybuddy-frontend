@@ -26,12 +26,8 @@ const SurveysPage: React.FC = () => {
             respondents: survey.respondents || "public",
             description: survey.description || "",
             active: survey.active ?? false,
-            date: survey.date
-              ? new Date(survey.date).toISOString()
-              : new Date().toISOString(),
-            endDate: survey.endDate
-              ? new Date(survey.endDate).toISOString()
-              : "Unknown",
+            date: survey.date || "",
+            endDate: survey.endDate || "",
             userId: survey.userId || "Unknown",
             purpose: survey.purpose || "General",
           }));

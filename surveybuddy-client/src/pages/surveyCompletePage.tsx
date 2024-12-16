@@ -32,19 +32,31 @@ const SurveyPage: React.FC = () => {
       }
       try {
         const data = await getSurveyData(surveyId);
+        console.log("Raw survey data:", data);
+
         if (data) {
-          console.log("Survey data:", data);
+          // let formattedEndDate;
+          // try {
+          //   formattedEndDate = data.endDate
+          //     ? new Date(data.endDate).toISOString()
+          //     : "Unknown";
+          // } catch (error) {
+          //   console.error("Error formatting endDate:", error);
+          //   formattedEndDate = "Unknown";
+          // }
 
           const mappedData: Survey = {
             ...data,
-            date: data.date
-              ? new Date(data.date).toISOString()
-              : new Date().toISOString(),
-            endDate: data.endDate
-              ? new Date(data.endDate).toISOString()
-              : "Unknown",
+            // date: data.date
+            //   ? new Date(data.date).toISOString()
+            //   : new Date().toISOString(),
+            // endDate:
+            //   data.endDate === "Unknown"
+            //     ? "Unknown"
+            //     : new Date(data.endDate).toISOString(),
             active: data.active ?? false,
           };
+          console.log("Mapped survey data :", mappedData);
           setSurveyData(mappedData);
         }
       } catch (error) {
@@ -109,25 +121,37 @@ const SurveyPage: React.FC = () => {
               <div>
                 <Badge variant="outline">Survey</Badge>
               </div>
+
               <div className="flex gap-2  flex-col">
                 <h4 className="text-3xl md:text-5xl tracking-tighter max-w-xl font-regular">
-                  {surveyData?.name ? ` ${surveyData.name}!` : ""}
+                  {surveyData?.name ? `Title: ${surveyData.name}!` : ""}
                 </h4>
                 <div className="flex flex-row justify-center">
                   <CopyToClipboard
                     textToCopy={`/survey/${surveyId}`}
                   ></CopyToClipboard>
                 </div>
-                <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-muted-foreground">
-                  {surveyData?.description ? `${surveyData?.description}` : ""}
-                </p>
-
                 <p>
                   End Date:{" "}
                   {surveyData?.endDate
                     ? format(new Date(surveyData.endDate), "MMMM dd, yyyy")
                     : "No end date provided"}
                 </p>
+                <p>
+                  Created:{" "}
+                  {surveyData?.endDate
+                    ? format(new Date(surveyData.date), "MMMM dd, yyyy")
+                    : "No end date provided"}
+                </p>
+                <p>
+                  {surveyData?.organisation
+                    ? `Organisation: ${surveyData.organisation}`
+                    : ""}
+                </p>
+                <p>
+                  {surveyData?.purpose ? `Purpose: ${surveyData.purpose}` : ""}
+                </p>
+
                 <div className="m-1">
                   <Button
                     onClick={() => {
@@ -147,6 +171,11 @@ const SurveyPage: React.FC = () => {
                   <Link to={`/surveys/${surveyId}/analytics`}>
                     <Button>Analytics</Button>
                   </Link>
+                  <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-muted-foreground">
+                    {surveyData?.description
+                      ? `Description: ${surveyData?.description}`
+                      : ""}
+                  </p>
                 </div>
               </div>
               <div className="">

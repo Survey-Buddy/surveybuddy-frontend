@@ -164,14 +164,17 @@ export const Header1 = () => {
         </div>
         <div className="flex lg:justify-center">
           <Link to={userData ? "/home" : "/"}>
-            <h1 className="font-semibold text-2xl hover:text-[#59E4A7] transition-all duration-500">
+            <h1 className="font-semibold text-2xl hover:text-[#2B3594] transition-all duration-500">
               SurveyBuddy
             </h1>
           </Link>
         </div>
         <div className="flex justify-end w-full gap-4">
           <Link to="/about">
-            <Button variant="ghost" className="hidden md:inline">
+            <Button
+              variant="ghost"
+              className="hidden md:inline hover:text-[#2B3594] transition-all duration-500"
+            >
               Our Journey
             </Button>
           </Link>

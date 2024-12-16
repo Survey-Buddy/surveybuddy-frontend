@@ -36,7 +36,7 @@ interface SurveyFormFields {
   description: string;
   purpose: string;
   respondents: string;
-  organisation?: string;
+  organisation: string;
   endDate: string;
 }
 
