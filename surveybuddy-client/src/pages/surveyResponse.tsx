@@ -50,7 +50,7 @@ const SurveyQuestionPage: React.FC = () => {
       return multiChoiceAnswerSchema;
     if (currentQuestion?.questionFormat === "rangeSlider")
       return rangeSliderAnswerSchema;
-    return z.object({}); // Default
+    return z.object({});
   };
 
   const {
