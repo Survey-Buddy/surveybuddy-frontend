@@ -37,7 +37,7 @@ const SurveyPage: React.FC = () => {
         if (data) {
           let formattedEndDate: string;
 
-          // Validate and format endDate
+          // Validate and format endDate to be a string
           if (data.endDate && !isNaN(Date.parse(data.endDate))) {
             formattedEndDate = new Date(data.endDate).toISOString();
           } else {
@@ -45,7 +45,7 @@ const SurveyPage: React.FC = () => {
             formattedEndDate = "Unknown";
           }
 
-          // Safely handle the date field
+          // Validate and format endDate to be a string
           const formattedDate =
             data.date && !isNaN(Date.parse(data.date))
               ? new Date(data.date).toISOString()
