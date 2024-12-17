@@ -36,6 +36,7 @@ export async function createQuestion(
       throw new Error("User is not authenticated. Token is missing.");
     }
 
+    console.log("Payload sent to backend: ", payload);
     const response = await axios.post(
       `http://localhost:8080/surveys/${payload.surveyId}/questions`,
       payload,

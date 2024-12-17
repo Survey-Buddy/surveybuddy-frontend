@@ -164,7 +164,7 @@ export const Header1 = () => {
         </div>
         <div className="flex lg:justify-center">
           <Link to={userData ? "/home" : "/"}>
-            <h1 className="font-semibold text-2xl hover:text-[#2B3594] transition-all duration-500">
+            <h1 className="font-semibold text-2xl transition-all duration-500">
               SurveyBuddy
             </h1>
           </Link>

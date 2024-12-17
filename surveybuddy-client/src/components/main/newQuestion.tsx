@@ -55,41 +55,6 @@ export function NewQuestionCard() {
     mode: "onChange", // Trigger validation on every change
   });
 
-  //   const onSubmit = useCallback(
-  //     async (data: Question, event: React.FormEvent<HTMLFormElement>) => {
-  //       const buttonValue = (event.nativeEvent as SubmitEvent)
-  //         .submitter as HTMLButtonElement;
-
-  //       data.answer = radioChoice as "no" | "notAtAll" | "disagree";
-
-  //       try {
-  //         const payload: Question = { ...data, surveyId, questionNum };
-  //         console.log("Creating question: ", payload);
-
-  //         const response = await createQuestion(payload);
-
-  //         if (response) {
-  //           console.log("Question created successfully: ", response);
-
-  //           setQuestionNum((prev) => prev + 1);
-
-  //           // Navigate dynamically based on the value of the button when clicked
-  //           if (buttonValue.value === "nextQuestion") {
-  //             navigate(`/surveys/${surveyId}/questions/${questionNum}`);
-  //           }
-
-  //           if (buttonValue.value === "surveySubmit") {
-  //             navigate(`/surveys/${surveyId}`);
-  //           }
-
-  //           reset();
-  //         }
-  //       } catch (error) {
-  //         console.error("Error during question submission: ", error);
-  //       }
-  //     },
-  //     [navigate, surveyId, reset, questionNum, radioChoice]
-  //   );
   const onSubmit = async (
     data: Question,
     event: React.FormEvent<HTMLFormElement>
@@ -97,7 +62,7 @@ export function NewQuestionCard() {
     const buttonValue = (event.nativeEvent as SubmitEvent)
       .submitter as HTMLButtonElement;
 
-    data.answer = radioChoice as "no" | "notAtAll" | "disagree";
+    data.rangeDescription = radioChoice as "no" | "notAtAll" | "disagree";
 
     try {
       const payload: Question = { ...data, surveyId, questionNum };
@@ -139,7 +104,7 @@ export function NewQuestionCard() {
   }, [activeTab]);
 
   useEffect(() => {
-    setValue("answer", radioChoice as "no" | "notAtAll" | "disagree");
+    setValue("rangeDescription", radioChoice as "no" | "notAtAll" | "disagree");
     console.log(radioChoice);
   }, [radioChoice, setValue]);
 

@@ -35,28 +35,30 @@ const SurveyPage: React.FC = () => {
         console.log("Raw survey data:", data);
 
         if (data) {
-          // let formattedEndDate;
-          // try {
-          //   formattedEndDate = data.endDate
-          //     ? new Date(data.endDate).toISOString()
-          //     : "Unknown";
-          // } catch (error) {
-          //   console.error("Error formatting endDate:", error);
-          //   formattedEndDate = "Unknown";
-          // }
+          let formattedEndDate: string;
+
+          // Validate and format endDate
+          if (data.endDate && !isNaN(Date.parse(data.endDate))) {
+            formattedEndDate = new Date(data.endDate).toISOString();
+          } else {
+            console.warn("Invalid or missing endDate:", data.endDate);
+            formattedEndDate = "Unknown";
+          }
+
+          // Safely handle the date field
+          const formattedDate =
+            data.date && !isNaN(Date.parse(data.date))
+              ? new Date(data.date).toISOString()
+              : new Date().toISOString();
 
           const mappedData: Survey = {
             ...data,
-            // date: data.date
-            //   ? new Date(data.date).toISOString()
-            //   : new Date().toISOString(),
-            // endDate:
-            //   data.endDate === "Unknown"
-            //     ? "Unknown"
-            //     : new Date(data.endDate).toISOString(),
+            date: formattedDate,
+            formattedEndDate,
             active: data.active ?? false,
           };
-          console.log("Mapped survey data :", mappedData);
+
+          console.log("Mapped survey data:", mappedData);
           setSurveyData(mappedData);
         }
       } catch (error) {
@@ -128,18 +130,22 @@ const SurveyPage: React.FC = () => {
                 </h4>
                 <div className="flex flex-row justify-center">
                   <CopyToClipboard
-                    textToCopy={`/survey/${surveyId}`}
+                    textToCopy={`http://localhost:5173/surveys/${surveyId}/response/1`}
                   ></CopyToClipboard>
                 </div>
                 <p>
                   End Date:{" "}
-                  {surveyData?.endDate
-                    ? format(new Date(surveyData.endDate), "MMMM dd, yyyy")
+                  {surveyData?.formattedEndDate &&
+                  surveyData.formattedEndDate !== "Unknown"
+                    ? format(
+                        new Date(surveyData.formattedEndDate),
+                        "MMMM dd, yyyy"
+                      )
                     : "No end date provided"}
                 </p>
                 <p>
                   Created:{" "}
-                  {surveyData?.endDate
+                  {surveyData?.date
                     ? format(new Date(surveyData.date), "MMMM dd, yyyy")
                     : "No end date provided"}
                 </p>

@@ -12,11 +12,13 @@ import HomePage from "./pages/homePage";
 import MarketingPage from "./pages/marketingPage";
 import NewSurveyPage from "./pages/NewSurveyPage";
 import QuestionPage from "./pages/questionPage";
-import SurveyPage from "./pages/surveyCompletePage";
+import SurveyPage from "./pages/surveyPage";
 import { AboutPage } from "./pages/aboutPage";
 import { UserDataProvider } from "./context/userContext";
 import AccountPage from "./pages/accountPage";
 import EditSurveyPage from "./pages/editSurvey";
+import SurveyResponsePage from "./pages/surveyResponse";
+import SurveyCompletionPage from "./pages/surveyCompleted";
 
 function App() {
   return (
@@ -42,11 +44,19 @@ function App() {
                 path="/surveys/:surveyId/questions/:questionNumber"
                 element={<QuestionPage />}
               />
+              <Route
+                path="/surveys/:surveyId/response/:questionNum"
+                element={<SurveyResponsePage />}
+              />
               <Route path="/surveys/:surveyId" element={<SurveyPage />} />
               {/* <Route path="/community" element={<CommunityPage />} /> */}
               <Route path="/targeted" element={<TargetedPage />} />
               <Route path="/marketing" element={<MarketingPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route
+                path="/surveys/:surveyId/complete"
+                element={<SurveyCompletionPage />}
+              />
             </Routes>
           </main>
           <Footer1 />
