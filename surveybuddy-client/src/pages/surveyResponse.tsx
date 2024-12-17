@@ -28,7 +28,7 @@ import {
   rangeSliderAnswerSchema,
 } from "@/utils/resultsUtils/answerSchema";
 import { z } from "zod";
-import { isValid } from "date-fns";
+import { Answer } from "@/utils/resultsUtils/resultsTypes";
 
 const SurveyQuestionPage: React.FC = () => {
   const { surveyId, questionNum } = useParams<{
@@ -62,10 +62,11 @@ const SurveyQuestionPage: React.FC = () => {
   } = useForm({
     resolver: zodResolver(getSchema()),
     mode: "onChange",
-    // defaultValues: {
-    //   multiChoiceAnswer: "",
-    //   //   max: 10,
-    // },
+    defaultValues: {
+      writtenResponseAnswer: "",
+      multiChoiceAnswer: "",
+      rangeSliderAnswer: undefined,
+    },
   });
 
   useEffect(() => {
@@ -100,15 +101,12 @@ const SurveyQuestionPage: React.FC = () => {
     fetchQuestions();
   }, [surveyId, currentQuestionIndex]);
 
-  useEffect(() => {
-    setIsSubmit(true)
-  }, [handleAnswerSubmit])
-
-  const handleAnswerSubmit = async (data: any) => {
+  const handleAnswerSubmit = async (data: Answer) => {
     try {
       console.log("Submitted answer:", data);
       console.log("Current question ID:", currentQuestion?._id);
 
+      setIsSubmit(true);
 
       const payload = {
         questionId: currentQuestion?._id,
@@ -127,6 +125,7 @@ const SurveyQuestionPage: React.FC = () => {
   const handleNextQuestion = () => {
     if (currentQuestionIndex + 1 < questions.length) {
       navigate(`/surveys/${surveyId}/response/${currentQuestionIndex + 2}`);
+      setIsSubmit(false);
       reset();
     } else {
       console.log("Survey completed!");
@@ -140,9 +139,7 @@ const SurveyQuestionPage: React.FC = () => {
   }
 
   return (
-    <div {isSubmit === false ? className="flex flex-col items-center justify-center mt-40" :
-className="flex flex-col items-center justify-center mt-40 background-green"
-    }>
+    <div className={`flex flex-col items-center justify-center mt-40 `}>
       <div className="min-w-[50%]">
         <h1>{surveyData?.name ? `Survey: ${surveyData.name}` : ""}</h1>
         <h2>
@@ -151,21 +148,12 @@ className="flex flex-col items-center justify-center mt-40 background-green"
             : ""}
         </h2>
 
-        <Card className="border-1 m-5">
+        <Card className={`border-1 m-5`}>
           <CardHeader>
             <CardTitle>{`Question ${currentQuestion.questionNum}`}</CardTitle>
             <CardDescription>{currentQuestion?.question}</CardDescription>
           </CardHeader>
-          <pre>
-            {JSON.stringify(
-              Object.keys(errors).reduce((acc, key) => {
-                acc[key] = errors[key]?.message;
-                return acc;
-              }, {} as Record<string, any>),
-              null,
-              2
-            )}
-          </pre>
+
           <form onSubmit={handleSubmit(handleAnswerSubmit)}>
             <CardContent className="space-y-2">
               {currentQuestion?.questionFormat === "writtenResponse" && (
@@ -242,12 +230,14 @@ className="flex flex-col items-center justify-center mt-40 background-green"
               )}
             </CardContent>
             <CardFooter>
-              <Button type="submit">Submit Answer</Button>
+              <Button type="submit" disabled={!isValid}>
+                Submit Answer
+              </Button>
               <Button
                 type="button"
                 onClick={handleNextQuestion}
                 className="ml-4"
-                disabled={!isValid && isSubmit}
+                disabled={!isSubmit}
               >
                 Next Question
               </Button>
