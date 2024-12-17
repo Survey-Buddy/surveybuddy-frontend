@@ -94,7 +94,7 @@ const SurveyQuestionPage: React.FC = () => {
       reset();
     } else {
       console.log("Survey completed!");
-      // Navigate to a completion page or summary
+      // Navigate to completion page
       navigate(`/surveys/${surveyId}/complete`);
     }
   };
@@ -133,18 +133,42 @@ const SurveyQuestionPage: React.FC = () => {
                   />
                 </div>
               )}
-              {currentQuestion?.questionFormat === "multiChoice" && (
-                <RadioGroup {...register("multiChoiceAnswer")}>
-                  {currentQuestion.options?.map((option, idx) => (
-                    <div className="flex items-center space-x-2" key={idx}>
-                      <RadioGroupItem value={option} id={option} />
-                      <Label htmlFor={option}>{option}</Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              )}
+              {currentQuestion?.questionFormat === "multiChoice" &&
+                currentQuestion.formatDetails && (
+                  <RadioGroup {...register("multiChoiceAnswer")}>
+                    {Object.entries(currentQuestion.formatDetails).map(
+                      ([key, value]) => (
+                        <div className="flex items-center space-x-2" key={key}>
+                          <RadioGroupItem value={value} id={key} />
+                          <Label htmlFor={key}>{value}</Label>
+                        </div>
+                      )
+                    )}
+                  </RadioGroup>
+                )}
               {currentQuestion?.questionFormat === "rangeSlider" && (
-                <Slider max={10} step={1} {...register("rangeAnswer")} />
+                <>
+                  <Slider max={10} step={1} {...register("rangeAnswer")} />
+                  {currentQuestion?.rangeDescription === "no" ? (
+                    <div className="justify-spread">
+                      <p>No</p>
+                      <p>Maybe</p>
+                      <p>Yes</p>{" "}
+                    </div>
+                  ) : currentQuestion?.rangeDescription === "notAtAll" ? (
+                    <div className="justify-spread">
+                      <p>Not At All</p>
+                      <p>Not Sure</p>
+                      <p>Completely</p>{" "}
+                    </div>
+                  ) : (
+                    <div className="flex justify-between w-full">
+                      <p>Disagree</p>
+                      <p>I&apos;m Partial</p>
+                      <p>Completely Agree</p>{" "}
+                    </div>
+                  )}
+                </>
               )}
               {errors && (
                 <p className="text-red-500">

@@ -31,6 +31,6 @@ export const rangeSchema = z.object({
   question: z
     .string()
     .min(5, { message: "Question must be at least 5 characters long." }),
-  answer: z.enum(["no", "notAtAll", "disagree"]).default("no"),
+  rangeDescription: z.enum(["no", "notAtAll", "disagree"]).default("no"),
   questionFormat: z.enum(["rangeSlider"]).default("rangeSlider"),
 });

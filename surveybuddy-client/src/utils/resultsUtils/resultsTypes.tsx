@@ -1,5 +1,8 @@
 export interface Answer {
-  writtenResponseAnswer: string;
-  rangeSliderAnswer: number;
-  multiChoiceAnswer: string;
+  writtenResponseAnswer?: string;
+  rangeSliderAnswer?: number;
+  answerA?: string;
+  answerB?: string;
+  answerC?: string;
+  answerD?: string;
 }
