@@ -194,6 +194,7 @@ const SurveyQuestionPage: React.FC = () => {
                 isRangeSliderDetails(currentQuestion.formatDetails) && (
                   <>
                     <Slider
+                      defaultValue={[3]}
                       max={Number(currentQuestion.formatDetails.max) || 10}
                       step={1}
                       {...register("rangeSliderAnswer", {

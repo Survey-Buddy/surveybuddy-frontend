@@ -293,3 +293,21 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - Fixed 40 TypeScript errors.
 
 ![14th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_14:12.png)
+
+#### 15th December
+
+- Fixed all TypeScript errors.
+- Completed 'Deploy Frontend' card and moved to _Done_ column.
+- Added header data and logo.
+- Tested some basic colour and text size change on hover.
+- Tested colour pallets.
+
+![15th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_15:12.png)
+
+#### 17th December
+
+- Completed Survey Generation URL card and moved to _Done_ column. Implemented a link icon that auto copies the survey url when clicked.
+- Completed Survey Response Page card and moved it to the _Done_ column. This was extremely rewarding as it was difficult was produced lots of bugs.
+- Moved cards some cards in the _Done_ column to signed off, still keeping most in _Done_ because I plan to revisit them if I have time before submission.
+
+![17th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_17:12.png)

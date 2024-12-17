@@ -55,6 +55,41 @@ export function NewQuestionCard() {
     mode: "onChange", // Trigger validation on every change
   });
 
+  //   const onSubmit = useCallback(
+  //     async (data: Question, event: React.FormEvent<HTMLFormElement>) => {
+  //       const buttonValue = (event.nativeEvent as SubmitEvent)
+  //         .submitter as HTMLButtonElement;
+
+  //       data.answer = radioChoice as "no" | "notAtAll" | "disagree";
+
+  //       try {
+  //         const payload: Question = { ...data, surveyId, questionNum };
+  //         console.log("Creating question: ", payload);
+
+  //         const response = await createQuestion(payload);
+
+  //         if (response) {
+  //           console.log("Question created successfully: ", response);
+
+  //           setQuestionNum((prev) => prev + 1);
+
+  //           // Navigate dynamically based on the value of the button when clicked
+  //           if (buttonValue.value === "nextQuestion") {
+  //             navigate(`/surveys/${surveyId}/questions/${questionNum}`);
+  //           }
+
+  //           if (buttonValue.value === "surveySubmit") {
+  //             navigate(`/surveys/${surveyId}`);
+  //           }
+
+  //           reset();
+  //         }
+  //       } catch (error) {
+  //         console.error("Error during question submission: ", error);
+  //       }
+  //     },
+  //     [navigate, surveyId, reset, questionNum, radioChoice]
+  //   );
   const onSubmit = async (
     data: Question,
     event: React.FormEvent<HTMLFormElement>
@@ -200,25 +235,25 @@ export function NewQuestionCard() {
                   id="answerA"
                   type="text"
                   placeholder="Answer A"
-                  {...register("answerA")}
+                  {...register("formatDetails.answerA")}
                 />
                 <Input
                   id="answerB"
                   type="text"
                   placeholder="Answer B"
-                  {...register("answerB")}
+                  {...register("formatDetails.answerB")}
                 />
                 <Input
                   id="answerC"
                   type="text"
                   placeholder="Answer C"
-                  {...register("answerC")}
+                  {...register("formatDetails.answerC")}
                 />
                 <Input
                   id="answerD"
                   type="text"
                   placeholder="Answer D"
-                  {...register("answerD")}
+                  {...register("formatDetails.answerD")}
                 />
               </div>
             </CardContent>
