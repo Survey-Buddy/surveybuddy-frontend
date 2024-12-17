@@ -130,7 +130,7 @@ const SurveyPage: React.FC = () => {
                 </h4>
                 <div className="flex flex-row justify-center">
                   <CopyToClipboard
-                    textToCopy={`http://localhost:5173/surveys/${surveyId}/response/1`}
+                    textToCopy={`https://surveybuddy.netlify.app/surveys/${surveyId}/response/1`}
                   ></CopyToClipboard>
                 </div>
                 <p>
