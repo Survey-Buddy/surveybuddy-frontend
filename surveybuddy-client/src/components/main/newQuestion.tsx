@@ -62,7 +62,7 @@ export function NewQuestionCard() {
     const buttonValue = (event.nativeEvent as SubmitEvent)
       .submitter as HTMLButtonElement;
 
-    data.answer = radioChoice as "no" | "notAtAll" | "disagree";
+    data.rangeDescription = radioChoice as "no" | "notAtAll" | "disagree";
 
     try {
       const payload: Question = { ...data, surveyId, questionNum };

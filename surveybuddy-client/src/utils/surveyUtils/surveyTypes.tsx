@@ -10,4 +10,5 @@ export interface Survey {
   userId: string;
   purpose: string;
   _v?: number;
+  formattedEndDate?: string;
 }
