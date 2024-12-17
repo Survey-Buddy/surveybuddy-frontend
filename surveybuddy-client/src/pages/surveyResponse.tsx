@@ -138,6 +138,14 @@ const SurveyQuestionPage: React.FC = () => {
     return <div>Loading question...</div>;
   }
 
+  function getMaxValue(
+    value: string | number | undefined,
+    fallback: number = 10
+  ): number {
+    const parsedValue = Number(value);
+    return isNaN(parsedValue) ? fallback : parsedValue;
+  }
+
   return (
     <div className={`flex flex-col items-center justify-center mt-40 `}>
       <div className="min-w-[50%]">
@@ -194,11 +202,11 @@ const SurveyQuestionPage: React.FC = () => {
                 isRangeSliderDetails(currentQuestion.formatDetails) && (
                   <>
                     <Slider
-                      defaultValue={[3]}
-                      max={Number(currentQuestion.formatDetails.max) || 10}
+                      // @ts-expect-error max undefined error
+                      max={getMaxValue(currentQuestion?.formatDetails?.max)}
                       step={1}
                       {...register("rangeSliderAnswer", {
-                        setValueAs: (v) => Number(v), // Ensures the value is a number
+                        setValueAs: (value) => Number(value),
                       })}
                     />
                     {currentQuestion?.rangeDescription === "no" ? (
@@ -225,7 +233,9 @@ const SurveyQuestionPage: React.FC = () => {
               {errors && (
                 <p className="text-red-500">
                   {String(
-                    errors.answer?.message || errors.rangeAnswer?.message || ""
+                    errors.writtenResponseAnswer?.message ||
+                      errors.rangeSliderAnswer?.message ||
+                      ""
                   )}
                 </p>
               )}
