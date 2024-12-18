@@ -6,6 +6,7 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
+    "types": ["node"],
     "allowJs": true,
     "checkJs": false, // Optionally set to true to get TypeScript checking in .js files
     "jsx": "react",

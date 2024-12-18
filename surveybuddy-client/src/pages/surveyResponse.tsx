@@ -29,6 +29,7 @@ import {
 } from "@/utils/resultsUtils/answerSchema";
 import { z } from "zod";
 import { Answer } from "@/utils/resultsUtils/resultsTypes";
+import { newAnswer } from "@/utils/resultsUtils/answerFunction";
 
 const SurveyQuestionPage: React.FC = () => {
   const { surveyId, questionNum } = useParams<{
@@ -59,6 +60,7 @@ const SurveyQuestionPage: React.FC = () => {
     formState: { errors, isValid },
     reset,
     setValue,
+    watch,
   } = useForm({
     resolver: zodResolver(getSchema()),
     mode: "onChange",
@@ -106,27 +108,52 @@ const SurveyQuestionPage: React.FC = () => {
       console.log("Submitted answer:", data);
       console.log("Current question ID:", currentQuestion?._id);
 
+      // Check and ensure answer is valid
+      const answer =
+        data.writtenResponseAnswer ??
+        data.multiChoiceAnswer ??
+        data.rangeSliderAnswer;
+
+      if (answer === undefined) {
+        throw new Error("Answer is missing or invalid.");
+      }
+
+      if (!currentQuestion?._id || !surveyId) {
+        throw new Error("Question ID or Survey ID is missing.");
+      }
+
       setIsSubmit(true);
 
-      const payload = {
-        questionId: currentQuestion?._id,
-        answer:
-          data.writtenResponseAnswer ||
-          data.multiChoiceAnswer ||
-          data.rangeSliderAnswer,
-      };
-      // Handle submission to backend here
-      console.log("Send to backend: ", payload);
+      const response = await newAnswer(answer, surveyId, currentQuestion?._id);
+
+      if (response) {
+        console.log("Answer successfully sent to backend!");
+      }
     } catch (error) {
       console.error("Answer submission Error:", error);
     }
   };
 
+  useEffect(() => {
+    if (currentQuestion) {
+      reset({
+        multiChoiceAnswer: "",
+        writtenResponseAnswer: "",
+        rangeSliderAnswer: undefined,
+      });
+      setIsSubmit(false); // Reset submission state for the new question
+    }
+  }, [currentQuestion, reset]);
+
   const handleNextQuestion = () => {
     if (currentQuestionIndex + 1 < questions.length) {
-      navigate(`/surveys/${surveyId}/response/${currentQuestionIndex + 2}`);
+      reset({
+        multiChoiceAnswer: "",
+        writtenResponseAnswer: "",
+        rangeSliderAnswer: undefined,
+      });
       setIsSubmit(false);
-      reset();
+      navigate(`/surveys/${surveyId}/response/${currentQuestionIndex + 2}`);
     } else {
       console.log("Survey completed!");
       // Navigate to completion page
@@ -180,9 +207,13 @@ const SurveyQuestionPage: React.FC = () => {
               {currentQuestion?.questionFormat === "multiChoice" &&
                 isMultiChoiceDetails(currentQuestion.formatDetails) && (
                   <RadioGroup
-                    onValueChange={(value) =>
-                      setValue("multiChoiceAnswer", value)
-                    } // Manually set value
+                    key={currentQuestion?._id}
+                    value={watch("multiChoiceAnswer")}
+                    onValueChange={(value) => {
+                      setValue("multiChoiceAnswer", value, {
+                        shouldValidate: true,
+                      });
+                    }}
                   >
                     {Object.entries(currentQuestion.formatDetails).map(
                       ([key, value], index) => (
@@ -208,6 +239,14 @@ const SurveyQuestionPage: React.FC = () => {
                       {...register("rangeSliderAnswer", {
                         setValueAs: (value) => Number(value),
                       })}
+                      onValueChange={(value: number[]) => {
+                        if (Array.isArray(value) && value.length > 0) {
+                          // @ts-expect-error max undefined error
+                          setValue("rangeSliderAnswer", value[0], {
+                            shouldValidate: true,
+                          });
+                        }
+                      }}
                     />
                     {currentQuestion?.rangeDescription === "no" ? (
                       <div className="flex justify-between w-full">
@@ -241,7 +280,15 @@ const SurveyQuestionPage: React.FC = () => {
               )}
             </CardContent>
             <CardFooter>
-              <Button type="submit" disabled={!isValid}>
+              <Button
+                type="submit"
+                disabled={
+                  !isValid ||
+                  isSubmit ||
+                  (currentQuestion?.questionFormat === "rangeSlider" &&
+                    !watch("rangeSliderAnswer"))
+                }
+              >
                 Submit Answer
               </Button>
               <Button
