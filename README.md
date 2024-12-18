@@ -311,3 +311,11 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - Moved cards some cards in the _Done_ column to signed off, still keeping most in _Done_ because I plan to revisit them if I have time before submission.
 
 ![17th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_17:12.png)
+
+#### 18th December
+
+- Completed survey response data collection card and moved to _Done_ column.
+- Due to time constraints graphs and charts will be build with Shadcn, learning a new data visualisation technology would be detrimental to testing time.
+- Completed the range slider graph, question data still needs to be fetched and displayed.
+
+![18th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_18:12.png)

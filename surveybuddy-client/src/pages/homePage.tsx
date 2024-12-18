@@ -8,7 +8,7 @@ function HomePage() {
   const { userData } = useUserData();
 
   const [isLoading, setIsLoading] = useState(true);
-
+  console.log(import.meta.env);
   useEffect(() => {
     if (userData) {
       setIsLoading(false);
