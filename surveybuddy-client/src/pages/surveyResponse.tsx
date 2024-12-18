@@ -60,6 +60,7 @@ const SurveyQuestionPage: React.FC = () => {
     formState: { errors, isValid },
     reset,
     setValue,
+    watch,
   } = useForm({
     resolver: zodResolver(getSchema()),
     mode: "onChange",
@@ -133,11 +134,26 @@ const SurveyQuestionPage: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (currentQuestion) {
+      reset({
+        multiChoiceAnswer: "",
+        writtenResponseAnswer: "",
+        rangeSliderAnswer: undefined,
+      });
+      setIsSubmit(false); // Reset submission state for the new question
+    }
+  }, [currentQuestion, reset]);
+
   const handleNextQuestion = () => {
     if (currentQuestionIndex + 1 < questions.length) {
-      navigate(`/surveys/${surveyId}/response/${currentQuestionIndex + 2}`);
+      reset({
+        multiChoiceAnswer: "",
+        writtenResponseAnswer: "",
+        rangeSliderAnswer: undefined,
+      });
       setIsSubmit(false);
-      reset();
+      navigate(`/surveys/${surveyId}/response/${currentQuestionIndex + 2}`);
     } else {
       console.log("Survey completed!");
       // Navigate to completion page
@@ -191,9 +207,13 @@ const SurveyQuestionPage: React.FC = () => {
               {currentQuestion?.questionFormat === "multiChoice" &&
                 isMultiChoiceDetails(currentQuestion.formatDetails) && (
                   <RadioGroup
-                    onValueChange={(value) =>
-                      setValue("multiChoiceAnswer", value)
-                    } // Manually set value
+                    key={currentQuestion?._id}
+                    value={watch("multiChoiceAnswer")}
+                    onValueChange={(value) => {
+                      setValue("multiChoiceAnswer", value, {
+                        shouldValidate: true,
+                      });
+                    }}
                   >
                     {Object.entries(currentQuestion.formatDetails).map(
                       ([key, value], index) => (
@@ -252,7 +272,7 @@ const SurveyQuestionPage: React.FC = () => {
               )}
             </CardContent>
             <CardFooter>
-              <Button type="submit" disabled={!isValid}>
+              <Button type="submit" disabled={!isValid || isSubmit}>
                 Submit Answer
               </Button>
               <Button
