@@ -239,10 +239,13 @@ const SurveyQuestionPage: React.FC = () => {
                       {...register("rangeSliderAnswer", {
                         setValueAs: (value) => Number(value),
                       })}
-                      onValueChange={(value) => {
-                        // Assuming you add a `sliderChanged` state
-                        setIsSubmit(false); // Reset submit state when slider changes
-                        setValue("rangeSliderAnswer", value[0]); // Update form state
+                      onValueChange={(value: number[]) => {
+                        if (Array.isArray(value) && value.length > 0) {
+                          // @ts-expect-error max undefined error
+                          setValue("rangeSliderAnswer", value[0], {
+                            shouldValidate: true,
+                          });
+                        }
                       }}
                     />
                     {currentQuestion?.rangeDescription === "no" ? (
