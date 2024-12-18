@@ -29,6 +29,7 @@ import {
 } from "@/utils/resultsUtils/answerSchema";
 import { z } from "zod";
 import { Answer } from "@/utils/resultsUtils/resultsTypes";
+import { newAnswer } from "@/utils/resultsUtils/answerFunction";
 
 const SurveyQuestionPage: React.FC = () => {
   const { surveyId, questionNum } = useParams<{
@@ -106,17 +107,27 @@ const SurveyQuestionPage: React.FC = () => {
       console.log("Submitted answer:", data);
       console.log("Current question ID:", currentQuestion?._id);
 
+      // Check and ensure answer is valid
+      const answer =
+        data.writtenResponseAnswer ??
+        data.multiChoiceAnswer ??
+        data.rangeSliderAnswer;
+
+      if (answer === undefined) {
+        throw new Error("Answer is missing or invalid.");
+      }
+
+      if (!currentQuestion?._id || !surveyId) {
+        throw new Error("Question ID or Survey ID is missing.");
+      }
+
       setIsSubmit(true);
 
-      const payload = {
-        questionId: currentQuestion?._id,
-        answer:
-          data.writtenResponseAnswer ||
-          data.multiChoiceAnswer ||
-          data.rangeSliderAnswer,
-      };
-      // Handle submission to backend here
-      console.log("Send to backend: ", payload);
+      const response = await newAnswer(answer, surveyId, currentQuestion?._id);
+
+      if (response) {
+        console.log("Answer successfully sent to backend!");
+      }
     } catch (error) {
       console.error("Answer submission Error:", error);
     }
