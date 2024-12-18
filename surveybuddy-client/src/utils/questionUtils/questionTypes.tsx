@@ -23,7 +23,7 @@ interface MultiChoiceDetails {
 
 interface RangeSliderDetails {
   rangeDescription: "no" | "notAtAll" | "disagree";
-  max?: number;
+  max?: number | string;
 }
 
 export function isRangeSliderDetails(

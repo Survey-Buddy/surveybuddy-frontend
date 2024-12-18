@@ -51,7 +51,7 @@ export function ResponseBarChart() {
           // Extract answers and filter for valid range slider values (0-10)
           // @ts-expect-error: Property 'answers'
           const answers = response.data.answers
-            // @ts-expect-error: Property 'answer'
+
             .map((a: Answer) => a.answer)
             .filter((v: number) => v >= 0 && v <= 10);
 

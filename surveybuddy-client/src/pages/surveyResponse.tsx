@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import getQuestionData from "@/utils/questionUtils/questionFunctions";
 import {
-  isRangeSliderDetails,
+  //   isRangeSliderDetails,
   isMultiChoiceDetails,
   Question,
 } from "@/utils/questionUtils/questionTypes";
@@ -70,6 +70,8 @@ const SurveyQuestionPage: React.FC = () => {
       rangeSliderAnswer: undefined,
     },
   });
+
+  const rangeSliderValue = watch("rangeSliderAnswer");
 
   useEffect(() => {
     const fetchSurveyData = async () => {
@@ -141,9 +143,10 @@ const SurveyQuestionPage: React.FC = () => {
         writtenResponseAnswer: "",
         rangeSliderAnswer: undefined,
       });
+      setValue("rangeSliderAnswer", undefined, { shouldValidate: false });
       setIsSubmit(false); // Reset submission state for the new question
     }
-  }, [currentQuestion, reset]);
+  }, [currentQuestion, reset, setValue]);
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex + 1 < questions.length) {
@@ -165,13 +168,13 @@ const SurveyQuestionPage: React.FC = () => {
     return <div>Loading question...</div>;
   }
 
-  function getMaxValue(
-    value: string | number | undefined,
-    fallback: number = 10
-  ): number {
-    const parsedValue = Number(value);
-    return isNaN(parsedValue) ? fallback : parsedValue;
-  }
+  //   function getMaxValue(
+  //     value: string | number | undefined,
+  //     fallback: number = 10
+  //   ): number {
+  //     const parsedValue = Number(value);
+  //     return isNaN(parsedValue) ? fallback : parsedValue;
+  //   }
 
   return (
     <div className={`flex flex-col items-center justify-center mt-40 `}>
@@ -189,7 +192,10 @@ const SurveyQuestionPage: React.FC = () => {
             <CardDescription>{currentQuestion?.question}</CardDescription>
           </CardHeader>
 
-          <form onSubmit={handleSubmit(handleAnswerSubmit)}>
+          <form
+            onSubmit=// @ts-expect-error handleAnswerSubmit type error
+            {handleSubmit(handleAnswerSubmit)}
+          >
             <CardContent className="space-y-2">
               {currentQuestion?.questionFormat === "writtenResponse" && (
                 <div>
@@ -229,46 +235,51 @@ const SurveyQuestionPage: React.FC = () => {
                     )}
                   </RadioGroup>
                 )}
-              {currentQuestion?.questionFormat === "rangeSlider" &&
-                isRangeSliderDetails(currentQuestion.formatDetails) && (
-                  <>
-                    <Slider
-                      // @ts-expect-error max undefined error
-                      max={getMaxValue(currentQuestion?.formatDetails?.max)}
-                      step={1}
-                      {...register("rangeSliderAnswer", {
-                        setValueAs: (value) => Number(value),
-                      })}
-                      onValueChange={(value: number[]) => {
-                        if (Array.isArray(value) && value.length > 0) {
-                          // @ts-expect-error max undefined error
-                          setValue("rangeSliderAnswer", value[0], {
-                            shouldValidate: true,
-                          });
-                        }
-                      }}
-                    />
-                    {currentQuestion?.rangeDescription === "no" ? (
-                      <div className="flex justify-between w-full">
-                        <p>No</p>
-                        <p>Maybe</p>
-                        <p>Yes</p>{" "}
-                      </div>
-                    ) : currentQuestion?.rangeDescription === "notAtAll" ? (
-                      <div className="flex justify-between w-full">
-                        <p>Not At All</p>
-                        <p>Not Sure</p>
-                        <p>Completely</p>{" "}
-                      </div>
-                    ) : (
-                      <div className="flex justify-between w-full">
-                        <p>Disagree</p>
-                        <p>I&apos;m Partial</p>
-                        <p>Completely Agree</p>{" "}
-                      </div>
-                    )}
-                  </>
-                )}
+              {currentQuestion?.questionFormat === "rangeSlider" && (
+                <>
+                  <Slider
+                    max={10}
+                    step={1}
+                    value={[rangeSliderValue || 0]} // Ensure slider value is synced
+                    onValueChange={(value) =>
+                      // @ts-expect-error number undefined error
+                      setValue("rangeSliderAnswer", value[0])
+                    }
+                    // max={getMaxValue(currentQuestion?.formatDetails?.max)}
+                    // step={1}
+                    // {...register("rangeSliderAnswer", {
+                    //   setValueAs: (value) => Number(value),
+                    // })}
+                    // onValueChange={(value: number[]) => {
+                    //   if (Array.isArray(value) && value.length > 0) {
+                    //     // @ts-expect-error max undefined error
+                    //     setValue("rangeSliderAnswer", value[0], {
+                    //       shouldValidate: true,
+                    //     });
+                    //   }
+                    // }}
+                  />
+                  {currentQuestion?.rangeDescription === "no" ? (
+                    <div className="flex justify-between w-full">
+                      <p>No</p>
+                      <p>Maybe</p>
+                      <p>Yes</p>{" "}
+                    </div>
+                  ) : currentQuestion?.rangeDescription === "notAtAll" ? (
+                    <div className="flex justify-between w-full">
+                      <p>Not At All</p>
+                      <p>Not Sure</p>
+                      <p>Completely</p>{" "}
+                    </div>
+                  ) : (
+                    <div className="flex justify-between w-full">
+                      <p>Disagree</p>
+                      <p>I&apos;m Partial</p>
+                      <p>Completely Agree</p>{" "}
+                    </div>
+                  )}
+                </>
+              )}
               {errors && (
                 <p className="text-red-500">
                   {String(
