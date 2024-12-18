@@ -239,6 +239,11 @@ const SurveyQuestionPage: React.FC = () => {
                       {...register("rangeSliderAnswer", {
                         setValueAs: (value) => Number(value),
                       })}
+                      onValueChange={(value) => {
+                        // Assuming you add a `sliderChanged` state
+                        setIsSubmit(false); // Reset submit state when slider changes
+                        setValue("rangeSliderAnswer", value[0]); // Update form state
+                      }}
                     />
                     {currentQuestion?.rangeDescription === "no" ? (
                       <div className="flex justify-between w-full">
@@ -272,7 +277,15 @@ const SurveyQuestionPage: React.FC = () => {
               )}
             </CardContent>
             <CardFooter>
-              <Button type="submit" disabled={!isValid || isSubmit}>
+              <Button
+                type="submit"
+                disabled={
+                  !isValid ||
+                  isSubmit ||
+                  (currentQuestion?.questionFormat === "rangeSlider" &&
+                    !watch("rangeSliderAnswer"))
+                }
+              >
                 Submit Answer
               </Button>
               <Button
