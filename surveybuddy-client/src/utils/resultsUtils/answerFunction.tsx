@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Answer } from "./resultsTypes";
 import BASE_URL from "../../config/apiConfig";
+import { getToken } from "../jwtToken";
 
 // Define ApiResponse<T>
 type ApiResponse<T> = {
@@ -37,8 +38,14 @@ export async function getAllSurveyAnswers(
   surveyId: string
 ): Promise<ApiResponse<Answer[]> | null> {
   try {
+    const token = getToken();
     const response = await axios.get<ApiResponse<Answer[]>>(
-      `http://localhost:8080/answers/${surveyId}`
+      `http://localhost:8080/answers/${surveyId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
 
     console.log("Survey answers: ", response);
@@ -53,13 +60,19 @@ export async function getAllSurveyAnswers(
   }
 }
 
-export async function getQuestionsAnswers(
+export async function getQuestionAnswers(
   surveyId: string,
   questionId: string
 ): Promise<ApiResponse<Answer> | null> {
   try {
+    const token = getToken();
     const response = await axios.get<ApiResponse<Answer>>(
-      `http://localhost:8080/answers/${surveyId}/${questionId}`
+      `http://localhost:8080/answers/${surveyId}/${questionId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
 
     console.log("Question answers: ", response);

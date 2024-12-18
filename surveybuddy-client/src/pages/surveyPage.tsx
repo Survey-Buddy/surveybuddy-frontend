@@ -76,6 +76,7 @@ const SurveyPage: React.FC = () => {
       }
       try {
         const data = await getQuestionsData(surveyId);
+        console.log("Question data: ", data);
         if (data) {
           console.log("Question data: ", data);
           setQuestionData(data);
@@ -84,6 +85,7 @@ const SurveyPage: React.FC = () => {
         console.error("Error fetching survey data: ", error);
       }
     };
+
     fetchQuestionsData();
   }, [surveyId]);
 
@@ -203,6 +205,11 @@ const SurveyPage: React.FC = () => {
                 <AccordionContent>
                   Question format:{" "}
                   {questionFormatResponse(question.questionFormat)}
+                </AccordionContent>
+                <AccordionContent>
+                  <Link to={`/surveys/${surveyId}/${question._id}/results`}>
+                    <Button>Results</Button>
+                  </Link>
                 </AccordionContent>
               </AccordionItem>
             ))}

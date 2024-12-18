@@ -19,6 +19,7 @@ import AccountPage from "./pages/accountPage";
 import EditSurveyPage from "./pages/editSurvey";
 import SurveyResponsePage from "./pages/surveyResponse";
 import SurveyCompletionPage from "./pages/surveyCompleted";
+import QuestionResultsPage from "./pages/questionResults";
 
 function App() {
   return (
@@ -50,6 +51,10 @@ function App() {
               />
               <Route path="/surveys/:surveyId" element={<SurveyPage />} />
               {/* <Route path="/community" element={<CommunityPage />} /> */}
+              <Route
+                path="/surveys/:surveyId/:questionId/results"
+                element={<QuestionResultsPage />}
+              />
               <Route path="/targeted" element={<TargetedPage />} />
               <Route path="/marketing" element={<MarketingPage />} />
               <Route path="/contact" element={<ContactPage />} />

@@ -1,9 +1,13 @@
 import * as React from "react";
+
+import { getQuestionAnswers } from "@/utils/resultsUtils/answerFunction";
+import { useParams } from "react-router-dom";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -13,107 +17,133 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-// const chartData = [];
-const chartConfig = {
-  views: {
-    label: "Page Views",
-  },
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "hsl(var(--chart-2))",
-  },
-} satisfies ChartConfig;
-export function Component() {
-  const [activeChart, setActiveChart] =
-    React.useState<keyof typeof chartConfig>("desktop");
-  const total = React.useMemo(
-    () => ({
-      desktop: chartData.reduce((acc, curr) => acc + curr.desktop, 0),
-      mobile: chartData.reduce((acc, curr) => acc + curr.mobile, 0),
-    }),
-    []
-  );
+
+import { YAxis, Tooltip, LabelList } from "recharts";
+
+export function ResponseBarChart() {
+  const { surveyId, questionId } = useParams<{
+    surveyId: string;
+    questionId: string;
+  }>();
+
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [error, setError] = React.useState<string | null>(null);
+  const [chartData, setChartData] = React.useState<
+    { value: number; count: number }[]
+  >([]);
+
+  React.useEffect(() => {
+    if (!surveyId || !questionId) {
+      console.error("Survey ID or Question ID is required but missing.");
+      setError("Survey ID and Question ID are required.");
+      setLoading(false);
+      return;
+    }
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        console.log(
+          "Fetching question answers for surveyId and questionId:",
+          surveyId,
+          questionId
+        );
+        const response = await getQuestionAnswers(surveyId, questionId);
+
+        if (response && response.success) {
+          console.log("Fetched question answers:", response.data);
+
+          // Extract answers and filter for valid range slider values (0-10)
+          const answers = response.data.answers
+            .map((a: any) => a.answer)
+            .filter((v: number) => v >= 0 && v <= 10);
+
+          // Count occurrences of each value from 0 to 10
+          const counts = Array.from({ length: 11 }, (_, i) => ({
+            value: i,
+            count: answers.filter((answer: number) => answer === i).length,
+          }));
+
+          console.log("Processed chart data:", counts);
+
+          // Set processed data to state
+          setChartData(counts);
+        } else {
+          console.error("Failed to fetch question answers.");
+          setError(response?.message || "Failed to fetch question answers.");
+        }
+      } catch (error) {
+        console.error("Error fetching question answers:", error);
+        setError("An error occurred while fetching question answers.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [surveyId, questionId]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
   return (
-    <Card>
-      <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
-        <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle>Bar Chart - Interactive</CardTitle>
-          <CardDescription>
-            Showing total visitors for the last 3 months
-          </CardDescription>
-        </div>
-        <div className="flex">
-          {["desktop", "mobile"].map((key) => {
-            const chart = key as keyof typeof chartConfig;
-            return (
-              <button
-                key={chart}
-                data-active={activeChart === chart}
-                className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
-                onClick={() => setActiveChart(chart)}
-              >
-                <span className="text-xs text-muted-foreground">
-                  {chartConfig[chart].label}
-                </span>
-                <span className="text-lg font-bold leading-none sm:text-3xl">
-                  {total[key as keyof typeof total].toLocaleString()}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </CardHeader>
-      <CardContent className="px-2 sm:p-6">
-        <ChartContainer
-          config={chartConfig}
-          className="aspect-auto h-[250px] w-full"
-        >
-          <BarChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              minTickGap={32}
-              tickFormatter={(value) => {
-                const date = new Date(value);
-                return date.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                });
+    <div className="flex justify-center ">
+      <Card className="w-auto h-auto">
+        <CardHeader>
+          <CardTitle>Enhanced Bar Chart</CardTitle>
+          <CardDescription>Displaying Range Slider Responses</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-row justify-center align-center">
+            <BarChart
+              data={chartData}
+              width={500}
+              height={300}
+              margin={{
+                top: 20,
+                right: 30,
+                left: 20,
+                bottom: 40, // Add extra space for values at the bottom
               }}
-            />
-            <ChartTooltip
-              content={
-                <ChartTooltipContent
-                  className="w-[150px]"
-                  nameKey="views"
-                  labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    });
-                  }}
-                />
-              }
-            />
-            <Bar dataKey={activeChart} fill={`var(--color-${activeChart})`} />
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-    </Card>
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                // dataKey="value"
+                // tickLine={false}
+                // tickMargin={10}
+                // axisLine={false}
+                label={{
+                  value: "Range Value",
+                  position: "insideBottom",
+                  offset: -20,
+                }}
+              />
+              <YAxis
+                label={{
+                  value: "Count",
+                  angle: -90,
+                  position: "insideLeft",
+                  offset: 0,
+                }}
+              />
+              <Tooltip cursor={{ fill: "rgba(0, 0, 0, 0.0)" }} />
+              <Bar
+                dataKey="count"
+                fill="var(--color-primary)"
+                radius={[4, 4, 0, 0]}
+              ></Bar>
+            </BarChart>
+          </div>
+        </CardContent>
+        <CardFooter className="flex-col items-start gap-2 text-sm">
+          <div className="flex gap-2 font-medium leading-none"></div>
+          <div className="leading-none text-muted-foreground">
+            Showing total number of responses
+          </div>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }
