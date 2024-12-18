@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import { getQuestionAnswers } from "@/utils/resultsUtils/answerFunction";
 import { useParams } from "react-router-dom";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
@@ -11,14 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-
-import { YAxis, Tooltip, LabelList } from "recharts";
+import { YAxis, Tooltip } from "recharts";
 
 export function ResponseBarChart() {
   const { surveyId, questionId } = useParams<{
@@ -105,7 +97,7 @@ export function ResponseBarChart() {
                 top: 20,
                 right: 30,
                 left: 20,
-                bottom: 40, // Add extra space for values at the bottom
+                bottom: 40,
               }}
             >
               <CartesianGrid vertical={false} />
