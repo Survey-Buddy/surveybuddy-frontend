@@ -5,7 +5,7 @@ import { getToken, decodeJWT, isUserLoggedIn } from "../utils/jwtToken";
 interface UserData {
   userId: string;
   username: string;
-  name: string;
+  firstName: string;
   email: string;
 }
 
@@ -42,7 +42,7 @@ export const UserDataProvider: React.FC<{ children: React.ReactNode }> = ({
         setUserData({
           userId: decoded.userId,
           username: decoded.username,
-          name: decoded.name,
+          firstName: decoded.firstName,
           email: decoded.email,
         });
       }
