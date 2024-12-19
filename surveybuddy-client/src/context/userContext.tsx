@@ -6,6 +6,7 @@ interface UserData {
   userId: string;
   username: string;
   firstName: string;
+  lastName: string;
   email: string;
 }
 
@@ -43,6 +44,7 @@ export const UserDataProvider: React.FC<{ children: React.ReactNode }> = ({
           userId: decoded.userId,
           username: decoded.username,
           firstName: decoded.firstName,
+          lastName: decoded.lastName,
           email: decoded.email,
         });
       }

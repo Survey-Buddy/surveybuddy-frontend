@@ -51,7 +51,7 @@ export function RegisterForm() {
       localStorage.setItem("Username", username);
 
       setToken(token, updateUserData);
-
+      console.log("username is: ", username);
       const message = isRegister
         ? `Welcome to SurveyBuddy, ${username}!`
         : `Welcome back to SurveyBuddy, ${username}!`;
@@ -120,22 +120,22 @@ export function RegisterForm() {
                     <p className="text-red-500">{errors.firstName.message}</p>
                   )}
                 </div>
-                {/* <div className="grid gap-2">
-            <Label htmlFor="lastName">Last Name</Label>
-            <Input
-              id="lastName"
-              type="text"
-              placeholder="Last Name"
-              
-              { ...register("lastName") }
-              // value={formData.lastName}
-              // onChange={(event) => setFormData({
-              //   ...formData, lastName: event.target.value
-              // })}
-            />
-            { errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
-            
-          </div> */}
+                <div className="grid gap-2">
+                  <Label htmlFor="lastName">Last Name</Label>
+                  <Input
+                    id="lastName"
+                    type="text"
+                    placeholder="Last Name"
+                    {...register("lastName")}
+                    // value={formData.lastName}
+                    // onChange={(event) => setFormData({
+                    //   ...formData, lastName: event.target.value
+                    // })}
+                  />
+                  {errors.lastName && (
+                    <p className="text-red-500">{errors.lastName.message}</p>
+                  )}
+                </div>
               </>
             )}
 
