@@ -8,25 +8,21 @@ export const Footer1 = () => {
       description: "",
     },
     {
-      title: "Use Cases",
+      title: "Our Surveys",
       description:
         "SurveyBuddy is a simple and intuitive full-stack web application designed to streamline survey creation, sharing, and data collection.",
       items: [
         {
-          title: "Reports",
-          to: "/reports",
+          title: "Analytics",
+          to: "/analytcis",
         },
         {
-          title: "Statistics",
-          to: "/statistics",
+          title: "Use Cases",
+          to: "/usecases",
         },
         {
-          title: "Dashboards",
-          to: "/dashboards",
-        },
-        {
-          title: "Recordings",
-          to: "/recordings",
+          title: "Respondents",
+          to: "/respondents",
         },
       ],
     },
@@ -37,14 +33,6 @@ export const Footer1 = () => {
         {
           title: "About us",
           to: "/about",
-        },
-        {
-          title: "Fundraising",
-          to: "/fundraising",
-        },
-        {
-          title: "Investors",
-          to: "/investors",
         },
         {
           title: "Contact us",
@@ -87,10 +75,10 @@ export const Footer1 = () => {
                 className="flex text-base gap-1 flex-col items-start "
               >
                 <div className="flex flex-col gap-2 ">
-                  <div>
+                  {/* <div>
                     <p>Contact</p>
                     <p>About</p>
-                  </div>
+                  </div> */}
 
                   {item.to ? (
                     <Link

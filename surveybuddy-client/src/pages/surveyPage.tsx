@@ -17,6 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Survey } from "@/utils/surveyUtils/surveyTypes";
 import CopyToClipboard from "@/components/main/copyToClipboard";
 import { Question } from "@/utils/questionUtils/questionTypes";
+import BASE_URL from "@/config/apiConfig";
 
 const SurveyPage: React.FC = () => {
   const { surveyId } = useParams<{ surveyId: string }>();
@@ -117,7 +118,7 @@ const SurveyPage: React.FC = () => {
   };
 
   return (
-    <div className=" w-full py-20 lg:py-40 min-w-700">
+    <div className="flex flex-row w-full py-20 lg:py-40 min-w-700">
       <div className="container mx-auto">
         <div className=" grid flex flex-col justify-center  gap-10">
           <div className="flex gap-10 flex flex-row ">
@@ -128,15 +129,23 @@ const SurveyPage: React.FC = () => {
 
               <div className="flex gap-2  flex-col">
                 <h4 className="text-3xl md:text-5xl tracking-tighter max-w-xl font-regular">
-                  {surveyData?.name ? `Title: ${surveyData.name}!` : ""}
+                  {surveyData?.name ? `${surveyData.name}!` : ""}
                 </h4>
                 <div className="flex flex-row justify-center">
                   <CopyToClipboard
-                    textToCopy={`https://surveybuddy.netlify.app/surveys/${surveyId}/response/1`}
+                    textToCopy={`${BASE_URL}/surveys/${surveyId}/response/1`}
                   ></CopyToClipboard>
                 </div>
+                <Link
+                  to={`${BASE_URL}/surveys/${surveyId}/response/1`}
+                  className="text-blue-500 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Survey
+                </Link>
                 <p>
-                  End Date:{" "}
+                  End{" "}
                   {surveyData?.formattedEndDate &&
                   surveyData.formattedEndDate !== "Unknown"
                     ? format(
@@ -146,18 +155,10 @@ const SurveyPage: React.FC = () => {
                     : "No end date provided"}
                 </p>
                 <p>
-                  Created:{" "}
+                  Start{" "}
                   {surveyData?.date
                     ? format(new Date(surveyData.date), "MMMM dd, yyyy")
                     : "No end date provided"}
-                </p>
-                <p>
-                  {surveyData?.organisation
-                    ? `Organisation: ${surveyData.organisation}`
-                    : ""}
-                </p>
-                <p>
-                  {surveyData?.purpose ? `Purpose: ${surveyData.purpose}` : ""}
                 </p>
 
                 <div className="m-1">
@@ -179,9 +180,19 @@ const SurveyPage: React.FC = () => {
                   <Link to={`/surveys/${surveyId}/analytics`}>
                     <Button>Analytics</Button>
                   </Link>
+                  <p>
+                    {surveyData?.organisation
+                      ? `Organisation: ${surveyData.organisation}`
+                      : ""}
+                  </p>
+                  <p>
+                    {surveyData?.purpose
+                      ? `Purpose: ${surveyData.purpose}`
+                      : ""}
+                  </p>
                   <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-muted-foreground">
                     {surveyData?.description
-                      ? `Description: ${surveyData?.description}`
+                      ? `${surveyData?.description}`
                       : ""}
                   </p>
                 </div>
@@ -193,27 +204,29 @@ const SurveyPage: React.FC = () => {
               </div>
             </div>
           </div>
-          <Accordion type="single" collapsible className="w-full">
-            {questionData.map((question, index) => (
-              <AccordionItem key={index} value={"index-" + index}>
-                <AccordionTrigger>
-                  Question number {question.questionNum}
-                </AccordionTrigger>
-                <AccordionContent>
-                  Question: {question.question}
-                </AccordionContent>
-                <AccordionContent>
-                  Question format:{" "}
-                  {questionFormatResponse(question.questionFormat)}
-                </AccordionContent>
-                <AccordionContent>
-                  <Link to={`/surveys/${surveyId}/${question._id}/results`}>
-                    <Button>Results</Button>
-                  </Link>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <div className="flex1 gap-8">
+            <Accordion type="single" collapsible className="w-full">
+              {questionData.map((question, index) => (
+                <AccordionItem key={index} value={"index-" + index}>
+                  <AccordionTrigger>
+                    Question number {question.questionNum}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Question: {question.question}
+                  </AccordionContent>
+                  <AccordionContent>
+                    Question format:{" "}
+                    {questionFormatResponse(question.questionFormat)}
+                  </AccordionContent>
+                  <AccordionContent>
+                    <Link to={`/surveys/${surveyId}/${question._id}/results`}>
+                      <Button>Results</Button>
+                    </Link>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </div>
       </div>
     </div>

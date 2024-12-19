@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { format } from "date-fns";
 import CopyToClipboard from "./copyToClipboard";
+import BASE_URL from "@/config/apiConfig";
 
 interface SurveyCardProps {
   _id: string;
@@ -42,7 +43,9 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({
           </Link>
         </h3>
         <div className="flex flex-row justify-center">
-          <CopyToClipboard textToCopy={`/survey/${_id}`}></CopyToClipboard>
+          <CopyToClipboard
+            textToCopy={`${BASE_URL}/surveys/${_id}/response/1`}
+          ></CopyToClipboard>
         </div>
 
         <h2>Organisation: {organisation}</h2>

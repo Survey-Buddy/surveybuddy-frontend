@@ -12,7 +12,8 @@ import { Link } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { format } from "date-fns";
 import { Survey } from "../../utils/surveyUtils/surveyTypes";
-import CopyToClipboard from "./copyToClipboard";
+import { Link2 } from "lucide-react";
+import BASE_URL from "@/config/apiConfig";
 
 interface SurveyListProps {
   surveys: Survey[];
@@ -56,9 +57,9 @@ export const SurveyList: React.FC<SurveyListProps> = ({ surveys }) => {
                   : "No end date"}
               </TableCell>
               <TableCell>
-                <CopyToClipboard
-                  textToCopy={`/survey/${survey._id}`}
-                ></CopyToClipboard>
+                <Link to={`${BASE_URL}/surveys/${survey._id}/response/1`}>
+                  <Link2></Link2>
+                </Link>
               </TableCell>
             </TableRow>
           ))}
