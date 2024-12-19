@@ -7,18 +7,13 @@ export default async function getQuestionsData(
   surveyId: string
 ): Promise<Question[] | null> {
   try {
-    const token = getToken();
-    if (!token) {
-      throw new Error("Token not found");
-    }
+    // const token = getToken();
+    // if (!token) {
+    //   throw new Error("Token not found");
+    // }
 
     const response = await axios.get(
-      `${BASE_URL}/surveys/${surveyId}/questions`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      `${BASE_URL}/surveys/${surveyId}/questions`
     );
     console.log("Base URL is: ", BASE_URL);
     return response.data.data;
@@ -35,18 +30,8 @@ export async function getQuestionData(
   questionId: string
 ): Promise<Question | null> {
   try {
-    const token = getToken();
-    if (!token) {
-      throw new Error("Token not found");
-    }
-
     const response = await axios.get(
-      `${BASE_URL}/surveys/${surveyId}/questions/${questionId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      `${BASE_URL}/surveys/${surveyId}/questions/${questionId}`
     );
     console.log("Specific question data: ", response.data);
     return response.data.data;

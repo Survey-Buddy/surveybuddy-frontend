@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import getQuestionData from "@/utils/questionUtils/questionFunctions";
+import getQuestionsData from "@/utils/questionUtils/questionFunctions";
 import {
   //   isRangeSliderDetails,
   isMultiChoiceDetails,
@@ -88,7 +88,7 @@ const SurveyQuestionPage: React.FC = () => {
     const fetchQuestions = async () => {
       if (!surveyId) return console.log("No surveyId");
       try {
-        const data = await getQuestionData(surveyId);
+        const data = await getQuestionsData(surveyId);
         if (!data) {
           console.log("Error fetching question data.");
           return;
@@ -193,8 +193,9 @@ const SurveyQuestionPage: React.FC = () => {
           </CardHeader>
 
           <form
-            onSubmit=// @ts-expect-error handleAnswerSubmit type error
-            {handleSubmit(handleAnswerSubmit)}
+            onSubmit={handleSubmit( // @ts-expect-error handleAnswerSubmit type error
+              handleAnswerSubmit
+            )}
           >
             <CardContent className="space-y-2">
               {currentQuestion?.questionFormat === "writtenResponse" && (

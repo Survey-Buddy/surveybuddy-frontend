@@ -111,16 +111,7 @@ export default async function getSurveys(): Promise<Survey[]> {
 
 export async function getSurveyData(surveyId: string): Promise<Survey | null> {
   try {
-    const token = getToken();
-    if (!token) {
-      throw new Error("User is not authenticated. Token is missing.");
-    }
-
-    const response = await axios.get(`${BASE_URL}/surveys/${surveyId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(`${BASE_URL}/surveys/${surveyId}`);
     console.log("Survey data", response.data);
     return response.data.data;
   } catch (error) {
