@@ -17,7 +17,6 @@ import { Badge } from "@/components/ui/badge";
 import { Survey } from "@/utils/surveyUtils/surveyTypes";
 import CopyToClipboard from "@/components/main/copyToClipboard";
 import { Question } from "@/utils/questionUtils/questionTypes";
-import BASE_URL from "@/config/apiConfig";
 
 const SurveyPage: React.FC = () => {
   const { surveyId } = useParams<{ surveyId: string }>();
@@ -133,11 +132,11 @@ const SurveyPage: React.FC = () => {
                 </h4>
                 <div className="flex flex-row justify-center">
                   <CopyToClipboard
-                    textToCopy={`${BASE_URL}/surveys/${surveyId}/response/1`}
+                    textToCopy={`https://surveybuddy.netlify.app/surveys/${surveyId}/response/1`}
                   ></CopyToClipboard>
                 </div>
                 <Link
-                  to={`${BASE_URL}/surveys/${surveyId}/response/1`}
+                  to={`https://surveybuddy.netlify.app/surveys/${surveyId}/response/1`}
                   className="text-blue-500 hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"

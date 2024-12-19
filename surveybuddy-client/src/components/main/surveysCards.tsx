@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { format } from "date-fns";
 import CopyToClipboard from "./copyToClipboard";
-import BASE_URL from "@/config/apiConfig";
 
 interface SurveyCardProps {
   _id: string;
@@ -44,7 +43,7 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({
         </h3>
         <div className="flex flex-row justify-center">
           <CopyToClipboard
-            textToCopy={`${BASE_URL}/surveys/${_id}/response/1`}
+            textToCopy={`https://surveybuddy.netlify.app/surveys/${_id}/response/1`}
           ></CopyToClipboard>
         </div>
 
