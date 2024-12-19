@@ -28,7 +28,6 @@ export function ResponseBarChart() {
   React.useEffect(() => {
     if (!surveyId || !questionId) {
       console.error("Survey ID or Question ID is required but missing.");
-      setError("Survey ID and Question ID are required.");
       setLoading(false);
       return;
     }

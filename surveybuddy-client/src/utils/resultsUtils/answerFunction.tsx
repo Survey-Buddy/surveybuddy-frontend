@@ -40,7 +40,7 @@ export async function getAllSurveyAnswers(
   try {
     const token = getToken();
     const response = await axios.get<ApiResponse<Answer[]>>(
-      `http://localhost:8080/answers/${surveyId}`,
+      `${BASE_URL}/answers/${surveyId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ export async function getQuestionAnswers(
   try {
     const token = getToken();
     const response = await axios.get<ApiResponse<Answer>>(
-      `http://localhost:8080/answers/${surveyId}/${questionId}`,
+      `${BASE_URL}/answers/${surveyId}/${questionId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

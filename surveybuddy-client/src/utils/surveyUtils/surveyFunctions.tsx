@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { getToken } from "../jwtToken";
 import sortSurveys from "../surveyUtils/sortSurveys";
 import { Survey } from "./surveyTypes";
+import BASE_URL from "@/config/apiConfig";
 
 export async function updateSurvey(
   surveyId: string,
@@ -14,7 +15,7 @@ export async function updateSurvey(
     }
 
     const response = await axios.patch(
-      `http://localhost:8080/surveys/${surveyId}/editSurvey`,
+      `${BASE_URL}/surveys/${surveyId}/editSurvey`,
       updatedSurvey,
       {
         headers: {
@@ -46,7 +47,7 @@ export async function createSurvey(
     if (!token) {
       throw new Error("User is not authenticated. Token is missing.");
     }
-    const response = await axios.post("http://localhost:8080/surveys", data, {
+    const response = await axios.post(`${BASE_URL}/surveys`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -78,7 +79,7 @@ export default async function getSurveys(): Promise<Survey[]> {
       throw new Error("User is not authenticated. Token is missing.");
     }
 
-    const response = await axios.get("http://localhost:8080/surveys/", {
+    const response = await axios.get(`${BASE_URL}/surveys/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -115,14 +116,11 @@ export async function getSurveyData(surveyId: string): Promise<Survey | null> {
       throw new Error("User is not authenticated. Token is missing.");
     }
 
-    const response = await axios.get(
-      `http://localhost:8080/surveys/${surveyId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.get(`${BASE_URL}/surveys/${surveyId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log("Survey data", response.data);
     return response.data.data;
   } catch (error) {
@@ -140,7 +138,7 @@ export const deleteSurvey = async (
       throw new Error("Token not found");
     }
     const response = await axios.delete(
-      `http://localhost:8080/surveys/${surveyId}/deleteSurvey`,
+      `${BASE_URL}/surveys/${surveyId}/deleteSurvey`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

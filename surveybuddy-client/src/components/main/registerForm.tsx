@@ -16,6 +16,7 @@ import { setToken } from "@/utils/jwtToken";
 import { useUserData } from "../../context/userContext";
 import { User } from "@/utils/userUtils/userTypes";
 import { loginSchema, registerSchema } from "@/utils/userUtils/userSchema";
+import BASE_URL from "@/config/apiConfig";
 
 export function RegisterForm() {
   const location = useLocation();
@@ -35,8 +36,8 @@ export function RegisterForm() {
   const onSubmit = async (data: User) => {
     try {
       const endpoint = isRegister
-        ? "http://localhost:8080/users/signup"
-        : "http://localhost:8080/users/login";
+        ? `${BASE_URL}/users/signup`
+        : `${BASE_URL}/users/login`;
 
       const response = await axios.post(endpoint, data);
       if (!response) {

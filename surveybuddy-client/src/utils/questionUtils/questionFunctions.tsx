@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getToken } from "../jwtToken";
 import { Question } from "./questionTypes";
+import BASE_URL from "@/config/apiConfig";
 
 export default async function getQuestionData(
   surveyId: string
@@ -12,14 +13,14 @@ export default async function getQuestionData(
     }
 
     const response = await axios.get(
-      `http://localhost:8080/surveys/${surveyId}/questions`,
+      `${BASE_URL}/surveys/${surveyId}/questions`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     );
-
+    console.log("Base URL is: ", BASE_URL);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching question data: ", error);
@@ -38,7 +39,7 @@ export async function createQuestion(
 
     console.log("Payload sent to backend: ", payload);
     const response = await axios.post(
-      `http://localhost:8080/surveys/${payload.surveyId}/questions`,
+      `${BASE_URL}/surveys/${payload.surveyId}/questions`,
       payload,
       {
         headers: {
