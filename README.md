@@ -319,3 +319,13 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - Completed the range slider graph, question data still needs to be fetched and displayed.
 
 ![18th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_18:12.png)
+
+#### 19th December
+
+- Deployed teh backend on Render and moved the card to _Done_.
+- Fixed many cross deployment bugs.
+- Build multi choice answer pie graphs using Shadcn and written response answer list of cards. Moved Result data visualisation card to _Done_.
+- Conpleted a very simple contacts page (still needs email registration), and moved the card to _Done_.
+- Continued with Insomnia route testing and taking screenshots of responses for readme.
+
+![19th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_19:12.png)
