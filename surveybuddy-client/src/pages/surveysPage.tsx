@@ -26,7 +26,7 @@ const SurveysPage: React.FC = () => {
             respondents: survey.respondents || "public",
             description: survey.description || "",
             active: survey.active ?? false,
-            date: survey.date || "",
+            date: typeof survey?.date === "string" ? survey.date : "",
             endDate: survey.endDate || "",
             userId: survey.userId || "Unknown",
             purpose: survey.purpose || "General",
