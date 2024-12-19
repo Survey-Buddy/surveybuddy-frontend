@@ -19,7 +19,7 @@ const ContactPage = () => {
 
     // Add your email sending logic here
     alert(
-      "Apologize, but messaging is currently unavailable. Please contact us directly at surveybuddy@gmail.com"
+      "Apologize, but messaging is currently unavailable. Please contact us directly at thomas.h.martin89@gmail.com"
     );
 
     // Reset the form

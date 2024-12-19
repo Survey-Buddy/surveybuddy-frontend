@@ -219,7 +219,9 @@ const SurveyPage: React.FC = () => {
                     {questionFormatResponse(question.questionFormat)}
                   </AccordionContent>
                   <AccordionContent>
-                    <Link to={`/surveys/${surveyId}/${question._id}/results`}>
+                    <Link
+                      to={`/surveys/${surveyId}/${question._id}/results?questionFormat=${question.questionFormat}`}
+                    >
                       <Button>Results</Button>
                     </Link>
                   </AccordionContent>
