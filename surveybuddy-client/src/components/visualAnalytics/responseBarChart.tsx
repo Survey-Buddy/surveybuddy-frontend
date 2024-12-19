@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/card";
 import { YAxis, Tooltip } from "recharts";
 import { Answer } from "@/utils/resultsUtils/resultsTypes";
+import { getQuestionData } from "@/utils/questionUtils/questionFunctions";
+import { Question } from "@/utils/questionUtils/questionTypes";
 
 export function ResponseBarChart() {
   const { surveyId, questionId } = useParams<{
@@ -21,6 +23,7 @@ export function ResponseBarChart() {
 
   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<string | null>(null);
+  const [questionData, setQuestionData] = React.useState<Question | null>();
   const [chartData, setChartData] = React.useState<
     { value: number; count: number }[]
   >([]);
@@ -31,6 +34,27 @@ export function ResponseBarChart() {
       setLoading(false);
       return;
     }
+
+    const fetchQuestionData = async () => {
+      try {
+        const questionDataResponse = await getQuestionData(
+          surveyId,
+          questionId
+        );
+        setLoading(true);
+        setError(null);
+
+        if (questionDataResponse) {
+          console.log("Fetched question answers:", questionDataResponse);
+        }
+        setQuestionData(questionDataResponse);
+      } catch (error) {
+        console.error("Error fetching question answers:", error);
+        setError("An error occurred while fetching question answers.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
     const fetchData = async () => {
       try {
@@ -75,7 +99,7 @@ export function ResponseBarChart() {
         setLoading(false);
       }
     };
-
+    fetchQuestionData();
     fetchData();
   }, [surveyId, questionId]);
 
@@ -86,7 +110,7 @@ export function ResponseBarChart() {
     <div className="flex justify-center ">
       <Card className="w-auto h-auto">
         <CardHeader>
-          <CardTitle>Enhanced Bar Chart</CardTitle>
+          <CardTitle>{questionData?.question}</CardTitle>
           <CardDescription>Displaying Range Slider Responses</CardDescription>
         </CardHeader>
         <CardContent>
@@ -104,15 +128,15 @@ export function ResponseBarChart() {
             >
               <CartesianGrid vertical={false} />
               <XAxis
-                // dataKey="value"
-                // tickLine={false}
-                // tickMargin={10}
-                // axisLine={false}
-                label={{
-                  value: "Range Value",
-                  position: "insideBottom",
-                  offset: -20,
-                }}
+              // dataKey="value"
+              // tickLine={false}
+              // tickMargin={10}
+              // axisLine={false}
+              // label={{
+              //   value: "Range Value",
+              //   position: "insideBottom",
+              //   offset: -20,
+              // }}
               />
               <YAxis
                 label={{
@@ -129,6 +153,27 @@ export function ResponseBarChart() {
                 radius={[4, 4, 0, 0]}
               ></Bar>
             </BarChart>
+          </div>
+          <div className="ml-[13%] mt-[0]">
+            {questionData?.rangeDescription === "no" ? (
+              <div className="flex justify-between w-full">
+                <p>No</p>
+                <p>Maybe</p>
+                <p>Yes</p>{" "}
+              </div>
+            ) : questionData?.rangeDescription === "notAtAll" ? (
+              <div className="flex justify-between w-full">
+                <p>Not At All</p>
+                <p>Not Sure</p>
+                <p>Completely</p>{" "}
+              </div>
+            ) : (
+              <div className="flex justify-between w-full">
+                <p>Disagree</p>
+                <p>I&apos;m Partial</p>
+                <p>Completely Agree</p>{" "}
+              </div>
+            )}
           </div>
         </CardContent>
         <CardFooter className="flex-col items-start gap-2 text-sm">
