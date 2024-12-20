@@ -5,8 +5,8 @@ import { getToken, decodeJWT, isUserLoggedIn } from "../utils/jwtToken";
 interface UserData {
   userId: string;
   username: string;
-  firstName: string;
-  lastName: string;
+  //   firstName: string;
+  //   lastName: string;
   email: string;
 }
 
@@ -16,7 +16,7 @@ interface UserDataContextType {
   updateUserData: () => void;
 }
 
-// Create the context with a default value of null for userData and a no-op for updateUserData
+// Create the context with a default value of null for userData
 const UserDataContext = createContext<UserDataContextType | undefined>(
   undefined
 );
@@ -43,8 +43,8 @@ export const UserDataProvider: React.FC<{ children: React.ReactNode }> = ({
         setUserData({
           userId: decoded.userId,
           username: decoded.username,
-          firstName: decoded.firstName,
-          lastName: decoded.lastName,
+          //   firstName: decoded.firstName,
+          //   lastName: decoded.lastName,
           email: decoded.email,
         });
       }
