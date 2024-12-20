@@ -2,7 +2,9 @@
 
 ## Part B
 
-# Tech Stack
+---
+
+## Tech Stack
 
 <details>
 <summary>View</summary>
@@ -244,6 +246,10 @@ By following these approaches, the project ensures that every piece of functiona
 
 ### Crucial Decisions
 
+<details>
+<summary>View</summary>
+</br>
+
 **Schema Design Options**
 Here are the options I considered for structuring the database:
 
@@ -270,7 +276,427 @@ Here are the options I considered for structuring the database:
 
 I chose Option 1 because it’s the most efficient and professional design for a real-world app. It separates concerns, making it easier to add features or scale the app later. It also demonstrates my ability to design a well-structured, normalised, and scalable database, which is an important skill in full-stack development. This approach is ideal for a school project where I want to showcase my expertise.
 
-### Trello Board Tracking
+</details>
+
+### **CMP1002-2.1: Demonstration of Code Flow Control**
+
+<details>
+<summary>View</summary>
+</br>
+
+The application effectively demonstrates code flow control by utilising conditional logic, loops, error handling, and asynchronous operations to manage how the application processes data and handles various scenarios. The following examples highlight how this is achieved:
+
+---
+
+#### **1. Conditional Logic**
+
+- Conditional statements are used to handle various application states and behaviours. Examples include:
+  - Checking if required fields are provided in the backend before processing API requests.
+  - Verifying user authentication and authorisation using middleware before allowing access to protected routes.
+  - Dynamically rendering UI elements based on user roles or data availability.
+
+#### **2. Loops and Iteration**
+
+- Iterative logic is applied in key areas of the application, such as:
+  - Mapping over datasets to dynamically generate UI elements (e.g., survey lists, form inputs).
+  - Iterating over responses from the database to format or filter data for specific frontend needs.
+
+#### **3. Error Handling**
+
+- Try-catch blocks are implemented to manage errors in both synchronous and asynchronous operations. For example:
+  - API calls include error handling to provide meaningful feedback to the user in case of failures.
+  - Validation errors in forms and database operations are caught and appropriately handled to prevent application crashes.
+
+#### **4. Asynchronous Operations**
+
+- Asynchronous code is used extensively to handle operations like:
+  - Fetching data from external APIs or the database using `async/await`.
+  - Updating the UI in real-time after receiving responses from the server.
+  - Managing race conditions by awaiting specific operations before proceeding (e.g., user authentication before accessing dashboard data).
+
+#### **5. Middleware for Controlled Flow**
+
+- Middleware is used in the backend to control the flow of requests:
+  - Authenticating users and rejecting unauthorised access.
+  - Validating request data and blocking invalid inputs before they reach the main logic.
+
+#### **6. Frontend State Control**
+
+- React's state management is used to handle UI and data flow efficiently:
+  - Loading states are implemented to control what is displayed while awaiting API responses.
+  - Context is used to manage global states, such as user data and theme preferences, ensuring a consistent flow of information across components.
+
+---
+
+By implementing these strategies, the application ensures controlled, predictable, and efficient execution of code, meeting the requirements for demonstrating code flow control.
+
+</details>
+
+### **CMP1002-2.2: Application of Object-Oriented Principles/Patterns**
+
+<details>
+<summary>View</summary>
+</br>
+
+The application demonstrates superior use of object-oriented principles and patterns to enhance maintainability, scalability, and serviceability. The following object-oriented principles and patterns are applied throughout the app:
+
+---
+
+#### **1. Encapsulation**
+
+- **Database Models**: Encapsulation is applied through modular MongoDB models (`Survey`, `User`, etc.), where each model defines its own properties and methods, ensuring a clear separation of concerns.
+- **Controllers**: Backend logic is encapsulated into controller functions that handle specific responsibilities, such as creating, updating, or deleting resources. This structure prevents duplication and keeps related logic together.
+
+#### **2. Inheritance**
+
+- Shared middleware functions (e.g., for authentication and role validation) act as a base layer for route-specific middleware, following an inheritance-like structure. For example:
+  - `isCreator` middleware extends basic authentication checks by adding role-specific logic.
+
+#### **3. Polymorphism**
+
+- Polymorphism is demonstrated in:
+  - **Frontend Reusability**: Reusable React components (e.g., buttons, modals, forms) adapt to different contexts using props, allowing a single component to handle multiple use cases.
+  - **Backend Methods**: Overriding default Mongoose schema methods (e.g., `toJSON`) for formatting database output to suit the application's requirements.
+
+#### **4. Abstraction**
+
+- **Utilities and Services**: Common logic, such as validation, API requests, and error handling, is abstracted into utility functions and shared services. This abstraction hides implementation details while exposing clear, reusable interfaces.
+- **Routes**: Backend routing uses layered abstraction:
+  - Routes define the entry points.
+  - Middleware handles common processing (e.g., validation, authentication).
+  - Controllers handle the core business logic.
+
+#### **5. Modular Design**
+
+- The project is structured into self-contained modules:
+  - Models, controllers, and routes are separated to ensure a clear and maintainable architecture.
+  - Shared components, utilities, and constants are stored in dedicated folders to promote reuse and consistency.
+
+#### **6. Single Responsibility Principle (SRP)**
+
+- Each class, function, and module is designed to perform a single responsibility:
+  - Controllers focus solely on business logic.
+  - Middleware handles authentication, validation, and error checking.
+  - React components handle specific UI elements without coupling logic.
+
+#### **7. Dependency Injection**
+
+- The app follows dependency injection principles:
+  - Middleware injects required data (e.g., `req.user`) into controllers.
+  - Components receive data and actions as props, promoting testability and flexibility.
+
+#### **8. Positive Impact on Maintainability and Serviceability**
+
+- The use of these object-oriented principles has the following benefits:
+  - **Maintainability**: Clear separation of concerns ensures that changes can be made in one area without affecting others.
+  - **Scalability**: Modular design and reusable patterns make it easy to add new features or expand existing functionality.
+  - **Serviceability**: Abstraction and encapsulation reduce code complexity, making debugging and updates straightforward.
+
+---
+
+By incorporating these object-oriented principles and patterns throughout the application, the project ensures high code quality, maintainability, and scalability while adhering to professional development standards.
+
+</details>
+
+### **CMP1002-4.1: Employ and Utilise Proper Source Control Methodology**
+
+<details>
+<summary>View</summary>
+</br>
+
+This project demonstrates excellent use of source control methodology, with consistent and thorough application of version control practices throughout its development. As a solo project, all source control activities were performed by a single developer, ensuring clear documentation and management of the entire codebase.
+
+---
+
+#### **1. Frequent and Consistent Commits**
+
+- Over 150 commits were made across the frontend and backend repositories, reflecting consistent and focused development efforts.
+- Commits were made on nearly every day of the project, with only two days without commits, highlighting sustained progress and commitment.
+- Each commit represented a specific task or feature, ensuring clarity and traceability.
+
+#### **2. Structured Branching and Merging**
+
+- Feature branches were created for new functionality, and all changes were merged into the main branch upon completion and testing.
+- A clear branching strategy was used to separate work on features, fixes, and enhancements, ensuring the stability of the main branch.
+- Merges were performed regularly to keep the main branch up to date and to prevent conflicts.
+
+#### **3. Use of Pull Requests**
+
+- Pull requests were created for all significant updates, providing a structured way to review and test changes before merging into the main branch.
+- This practice ensured code quality and maintained the integrity of the project even as a solo developer.
+
+#### **4. Meaningful Commit Messages**
+
+- Commit messages were detailed, describing the purpose of each change. This ensured a clear and understandable Git history.
+  - Example: "Implement user authentication with JWT," "Fix responsive design for survey dashboard," "Add validation to survey creation form."
+
+#### **5. Frontend and Backend Source Control**
+
+- Commits were evenly distributed between the frontend and backend, with both repositories showing consistent activity and progress.
+- Version control practices were applied uniformly across both sections, ensuring the same level of organisation and quality.
+
+#### **6. Source Control for Collaboration and Recovery**
+
+- Although this was a solo project, best practices for collaborative workflows were applied:
+  - Clear commit messages and pull requests provided documentation suitable for team environments.
+  - Git history served as a reliable backup, enabling recovery or rollbacks if needed.
+
+---
+
+#### **Impact on Project Development**
+
+- **Consistency**: Frequent commits and a disciplined workflow ensured steady progress throughout the project.
+- **Traceability**: The Git history provided a clear record of changes, making it easy to track progress and debug issues.
+- **Maintainability**: Structured use of branches, pull requests, and clear commit messages resulted in a clean and maintainable codebase.
+
+This project demonstrates superior source control methodology, meeting the requirements for CMP1002-4.1 through consistent commits, structured workflows, and detailed documentation of development activities.
+
+</details>
+
+### **CMP1003-6.2: Employ and Utilise Project Management Methodology**
+
+<details>
+<summary>View</summary>
+</br>
+
+This project demonstrates the effective use of project management methodology by implementing a structured and organised workflow using a Trello board. Clear standards for planning and task management were defined and consistently adhered to throughout the development process.
+
+---
+
+#### **1. Use of Trello Board**
+
+- A Trello board was employed to manage the project, ensuring tasks were clearly defined, prioritised, and tracked.
+- Cards represented individual tasks, features, or requirements, with detailed descriptions, labels, and covers for easy identification.
+
+#### **2. Task Labels for Difficulty**
+
+- Tasks were labelled based on their difficulty to aid prioritisation and planning:
+  - **Green**: Easy tasks.
+  - **Yellow**: Medium difficulty tasks.
+  - **Red**: Hard tasks.
+
+#### **3. Card Covers for Build Areas**
+
+- Card covers were colour-coded to section tasks into specific areas of the build:
+  - **Green**: Testing.
+  - **Purple**: Frontend development.
+  - **Pink**: User interface (UI) design.
+  - **Light Blue**: Backend development.
+  - **Blue**: Other tasks.
+
+#### **4. Columns for Workflow Management**
+
+- The board included columns for:
+  - **Doing**: Tasks actively being worked on.
+  - **Done**: Completed tasks.
+  - **Signed Off**: Tasks reviewed and approved.
+- These columns helped visualise the project's progress and ensured tasks moved through a structured workflow.
+
+#### **5. Sprint Organisation**
+
+- Tasks were grouped into sprints, providing a clear timeline for achieving specific goals within defined timeframes.
+- This approach ensured the project remained on track and progress could be easily monitored.
+
+---
+
+#### **Impact on Project Development**
+
+- **Organisation**: The Trello board provided a clear and structured overview of the project, making it easy to track progress and manage tasks effectively.
+- **Clarity**: Labels and colour-coded covers enhanced the visibility of task priorities and build areas.
+- **Accountability**: The workflow columns ensured tasks were completed and signed off systematically, reducing the risk of missed requirements.
+- **Efficiency**: Sprint planning allowed for focused and manageable work cycles, leading to consistent and measurable progress.
+
+This project showcases the successful use of a project management methodology with well-defined standards, ensuring clarity, organisation, and adherence to planning throughout the development process.
+
+</details>
+
+### **CMP1002-3.1: App Functionality**
+
+<details>
+<summary>View</summary>
+</br>
+
+The application demonstrates outstanding functionality, meeting and exceeding client and user needs by delivering an intuitive and feature-rich experience. The following features highlight how the app achieves this:
+
+---
+
+#### **1. Easy Navigation**
+
+- The app is designed with a clean and straightforward user interface, allowing users to easily access all functionalities without confusion.
+- A tab-based single-page system ensures a seamless and efficient workflow for survey creation and management.
+
+#### **2. Survey Creation**
+
+- Users can create new surveys with minimal effort, supported by a simple and intuitive process.
+- The use of a single-page tab system allows users to:
+  - Add questions directly to a survey without navigating away from the current page.
+  - View and manage all survey details in one place.
+
+#### **3. Visual Data Representation**
+
+- The app includes visual tools for analysing survey responses:
+  - **Pie Chart**: Displays results for multiple-choice questions, offering a clear and engaging way to visualise response distribution.
+  - **Bar Graph**: Represents responses from range slider questions (e.g., 0-10 ratings), enabling users to easily identify trends.
+  - **List View**: Displays written responses in a clear, readable format, ensuring all data types are accessible.
+
+#### **4. Editable and Deletable Surveys**
+
+- Surveys can be edited and updated, allowing users to adjust questions or settings after creation.
+- Surveys are also deletable, providing flexibility in managing survey data.
+
+#### **5. Copy Link Functionality**
+
+- The app includes auto-click link icons to copy survey URLs directly, making it effortless for users to share surveys with participants.
+
+---
+
+#### **Impact on User Experience**
+
+- **Ease of Use**: Intuitive design ensures users can navigate and use the app without requiring training or documentation.
+- **Efficiency**: Single-page tabs streamline survey creation and management, reducing the time and effort needed for these tasks.
+- **Data Analysis**: Built-in visualisations and response lists exceed expectations by offering powerful insights into survey results in a user-friendly manner.
+- **Flexibility**: The ability to edit, delete, and easily share surveys ensures the app adapts to the dynamic needs of its users.
+
+This application not only meets client and user expectations but also exceeds them by providing a feature-rich, intuitive, and visually appealing solution for survey creation and analysis.
+
+</details>
+
+### **CMP1002-4.2: Deployment**
+
+<details>
+<summary>View</summary>
+</br>
+
+The application demonstrates a successful and professional deployment process, meeting all requirements for CMP1002-4.2 by using cloud hosting services, environment variables, a custom domain name, and consistent database types across environments.
+
+---
+
+#### **1. Cloud Hosting Services**
+
+- The frontend was successfully deployed on **Netlify**, ensuring fast, reliable, and globally distributed delivery of the application.
+- The backend was deployed on **Render**, providing a scalable and secure platform for handling API requests and server-side functionality.
+
+#### **2. Custom Domain Name**
+
+- A custom domain name, **surveybuddy.tech**, was configured and integrated with the deployment to provide a professional and easily recognisable web address.
+
+#### **3. Consistent Database Usage**
+
+- The application uses the same **MongoDB** database for both production and testing environments, ensuring consistency and reliability in data handling.
+- A separate test database was used for local development and testing, maintaining a clean separation from production data.
+
+#### **4. Use of Environment Variables**
+
+- **Environment variables** were utilised to securely manage sensitive information such as:
+  - Database connection strings.
+  - API keys.
+  - Authentication secrets.
+- This approach ensures the secure and seamless management of configuration settings across different environments.
+
+---
+
+#### **Impact on Project Development**
+
+- **Reliability**: Cloud hosting on Netlify and Render ensures the app is highly available and performant for end users.
+- **Professionalism**: The custom domain name enhances the app’s credibility and branding.
+- **Consistency**: Using the same database type across production, testing, and development environments minimises discrepancies and ensures predictable behaviour.
+- **Security**: Environment variables protect sensitive information and make the deployment process more secure and adaptable.
+
+The successful deployment of the application with a custom domain and consistent production practices demonstrates a high level of technical proficiency and professionalism.
+
+</details>
+
+### **CMP1002-3.2: User Interface**
+
+<details>
+<summary>View</summary>
+</br>
+
+The application features a highly intuitive user interface, ensuring smooth and effortless user flow. The following elements demonstrate how the interface supports and enhances the user experience:
+
+---
+
+#### **1. Navigation Bar**
+
+- A clearly designed navigation bar provides users with easy access to all key areas of the application.
+- The navigation options are straightforward and labelled appropriately, ensuring users can move between sections without confusion.
+
+#### **2. Back Buttons**
+
+- Back buttons are consistently placed and function as expected, enabling users to return to the previous step or page with ease.
+- This reduces cognitive load and allows users to navigate the app fluidly.
+
+#### **3. Seamless User Flow**
+
+- The interface is structured logically, guiding users through tasks like creating surveys, adding questions, and reviewing responses without unnecessary steps.
+- A consistent design language ensures users intuitively understand how to interact with the app, even on their first use.
+
+#### **4. Simplicity and Clarity**
+
+- The interface prioritises simplicity, avoiding clutter or overly complex elements.
+- Clear labels, buttons, and prompts ensure users know what actions to take at every step.
+
+---
+
+#### **Impact on User Experience**
+
+- **Ease of Use**: The intuitive navigation bar and back buttons eliminate barriers, making the app accessible to all users.
+- **Efficiency**: The straightforward design allows users to complete tasks quickly and without frustration.
+- **Consistency**: The consistent placement of UI elements builds user confidence and trust in the app's functionality.
+
+The user interface is highly intuitive, with no impediments to user flow, ensuring an exceptional experience for all users.
+
+</details>
+
+### **CMP1002-5.1: Development Testing**
+
+<details>
+<summary>View</summary>
+</br>
+
+The application demonstrates extensive development testing, ensuring all features are robust and reliable. Both the frontend and backend were thoroughly tested using appropriate tools and methodologies.
+
+---
+
+#### **1. Backend Testing with Insomnia**
+
+- **Insomnia** was utilised to test all backend API endpoints during development:
+  - Endpoints were tested with various scenarios, including valid, invalid, and edge-case inputs.
+  - Responses were verified to ensure they returned the expected data, status codes, and error messages.
+  - Testing included user authentication, survey creation, question handling, and response retrieval.
+  - Database interactions were validated to ensure no data inconsistencies occurred.
+
+#### **2. Frontend Testing with Vite**
+
+- **Vite's development server** was used extensively for frontend testing:
+  - Hot module replacement (HMR) enabled real-time feedback during UI development, ensuring a smooth user experience.
+  - User flows were tested, such as survey creation, question addition, editing, and response viewing.
+  - Browser testing ensured the app performed consistently across different environments and screen sizes.
+
+#### **3. Combined Testing**
+
+- Frontend and backend interactions were tested together to simulate real-world use cases:
+  - Surveys were created, edited, and deleted through the frontend, with results verified in both the UI and database.
+  - Form validation was tested to ensure error messages displayed appropriately for invalid inputs.
+  - Data visualisations, such as pie charts and bar graphs, were tested with dynamic datasets to ensure accuracy.
+
+---
+
+#### **Impact on Application Quality**
+
+- **Reliability**: Thorough testing ensured all features worked as intended, even under edge-case scenarios.
+- **User Experience**: Continuous testing during development led to a seamless and bug-free experience for users.
+- **Consistency**: Backend and frontend testing guaranteed reliable communication between components, preventing data inconsistencies.
+
+This extensive testing process demonstrates a commitment to delivering a high-quality application that meets user expectations.
+
+</details>
+
+## Trello Board Tracking
+
+<details>
+<summary>View</summary>
+</br>
 
 #### 25th of November - Let The Build Begin!
 
@@ -559,3 +985,5 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - Continued with Insomnia route testing and taking screenshots of responses for readme.
 
 ![19th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_19:12.png)
+
+</details>
