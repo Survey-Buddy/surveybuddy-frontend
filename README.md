@@ -2,19 +2,95 @@
 
 ## Part B
 
-#### Tech Stack
+# Tech Stack
 
-- React
-  - react forms
-  - react router dom
-- TypeScript
-- D3.js
-- Bootstrap
-- Chakra UI
+<details>
+<summary>View</summary>
+</br>
+
+## Frontend
+
+- **[Vite](https://vitejs.dev/)**: A fast and modern build tool that provides a seamless development experience with features like hot module replacement (HMR).
+- **[React](https://reactjs.org/)**: A JavaScript library for building user interfaces with a component-based architecture.
+- **[ShadCN](https://shadcn.dev/)**: A component library that integrates Tailwind CSS and Radix UI primitives for building accessible and customizable UI elements.
+- **[Tailwind CSS](https://tailwindcss.com/)**: A utility-first CSS framework for creating modern, responsive designs directly in your HTML and JSX.
+
+## Backend
+
+- **[Express](https://expressjs.com/)**: A lightweight and flexible Node.js framework for building APIs and server-side applications.
+- **[Node.js](https://nodejs.org/)**: A JavaScript runtime that enables server-side scripting and efficient handling of asynchronous operations.
+
+## Database
+
+- **[MongoDB](https://www.mongodb.com/)**: A NoSQL database that stores data in flexible, JSON-like documents, ideal for dynamic and scalable applications.
+
+## Other Tools
+
+- **[Radix UI](https://www.radix-ui.com/)**: Accessible, unstyled UI components for building custom design systems.
+- **[Framer Motion](https://www.framer.com/motion/)**: A declarative animation library for adding smooth and interactive animations to your app.
+- **[React Hook Form](https://react-hook-form.com/)**: A lightweight library for managing form state and validation with excellent performance.
+- **[Zod](https://zod.dev/)**: A TypeScript-first schema declaration and validation library for ensuring data consistency.
+- **[Lottie React](https://github.com/LottieFiles/lottie-react)**: A library for rendering high-quality vector animations in your React application.
+- **[Axios](https://axios-http.com/)**: A promise-based HTTP client for handling API requests efficiently.
+- **[Recharts](https://recharts.org/)**: A React charting library for creating interactive data visualizations.
+</details>
+
+### **CMP1003-1.1: Demonstration of DRY (Don’t Repeat Yourself) Principles**
+
+<details>
+<summary>View</summary>
+</br>
+
+This project demonstrates excellent adherence to DRY principles by avoiding unnecessary repetition and ensuring all functionality is centralised and reusable. The following approaches were implemented:
+
+---
+
+#### **1. Reusable Components**
+
+- Modular and reusable UI components, such as buttons, forms, modals, and navigation menus, were created.
+- **ShadCN** was used to build a consistent set of components, allowing for easy reuse across the application with configurable props.
+
+#### **2. Centralised Utility Functions**
+
+- A centralised Axios wrapper was implemented to manage all API calls, handling base URLs, headers, and error responses in one place.
+- Shared validation schemas using **Zod** ensured consistent and reusable validation for forms across the application.
+
+#### **3. Context and Global State Management**
+
+- Global state was managed using **React Context**, reducing the need for repeated state logic and simplifying component communication. This was applied to manage features such as user authentication and theme settings.
+
+#### **4. Tailwind CSS and Styling**
+
+- Conditional and dynamic class management was achieved with **class-variance-authority** and **clsx**, ensuring reusable and consistent styling across components.
+- A single Tailwind CSS configuration file was used to enforce consistent use of colours, spacing, and typography throughout the application.
+
+#### **5. Backend Code Reusability**
+
+- Middleware functions were created for common tasks such as authentication, role validation, and error handling, ensuring they could be reused across multiple routes.
+- Modular MongoDB models, such as `Survey` and `User`, served as single sources of truth for database schema definitions.
+- Shared logic for CRUD operations was abstracted into helper functions, reducing repeated code in controllers.
+
+#### **6. Form Management**
+
+- **React Hook Form** was used to handle form state and validation in a consistent and reusable manner, improving code maintainability and reducing duplication.
+
+#### **7. Routing**
+
+- Dynamic and nested routes in **React Router** were utilised to avoid duplicating route definitions and ensure consistent parent-child relationships in the app's structure.
+
+---
+
+By following these approaches, the project ensures that every piece of functionality is centralised, unambiguous, and has a single authoritative representation. This makes the codebase easier to maintain, scalable, and efficient.
+
+</details>
 
 ### CMP1003-1.2: Appropriate use of libraries used in the app
 
 ### Dependencies
+
+<details>
+<summary>View</summary>
+</br>
 
 #### **@heroicons/react**
 
@@ -164,6 +240,7 @@
 #### **vite**
 
 - A fast, modern frontend build tool optimized for development and production. It supports hot module replacement and modern JavaScript features.
+</details>
 
 ### Crucial Decisions
 
