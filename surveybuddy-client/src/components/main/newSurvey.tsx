@@ -108,7 +108,7 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
   };
 
   return (
-    <Card className="w-[400px]">
+    <Card className="min-w-[40%]">
       <CardHeader>
         <CardTitle>
           {propsSurveyData ? "Edit Survey" : "Create New Survey"}

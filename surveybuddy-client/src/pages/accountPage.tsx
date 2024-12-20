@@ -32,16 +32,18 @@ const AccountPage: React.FC = () => {
 
   return (
     <>
-      <div className="mt-[20%] flex flex-col items-center gap-4">
+      <div className="mt-[10%] flex flex-col items-center gap-4">
         <h1 className="text-2xl font-semibold">
           {userData
             ? `${userData.username}'s Account`
             : "Loading your account..."}
         </h1>
       </div>
-      <Button onClick={handleLogOut}>Logout</Button>
-      <Button>Update Info</Button>
-      <Button>Reset Password</Button>
+      <Button className={"mt-[10%]"} onClick={handleLogOut}>
+        Logout
+      </Button>
+      {/* <Button>Update Info</Button>
+      <Button>Reset Password</Button> */}
     </>
   );
 };
