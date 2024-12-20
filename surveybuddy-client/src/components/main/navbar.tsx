@@ -82,14 +82,14 @@ export const Header1 = () => {
           title: "About Us",
           href: "/about",
         },
-        {
-          title: "Fundraising",
-          href: "/fundraising",
-        },
-        {
-          title: "Marketing",
-          href: "/investors",
-        },
+        // {
+        //   title: "Fundraising",
+        //   href: "/fundraising",
+        // },
+        // {
+        //   title: "Marketing",
+        //   href: "/investors",
+        // },
         {
           title: "Contact",
           href: "/contact",

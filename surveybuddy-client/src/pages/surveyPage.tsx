@@ -132,11 +132,11 @@ const SurveyPage: React.FC = () => {
                 </h4>
                 <div className="flex flex-row justify-center">
                   <CopyToClipboard
-                    textToCopy={`https://surveybuddy.netlify.app/surveys/${surveyId}/response/1`}
+                    textToCopy={`https://surveybuddy.tech/surveys/${surveyId}/response/1`}
                   ></CopyToClipboard>
                 </div>
                 <Link
-                  to={`https://surveybuddy.netlify.app/surveys/${surveyId}/response/1`}
+                  to={`https://surveybuddy.tech/surveys/${surveyId}/response/1`}
                   className="text-blue-500 hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"

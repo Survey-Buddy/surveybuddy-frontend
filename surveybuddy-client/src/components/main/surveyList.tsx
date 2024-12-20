@@ -57,7 +57,7 @@ export const SurveyList: React.FC<SurveyListProps> = ({ surveys }) => {
               </TableCell>
               <TableCell>
                 <Link
-                  to={`https://surveybuddy.netlify.app/surveys/${survey._id}/response/1`}
+                  to={`https://surveybuddy.tech/surveys/${survey._id}/response/1`}
                 >
                   <Link2></Link2>
                 </Link>

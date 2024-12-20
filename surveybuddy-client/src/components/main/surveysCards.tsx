@@ -43,7 +43,7 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({
         </h3>
         <div className="flex flex-row justify-center">
           <CopyToClipboard
-            textToCopy={`https://surveybuddy.netlify.app/surveys/${_id}/response/1`}
+            textToCopy={`https://surveybuddy.tech/surveys/${_id}/response/1`}
           ></CopyToClipboard>
         </div>
 

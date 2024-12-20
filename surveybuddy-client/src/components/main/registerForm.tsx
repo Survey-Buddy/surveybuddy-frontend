@@ -34,7 +34,6 @@ export function RegisterForm() {
   } = useForm<User>({ resolver: zodResolver(schema), mode: "onChange" });
 
   const onSubmit = async (data: User) => {
-    console.log("Signup user data: ", data);
     try {
       const endpoint = isRegister
         ? `${BASE_URL}/users/signup`
