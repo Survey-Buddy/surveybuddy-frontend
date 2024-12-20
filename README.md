@@ -1036,4 +1036,14 @@ Due to underestimating how long building the backend MVP would take, the fronten
 
 ![19th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_19:12.png)
 
+#### 20th December
+
+- Fixed deployed back and front end bugs.
+- Added rubric documentation to readme.
+- Prepared presentation.
+- Registered a custom domain name for the app - surveybuddy.tech
+- Fixed survey link copy and paste bug.
+
+![20th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_20:12.png)
+
 </details>

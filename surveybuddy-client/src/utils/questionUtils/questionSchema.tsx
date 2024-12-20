@@ -20,19 +20,6 @@ export const multiChoiceSchema = z.object({
       .min(3, { message: "Answer D must be at least 3 characters long." }),
   }),
   questionFormat: z.enum(["multiChoice"]).default("multiChoice"),
-  //   answerA: z
-  //     .string()
-  //     .min(3, { message: "Answer A must be at least 3 characters long." }),
-  //   answerB: z
-  //     .string()
-  //     .min(3, { message: "Answer B must be at least 3 characters long." }),
-  //   answerC: z
-  //     .string()
-  //     .min(3, { message: "Answer C must be at least 3 characters long." }),
-  //   answerD: z
-  //     .string()
-  //     .min(3, { message: "Answer D must be at least 3 characters long." }),
-  //   questionFormat: z.enum(["multiChoice"]).default("multiChoice"),
 });
 
 export const writtenResponseSchema = z.object({

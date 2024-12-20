@@ -27,7 +27,7 @@ export function MultiChoicePieChart() {
   }>();
 
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [error, setError] = React.useState<string | null>(null);
+  // const [error, setError] = React.useState<string | null>(null);
   const [questionData, setQuestionData] = React.useState<Question | null>();
   const [chartData, setChartData] = React.useState<
     { browser: string; answers: number; fill: string }[]
@@ -47,7 +47,7 @@ export function MultiChoicePieChart() {
           questionId
         );
         setLoading(true);
-        setError(null);
+        // setError(null);
 
         console.log("Q data response", questionDataResponse);
 
@@ -57,7 +57,7 @@ export function MultiChoicePieChart() {
         setQuestionData(questionDataResponse);
       } catch (error) {
         console.error("Error fetching question answers:", error);
-        setError("An error occurred while fetching question answers.");
+        // setError("An error occurred while fetching question answers.");
       } finally {
         setLoading(false);
       }
@@ -66,7 +66,7 @@ export function MultiChoicePieChart() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        setError(null);
+        // setError(null);
 
         console.log(
           "Fetching question answers for surveyId and questionId:",
@@ -101,7 +101,7 @@ export function MultiChoicePieChart() {
 
           console.log("Answer counts:", counts);
 
-          // Update chart data dynamically
+          // Update chart answer data dynamically
           const updatedChartData = [
             {
               browser: "answerA",
@@ -128,11 +128,11 @@ export function MultiChoicePieChart() {
           setChartData(updatedChartData);
         } else {
           console.error("Failed to fetch question answers.");
-          setError(response?.message || "Failed to fetch question answers.");
+          // setError(response?.message || "Failed to fetch question answers.");
         }
       } catch (error) {
         console.error("Error fetching question answers:", error);
-        setError("An error occurred while fetching question answers.");
+        // setError("An error occurred while fetching question answers.");
       } finally {
         setLoading(false);
       }
@@ -147,6 +147,7 @@ export function MultiChoicePieChart() {
       label: "Answers",
     },
     answerA: {
+      // Value of AnswerA nested in formatDetails or string "Answer A"
       // @ts-expect-error: AnswerA
       label: questionData?.formatDetails.answerA || "Answer A",
       color: "hsl(var(--chart-1))",
@@ -169,7 +170,7 @@ export function MultiChoicePieChart() {
   } satisfies ChartConfig;
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  // if (error) return <p>{error}</p>;
 
   return (
     <div className="flex justify-center">
@@ -189,10 +190,10 @@ export function MultiChoicePieChart() {
               <ChartTooltip
                 content={<ChartTooltipContent hideLabel={false} />}
               />
+              {/* Takes a list of objects [ {answerA: number}. {answerB: number}] */}
               <Pie
                 data={chartData}
                 dataKey="answers"
-                // label={(entry) => `${entry.browser}: ${entry.answers}`}
                 nameKey="browser"
                 outerRadius="80%"
                 innerRadius="40%"

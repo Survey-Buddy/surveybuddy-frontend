@@ -22,7 +22,7 @@ export function ResponseBarChart() {
   }>();
 
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [error, setError] = React.useState<string | null>(null);
+  //   const [error, setError] = React.useState<string | null>(null);
   const [questionData, setQuestionData] = React.useState<Question | null>();
   const [chartData, setChartData] = React.useState<
     { value: number; count: number }[]
@@ -42,7 +42,7 @@ export function ResponseBarChart() {
           questionId
         );
         setLoading(true);
-        setError(null);
+        // setError(null);
 
         if (questionDataResponse) {
           console.log("Fetched question answers:", questionDataResponse);
@@ -50,7 +50,7 @@ export function ResponseBarChart() {
         setQuestionData(questionDataResponse);
       } catch (error) {
         console.error("Error fetching question answers:", error);
-        setError("An error occurred while fetching question answers.");
+        // setError("An error occurred while fetching question answers.");
       } finally {
         setLoading(false);
       }
@@ -59,13 +59,8 @@ export function ResponseBarChart() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        setError(null);
+        // setError(null);
 
-        console.log(
-          "Fetching question answers for surveyId and questionId:",
-          surveyId,
-          questionId
-        );
         const response = await getQuestionAnswers(surveyId, questionId);
 
         if (response && response.success) {
@@ -74,27 +69,27 @@ export function ResponseBarChart() {
           // Extract answers and filter for valid range slider values (0-10)
           // @ts-expect-error: Property 'answers'
           const answers = response.data.answers
+            .map((response: Answer) => response.answer)
+            .filter(
+              (rangeScore: number) => rangeScore >= 0 && rangeScore <= 10
+            );
 
-            .map((a: Answer) => a.answer)
-            .filter((v: number) => v >= 0 && v <= 10);
-
-          // Count occurrences of each value from 0 to 10
-          const counts = Array.from({ length: 11 }, (_, i) => ({
-            value: i,
-            count: answers.filter((answer: number) => answer === i).length,
+          const counts = Array.from({ length: 11 }, (_, scoreValue) => ({
+            value: scoreValue,
+            count: answers.filter(
+              (rangeScore: number) => rangeScore === scoreValue
+            ).length,
           }));
-
-          console.log("Processed chart data:", counts);
 
           // Set processed data to state
           setChartData(counts);
         } else {
           console.error("Failed to fetch question answers.");
-          setError(response?.message || "Failed to fetch question answers.");
+          //   setError(response?.message || "Failed to fetch question answers.");
         }
       } catch (error) {
         console.error("Error fetching question answers:", error);
-        setError("An error occurred while fetching question answers.");
+        // setError("An error occurred while fetching question answers.");
       } finally {
         setLoading(false);
       }
@@ -104,7 +99,7 @@ export function ResponseBarChart() {
   }, [surveyId, questionId]);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  //   if (error) return <p>{error}</p>;
 
   return (
     <div className="flex justify-center ">
