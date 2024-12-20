@@ -20,28 +20,6 @@ import { getQuestionData } from "@/utils/questionUtils/questionFunctions";
 import { useParams } from "react-router-dom";
 import { Question } from "@/utils/questionUtils/questionTypes";
 
-const chartConfig = {
-  visitors: {
-    label: "Answers",
-  },
-  answerA: {
-    label: "Answer A",
-    color: "hsl(var(--chart-1))",
-  },
-  answerB: {
-    label: "Answer B",
-    color: "hsl(var(--chart-2))",
-  },
-  answerC: {
-    label: "Answer C",
-    color: "hsl(var(--chart-3))",
-  },
-  answerD: {
-    label: "Answer D",
-    color: "hsl(var(--chart-4))",
-  },
-} satisfies ChartConfig;
-
 export function MultiChoicePieChart() {
   const { surveyId, questionId } = useParams<{
     surveyId: string;
@@ -70,6 +48,8 @@ export function MultiChoicePieChart() {
         );
         setLoading(true);
         setError(null);
+
+        console.log("Q data response", questionDataResponse);
 
         if (questionDataResponse) {
           console.log("Fetched question answers:", questionDataResponse);
@@ -161,6 +141,32 @@ export function MultiChoicePieChart() {
     fetchQuestionData();
     fetchData();
   }, [surveyId, questionId]);
+
+  const chartConfig = {
+    visitors: {
+      label: "Answers",
+    },
+    answerA: {
+      // @ts-expect-error: AnswerA
+      label: questionData?.formatDetails.answerA || "Answer A",
+      color: "hsl(var(--chart-1))",
+    },
+    answerB: {
+      // @ts-expect-error: AnswerB
+      label: questionData?.formatDetails.answerB || "Answer B",
+      color: "hsl(var(--chart-2))",
+    },
+    answerC: {
+      // @ts-expect-error: AnswerC
+      label: questionData?.formatDetails.answerC || "Answer C",
+      color: "hsl(var(--chart-3))",
+    },
+    answerD: {
+      // @ts-expect-error: AnswerD
+      label: questionData?.formatDetails.answerD || "Answer D",
+      color: "hsl(var(--chart-4))",
+    },
+  } satisfies ChartConfig;
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
