@@ -694,21 +694,53 @@ This extensive testing process demonstrates a commitment to delivering a high-qu
 
 CMP1002-5.2: Production testing
 
-Overall run through of SurveyBuddy application https://www.loom.com/share/b0aadb9476b141f9afa48188cb03424e?sid=32426cad-e765-4bb4-b12a-3e3533de9ec6
+## CMP1002-5.2: Production Testing
 
-Creating an account https://www.loom.com/share/f0a9f47af11c4bd3996b5558d07644a8?sid=8c6d30b6-801c-4df8-934a-fb2e6050bc5b
+<details>
+<summary>View</summary>
+</br>
 
-Creating a new survey https://www.loom.com/share/175fc01102fa4a898906612e27e88ffb?sid=639a2a35-07b9-41bb-8ca8-d109331014cd
+Below is an overview of the production testing process for the SurveyBuddy application, with accompanying Loom videos showcasing each step:
 
-Find survey link and email to a friend to complete https://www.loom.com/share/ce14812aee9a40ca8c3e1039c927b5a1?sid=2008d406-ec74-4c22-8769-c4fbb64aacaf
+### Overall Run Through of SurveyBuddy Application
 
-Completing a survey https://www.loom.com/share/0ff506bbb09444358d8bd2a5942286db?sid=bb36d6e7-cce7-4e04-9e56-1bc8be40c6db
+[Watch the video](https://www.loom.com/share/b0aadb9476b141f9afa48188cb03424e?sid=32426cad-e765-4bb4-b12a-3e3533de9ec6)
 
-Navigating and viewing question results https://www.loom.com/share/76822412231b4efa999be1bbde40b7e2?sid=4028379b-4526-4911-bb78-5cd41ef019f5
+---
 
-Logging out of account https://www.loom.com/share/fa261e012942422c80df88d74175085f?sid=ce0b8cd4-d0a8-44ef-9f8f-dbd788827044
+### Features Demonstrated
 
-Signing in to account https://www.loom.com/share/390a8c0ebb6141978f878f6286fa905a?sid=04050a00-3a4f-4b89-a3a2-83e1058d20e2
+#### 1. **Creating an Account**
+
+[Watch the video](https://www.loom.com/share/f0a9f47af11c4bd3996b5558d07644a8?sid=8c6d30b6-801c-4df8-934a-fb2e6050bc5b)
+
+#### 2. **Creating a New Survey**
+
+[Watch the video](https://www.loom.com/share/175fc01102fa4a898906612e27e88ffb?sid=639a2a35-07b9-41bb-8ca8-d109331014cd)
+
+#### 3. **Finding the Survey Link and Emailing It to a Friend**
+
+[Watch the video](https://www.loom.com/share/ce14812aee9a40ca8c3e1039c927b5a1?sid=2008d406-ec74-4c22-8769-c4fbb64aacaf)
+
+#### 4. **Completing a Survey**
+
+[Watch the video](https://www.loom.com/share/0ff506bbb09444358d8bd2a5942286db?sid=bb36d6e7-cce7-4e04-9e56-1bc8be40c6db)
+
+#### 5. **Navigating and Viewing Question Results**
+
+[Watch the video](https://www.loom.com/share/76822412231b4efa999be1bbde40b7e2?sid=4028379b-4526-4911-bb78-5cd41ef019f5)
+
+#### 6. **Logging Out of the Account**
+
+[Watch the video](https://www.loom.com/share/fa261e012942422c80df88d74175085f?sid=ce0b8cd4-d0a8-44ef-9f8f-dbd788827044)
+
+#### 7. **Signing In to an Account**
+
+[Watch the video](https://www.loom.com/share/390a8c0ebb6141978f878f6286fa905a?sid=04050a00-3a4f-4b89-a3a2-83e1058d20e2)
+
+---
+
+Each video provides a step-by-step demonstration of the corresponding feature to ensure clarity and ease of understanding for users and stakeholders.
 
 ## Trello Board Tracking
 
