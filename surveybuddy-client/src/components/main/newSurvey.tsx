@@ -177,8 +177,8 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="public">Public</SelectItem>
-                  <SelectItem value="registered">Registered</SelectItem>
-                  <SelectItem value="inviteOnly">Invite Only</SelectItem>
+                  {/* <SelectItem value="registered">Registered</SelectItem>
+                  <SelectItem value="inviteOnly">Invite Only</SelectItem> */}
                 </SelectContent>
               </Select>
             </div>

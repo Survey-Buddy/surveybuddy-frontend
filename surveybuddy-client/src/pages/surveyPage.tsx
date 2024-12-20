@@ -119,6 +119,11 @@ const SurveyPage: React.FC = () => {
   return (
     <div className="flex flex-row-[60%] justify-center items-center py-20 lg:py-40">
       <div className="container mx-auto">
+        <div className="flex ml-[5%]">
+          <Link to={"/surveys"}>
+            <Button>Back</Button>
+          </Link>
+        </div>
         <div className=" grid lg:grid-cols-2 gap-10">
           <div className="flex gap-10 justify-center flex-row ">
             <div className="flex gap-4 flex-col ">

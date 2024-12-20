@@ -4,8 +4,8 @@ import { jwtDecode } from "jwt-decode";
 interface DecodedToken {
   userId: string;
   username: string;
-  firstName: string;
-  lastName: string;
+  // firstName: string;
+  // lastName: string;
   email: string;
   exp: number;
 }
