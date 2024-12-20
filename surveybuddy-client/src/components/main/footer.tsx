@@ -7,28 +7,28 @@ export const Footer1 = () => {
       to: "/",
       description: "",
     },
-    {
-      title: "Our Surveys",
-      description:
-        "SurveyBuddy is a simple and intuitive full-stack web application designed to streamline survey creation, sharing, and data collection.",
-      items: [
-        {
-          title: "Analytics",
-          to: "/analytcis",
-        },
-        {
-          title: "Use Cases",
-          to: "/usecases",
-        },
-        {
-          title: "Respondents",
-          to: "/respondents",
-        },
-      ],
-    },
+    // {
+    //   title: "Our Surveys",
+    //   description:
+    //     "SurveyBuddy is a simple and intuitive full-stack web application designed to streamline survey creation, sharing, and data collection.",
+    //   items: [
+    //     {
+    //       title: "Analytics",
+    //       to: "/analytcis",
+    //     },
+    //     {
+    //       title: "Use Cases",
+    //       to: "/usecases",
+    //     },
+    //     {
+    //       title: "Respondents",
+    //       to: "/respondents",
+    //     },
+    //   ],
+    // },
     {
       title: "Company",
-      description: "Managing a small business today is already tough.",
+
       items: [
         {
           title: "About us",
@@ -47,7 +47,7 @@ export const Footer1 = () => {
       <div className="container mx-auto max-w-screen-xl">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <div className="flex gap-8 flex-col items-start">
-            <div className="flex gap-2 flex-col">
+            <div className="flex gap-2 ml-[5%] flex-col">
               <h3 className="text-3xl md:text-3xl  tracking-tighter max-w-xl font-regular text-left duration-300">
                 SurveyBuddy™
               </h3>
@@ -55,7 +55,7 @@ export const Footer1 = () => {
                 Simple, beautiful, and intuitive surveys made easy.
               </p>
             </div>
-            <div className="flex gap-20 flex-row">
+            <div className="flex  ml-[5%]  gap-20 flex-row">
               <div className="flex flex-col text-sm max-w-lg leading-relaxed tracking-tight text-background/75 text-left ">
                 <p></p>
 

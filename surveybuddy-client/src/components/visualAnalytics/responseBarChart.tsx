@@ -179,7 +179,7 @@ export function ResponseBarChart() {
         <CardFooter className="flex-col items-start gap-2 text-sm">
           <div className="flex gap-2 font-medium leading-none"></div>
           <div className="leading-none text-muted-foreground">
-            Showing total number of responses
+            Showing total number of responses. Hover over chart for results.
           </div>
         </CardFooter>
       </Card>

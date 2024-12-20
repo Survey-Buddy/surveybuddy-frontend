@@ -40,14 +40,14 @@ export const Header1 = () => {
           title: "New Survey",
           href: "/surveys/newsurvey",
         },
-        {
-          title: "Respondents",
-          href: "/respondents",
-        },
-        {
-          title: "Analytics",
-          href: "/analytics",
-        },
+        // {
+        //   title: "Respondents",
+        //   href: "/respondents",
+        // },
+        // {
+        //   title: "Analytics",
+        //   href: "/analytics",
+        // },
       ],
     },
     {
@@ -58,14 +58,14 @@ export const Header1 = () => {
           title: "About Us",
           href: "/about",
         },
-        {
-          title: "Fundraising",
-          href: "/fundraising",
-        },
-        {
-          title: "Marketing",
-          href: "/investors",
-        },
+        // {
+        //   title: "Fundraising",
+        //   href: "/fundraising",
+        // },
+        // {
+        //   title: "Marketing",
+        //   href: "/marketing",
+        // },
         {
           title: "Contact",
           href: "/contact",
@@ -130,10 +130,7 @@ export const Header1 = () => {
                             </div>
                             {userData ? (
                               <Link to="/surveys/newsurvey">
-                                <Button
-                                  size="sm"
-                                  className="mt-10 hover:text-[#59E4A7] transition-colors duration-300"
-                                >
+                                <Button size="sm" className="mt-10 ">
                                   New Survey
                                 </Button>
                               </Link>

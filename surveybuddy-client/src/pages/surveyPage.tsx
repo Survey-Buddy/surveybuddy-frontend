@@ -117,16 +117,16 @@ const SurveyPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-row w-full py-20 lg:py-40 min-w-700">
+    <div className="flex flex-row-[60%] justify-center items-center py-20 lg:py-40">
       <div className="container mx-auto">
-        <div className=" grid flex flex-col justify-center  gap-10">
-          <div className="flex gap-10 flex flex-row ">
+        <div className=" grid lg:grid-cols-2 gap-10">
+          <div className="flex gap-10 justify-center flex-row ">
             <div className="flex gap-4 flex-col ">
               <div>
                 <Badge variant="outline">Survey</Badge>
               </div>
 
-              <div className="flex gap-2  flex-col">
+              <div className="flex gap-2 justify-center flex-col">
                 <h4 className="text-3xl md:text-5xl tracking-tighter max-w-xl font-regular">
                   {surveyData?.name ? `${surveyData.name}!` : ""}
                 </h4>
@@ -176,9 +176,9 @@ const SurveyPage: React.FC = () => {
                   <Link to={`/surveys/${surveyId}/edit`}>
                     <Button>Edit</Button>
                   </Link>
-                  <Link to={`/surveys/${surveyId}/analytics`}>
+                  {/* <Link to={`/surveys/${surveyId}/analytics`}>
                     <Button>Analytics</Button>
-                  </Link>
+                  </Link> */}
                   <p>
                     {surveyData?.organisation
                       ? `Organisation: ${surveyData.organisation}`
@@ -203,7 +203,7 @@ const SurveyPage: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="flex1 gap-8">
+          <div className="flex p-[10%] gap-8">
             <Accordion type="single" collapsible className="w-full">
               {questionData.map((question, index) => (
                 <AccordionItem key={index} value={"index-" + index}>

@@ -4,7 +4,6 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SurveyList } from "@/components/main/surveyList";
 import { useUserData } from "@/context/userContext";
 import getSurveys from "../utils/surveyUtils/surveyFunctions";
-import { ComboboxDemo } from "./surveyLinks";
 import { Survey } from "@/utils/surveyUtils/surveyTypes";
 
 const SurveysPage: React.FC = () => {
@@ -70,18 +69,14 @@ const SurveysPage: React.FC = () => {
                     <TabsList className="mt-8">
                       <TabsTrigger
                         onClick={() => setIsList(false)}
-                        value="account"
+                        value="cards"
                       >
                         Cards
                       </TabsTrigger>
-                      <TabsTrigger
-                        onClick={() => setIsList(true)}
-                        value="password"
-                      >
+                      <TabsTrigger onClick={() => setIsList(true)} value="list">
                         List
                       </TabsTrigger>
                     </TabsList>
-                    <ComboboxDemo />
                   </Tabs>
 
                   {/* <Link to="/surveys/newsurvey">

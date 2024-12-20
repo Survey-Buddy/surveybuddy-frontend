@@ -13,7 +13,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { format } from "date-fns";
 import { Survey } from "../../utils/surveyUtils/surveyTypes";
 import { Link2 } from "lucide-react";
-import BASE_URL from "@/config/apiConfig";
 
 interface SurveyListProps {
   surveys: Survey[];
@@ -57,7 +56,9 @@ export const SurveyList: React.FC<SurveyListProps> = ({ surveys }) => {
                   : "No end date"}
               </TableCell>
               <TableCell>
-                <Link to={`${BASE_URL}/surveys/${survey._id}/response/1`}>
+                <Link
+                  to={`https://surveybuddy.netlify.app/surveys/${survey._id}/response/1`}
+                >
                   <Link2></Link2>
                 </Link>
               </TableCell>

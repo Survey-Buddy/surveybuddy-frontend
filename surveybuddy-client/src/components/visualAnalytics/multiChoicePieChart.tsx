@@ -167,9 +167,9 @@ export function MultiChoicePieChart() {
 
   return (
     <div className="flex justify-center">
-      <Card className="flex flex-col ml-[10%] mr-[10%] mb-[10%] w-[100%] max-h-[800px]">
+      <Card className="flex flex-col ml-[20%] mr-[20%] w-[100%] max-h-[800px]">
         <CardHeader className="items-center p-16 pb-0">
-          <CardTitle className="text-2xl">Multi Choice Pie Chart</CardTitle>
+          <CardTitle className="text-xl">Multiple Choice Pie Chart</CardTitle>
           <CardDescription className="text-lg">
             {questionData?.question}
           </CardDescription>
@@ -186,7 +186,7 @@ export function MultiChoicePieChart() {
               <Pie
                 data={chartData}
                 dataKey="answers"
-                label={(entry) => `${entry.browser}: ${entry.answers}`}
+                // label={(entry) => `${entry.browser}: ${entry.answers}`}
                 nameKey="browser"
                 outerRadius="80%"
                 innerRadius="40%"
@@ -197,7 +197,7 @@ export function MultiChoicePieChart() {
         </CardContent>
         <CardFooter className="flex-col gap-2 text-sm">
           <div className="leading-none text-muted-foreground text-center">
-            Total responses since creation
+            Total responses since creation. Hover over chart for results.
           </div>
         </CardFooter>
       </Card>
