@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
+// import { Button } from "../ui/button";
 import { format } from "date-fns";
 import CopyToClipboard from "./copyToClipboard";
 
@@ -53,7 +53,7 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({
           Description: {description}
         </p>
       </div>
-      <Button>Results</Button>
+      {/* <Button>Results</Button> */}
     </div>
   </div>
 );

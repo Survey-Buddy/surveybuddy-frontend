@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export const Footer1 = () => {
   const navigationItems = [
     {
-      title: "Home",
+      title: "",
       to: "/",
       description: "",
     },

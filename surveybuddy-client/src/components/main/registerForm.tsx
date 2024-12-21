@@ -182,9 +182,9 @@ export function RegisterForm() {
             <Button disabled={!isValid} type="submit" className="w-full">
               Submit
             </Button>
-            <Button variant="outline" className="w-full">
+            {/* <Button variant="outline" className="w-full">
               Login with Google
-            </Button>
+            </Button> */}
           </div>
         </form>
         <div className="mt-4 text-center text-sm">
