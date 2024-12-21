@@ -4,13 +4,13 @@
 
 ---
 
-## Tech Stack
+## CMP1003-1.2: Appropriate use of libraries used in the app
 
 <details>
 <summary>View</summary>
 </br>
 
-## Frontend
+### Frontend
 
 - **[Vite](https://vitejs.dev/):** A fast build tool that improves development with instant updates and great performance.
 - **[React](https://reactjs.org/):** A JavaScript library for creating user interfaces in a reusable, component-based way.
@@ -22,13 +22,13 @@
 - **[Express](https://expressjs.com/):** A lightweight framework for building server-side APIs and applications in Node.js.
 - **[Node.js](https://nodejs.org/):** A JavaScript runtime environment for running server-side code.
 
-## Database
+### Database
 
 - **[MongoDB](https://www.mongodb.com/):** A NoSQL database for storing flexible, JSON-like documents that scale easily.
 
-## Additional Libraries
+### Additional Libraries
 
-### UI & Animations
+#### UI & Animations
 
 - **[Radix UI](https://www.radix-ui.com/):** Provides accessible, customisable, and unstyled components for building design systems.
 - **[Framer Motion](https://www.framer.com/motion/):** Adds smooth, declarative animations to your React app.
@@ -36,11 +36,11 @@
 - **[Zod](https://zod.dev/):** A schema validation library to ensure data consistency.
 - **[Lottie React](https://github.com/LottieFiles/lottie-react):** Displays vector animations for enhancing visual appeal.
 
-### Charts & Visualization
+#### Charts & Visualization
 
 - **[Recharts](https://recharts.org/):** A library for creating interactive data visualisations in React.
 
-### HTTP & State Management
+#### HTTP & State Management
 
 - **[Axios](https://axios-http.com/):** A promise-based HTTP client for handling API requests.
 - **[JS-Cookie](https://github.com/js-cookie/js-cookie):** A simple way to manage browser cookies.
@@ -48,7 +48,7 @@
 
 ---
 
-## Testing
+### Testing
 
 - **[Vitest](https://vitest.dev/):** A fast test runner and assertion library built for Vite and modern web apps.
 - **[Testing Library](https://testing-library.com/docs/react-testing-library/intro):** Provides utilities for testing React components by simulating user interactions.
@@ -58,18 +58,19 @@
 
 ---
 
-## Development Tools
+### Development Tools
 
 - **[TypeScript](https://www.typescriptlang.org/):** A strongly typed superset of JavaScript for catching bugs early and improving code quality.
 - **[ESLint](https://eslint.org/):** A tool for identifying and fixing coding issues to ensure consistent code quality.
 - **[Prettier](https://prettier.io/):** Automatically formats code for better readability and consistency.
 
-## Build & Deployment
+### Build & Deployment
 
-- **[Vite](https://vitejs.dev/):** Also handles production builds with optimized performance.
+- **[Vite](https://vitejs.dev/):** Also handles production builds with optimised performance.
 - **[Tailwind CSS](https://tailwindcss.com/):** Uses PostCSS to generate efficient styles for production.
+</details>
 
-### **CMP1003-1.1: Demonstration of DRY (Don’t Repeat Yourself) Principles**
+# **CMP1003-1.1: Demonstration of DRY (Don’t Repeat Yourself) Principles**
 
 <details>
 <summary>View</summary>
@@ -942,8 +943,6 @@ This extensive testing process demonstrates a commitment to delivering a high-qu
 ![No Surveys Found test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/NoSurveysFound_LH.png)
 
 </details>
-
-CMP1002-5.2: Production testing
 
 ## CMP1002-5.2: Production Testing
 
