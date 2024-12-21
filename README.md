@@ -4,7 +4,56 @@
 
 ---
 
-## Tech Stack
+### **CMP1003-1.1: Demonstration of DRY (Don’t Repeat Yourself) Principles**
+
+<details>
+<summary>View</summary>
+</br>
+
+This project demonstrates excellent adherence to DRY principles by avoiding unnecessary repetition and ensuring all functionality is centralised and reusable. The following approaches were implemented:
+
+---
+
+#### **1. Reusable Components**
+
+- Modular and reusable UI components, such as buttons, forms, modals, and navigation menus, were created.
+- **ShadCN** was used to build a consistent set of components, allowing for easy reuse across the application with configurable props.
+
+#### **2. Centralised Utility Functions**
+
+- A centralised Axios wrapper was implemented to manage all API calls, handling base URLs, headers, and error responses in one place.
+- Shared validation schemas using **Zod** ensured consistent and reusable validation for forms across the application.
+
+#### **3. Context and Global State Management**
+
+- Global state was managed using **React Context**, reducing the need for repeated state logic and simplifying component communication. This was applied to manage features such as user authentication and theme settings.
+
+#### **4. Tailwind CSS and Styling**
+
+- Conditional and dynamic class management was achieved with **class-variance-authority** and **clsx**, ensuring reusable and consistent styling across components.
+- A single Tailwind CSS configuration file was used to enforce consistent use of colours, spacing, and typography throughout the application.
+
+#### **5. Backend Code Reusability**
+
+- Middleware functions were created for common tasks such as authentication, role validation, and error handling, ensuring they could be reused across multiple routes.
+- Modular MongoDB models, such as `Survey` and `User`, served as single sources of truth for database schema definitions.
+- Shared logic for CRUD operations was abstracted into helper functions, reducing repeated code in controllers.
+
+#### **6. Form Management**
+
+- **React Hook Form** was used to handle form state and validation in a consistent and reusable manner, improving code maintainability and reducing duplication.
+
+#### **7. Routing**
+
+- Dynamic and nested routes in **React Router** were utilised to avoid duplicating route definitions and ensure consistent parent-child relationships in the app's structure.
+
+---
+
+By following these approaches, the project ensures that every piece of functionality is centralised, unambiguous, and has a single authoritative representation. This makes the codebase easier to maintain, scalable, and efficient.
+
+</details>
+
+### CMP1003-1.2: Appropriate use of libraries used in the app
 
 <details>
 <summary>View</summary>
@@ -68,246 +117,6 @@
 
 - **[Vite](https://vitejs.dev/):** Also handles production builds with optimized performance.
 - **[Tailwind CSS](https://tailwindcss.com/):** Uses PostCSS to generate efficient styles for production.
-
-### **CMP1003-1.1: Demonstration of DRY (Don’t Repeat Yourself) Principles**
-
-<details>
-<summary>View</summary>
-</br>
-
-This project demonstrates excellent adherence to DRY principles by avoiding unnecessary repetition and ensuring all functionality is centralised and reusable. The following approaches were implemented:
-
----
-
-#### **1. Reusable Components**
-
-- Modular and reusable UI components, such as buttons, forms, modals, and navigation menus, were created.
-- **ShadCN** was used to build a consistent set of components, allowing for easy reuse across the application with configurable props.
-
-#### **2. Centralised Utility Functions**
-
-- A centralised Axios wrapper was implemented to manage all API calls, handling base URLs, headers, and error responses in one place.
-- Shared validation schemas using **Zod** ensured consistent and reusable validation for forms across the application.
-
-#### **3. Context and Global State Management**
-
-- Global state was managed using **React Context**, reducing the need for repeated state logic and simplifying component communication. This was applied to manage features such as user authentication and theme settings.
-
-#### **4. Tailwind CSS and Styling**
-
-- Conditional and dynamic class management was achieved with **class-variance-authority** and **clsx**, ensuring reusable and consistent styling across components.
-- A single Tailwind CSS configuration file was used to enforce consistent use of colours, spacing, and typography throughout the application.
-
-#### **5. Backend Code Reusability**
-
-- Middleware functions were created for common tasks such as authentication, role validation, and error handling, ensuring they could be reused across multiple routes.
-- Modular MongoDB models, such as `Survey` and `User`, served as single sources of truth for database schema definitions.
-- Shared logic for CRUD operations was abstracted into helper functions, reducing repeated code in controllers.
-
-#### **6. Form Management**
-
-- **React Hook Form** was used to handle form state and validation in a consistent and reusable manner, improving code maintainability and reducing duplication.
-
-#### **7. Routing**
-
-- Dynamic and nested routes in **React Router** were utilised to avoid duplicating route definitions and ensure consistent parent-child relationships in the app's structure.
-
----
-
-By following these approaches, the project ensures that every piece of functionality is centralised, unambiguous, and has a single authoritative representation. This makes the codebase easier to maintain, scalable, and efficient.
-
-</details>
-
-### CMP1003-1.2: Appropriate use of libraries used in the app
-
-<details>
-<summary>View</summary>
-</br>
-
-### Dependencies
-
-#### **@heroicons/react**
-
-- Provides a collection of pre-designed, optimized SVG icons as React components, simplifying the process of adding icons to your application.
-
-#### **@hookform/resolvers**
-
-- A set of validation resolvers for integrating validation libraries (e.g., Zod, Yup, Joi) with React Hook Form, enabling seamless schema-based form validation.
-
-#### **@lottiefiles/dotlottie-react**
-
-- Library for rendering `.lottie` animation files in React applications. `.lottie` files are optimized versions of Lottie JSON animations, providing better performance and smaller file sizes.
-
-#### **@radix-ui**
-
-- A collection of unstyled, accessible React UI primitives that allow developers to build custom, high-quality components. It includes:
-  - `react-accordion`: For collapsible panels.
-  - `react-dialog`: For modal dialogs.
-  - `react-hover-card`: For hover-based interaction elements.
-  - `react-label`: Accessible labels for form fields.
-  - `react-menubar`: For menu bar navigation.
-  - `react-navigation-menu`: For dropdown navigation menus.
-  - `react-popover`: For lightweight, accessible popovers.
-  - `react-radio-group`: For radio button groups.
-  - `react-scroll-area`: For custom scrollable areas.
-  - `react-select`: For accessible dropdown selects.
-  - `react-slider`: For creating sliders.
-  - `react-slot`: For managing slot-based components.
-  - `react-tabs`: For creating tab-based navigation.
-
-#### **axios**
-
-- A powerful HTTP client for making API requests. Supports features like request cancellation, interceptors, and automatic JSON transformation.
-
-#### **class-variance-authority**
-
-- A utility for handling conditional and composable Tailwind CSS class names, enabling dynamic styling in your components.
-
-#### **clsx**
-
-- A utility for conditionally joining class names, simplifying the management of dynamic classes in React components.
-
-#### **cmdk**
-
-- A command menu library for React, often used for building quick search interfaces similar to command palettes in developer tools.
-
-#### **d3**
-
-- A versatile library for creating complex, interactive data visualizations using web standards like SVG, HTML, and CSS.
-
-#### **date-fns**
-
-- A lightweight, functional library for working with dates in JavaScript. It offers utilities for formatting, parsing, and manipulating dates.
-
-#### **dotenv**
-
-- Loads environment variables from a `.env` file into `process.env`, making it easy to manage sensitive configuration values (e.g., API keys).
-
-#### **framer-motion**
-
-- A declarative animation library for React that supports complex animations, gestures, and layout transitions with ease.
-
-#### **js-cookie**
-
-- A utility for managing browser cookies, including setting, getting, and deleting cookies with customizable options.
-
-#### **jwt-decode**
-
-- Decodes JSON Web Tokens (JWT) to extract payload data, such as user information or token expiration, without requiring a secret key.
-
-#### **lottie-react**
-
-- A library for rendering Lottie animations in React applications. Lottie animations are vector-based, allowing for high-quality, lightweight animations.
-
-#### **lucide-react**
-
-- A modern icon library for React, offering clean, customizable icons with minimalistic designs.
-
-#### **react** & **react-dom**
-
-- Core libraries for building user interfaces in React. `react` provides the component API, while `react-dom` enables rendering components in the DOM.
-
-#### **react-day-picker**
-
-- A highly customizable, accessible library for creating date pickers in React applications.
-
-#### **react-hook-form**
-
-- A lightweight library for managing forms in React with built-in performance optimizations and support for validation libraries.
-
-#### **react-router-dom**
-
-- A popular library for handling routing in React applications. It allows developers to define and manage routes, navigation, and URL parameters.
-
-#### **recharts**
-
-- A charting library for React that makes it simple to create interactive data visualizations, including bar charts, line charts, and pie charts.
-
-#### **tailwind-merge**
-
-- A utility for merging Tailwind CSS class names intelligently, ensuring the correct application of conditional and conflicting classes.
-
-#### **tailwindcss-animate**
-
-- A plugin that adds utility classes for animations in Tailwind CSS, making it easier to implement animations directly in your styles.
-
-#### **zod**
-
-- A TypeScript-first schema validation library for defining and validating data structures, providing detailed error messages and strong type inference.
-
----
-
-### Dev Dependencies
-
-#### **@eslint/js**
-
-- Core package for ESLint, used for linting JavaScript and TypeScript code to ensure code quality and consistency.
-
-#### **@types/** (e.g., `react`, `node`, `js-cookie`)
-
-- TypeScript type definitions for various libraries, enabling autocomplete, type checking, and documentation in TypeScript projects.
-
-#### **@vitejs/plugin-react**
-
-- A Vite plugin that provides React-specific optimizations, including support for fast refresh and JSX transformation.
-
-#### **autoprefixer**
-
-- A PostCSS plugin that automatically adds vendor prefixes to CSS properties, ensuring cross-browser compatibility.
-
-#### **eslint** & **eslint-plugin-react-hooks**
-
-- Tools for identifying and fixing code quality issues in JavaScript and React applications, with specific rules for React Hooks.
-
-#### **postcss**
-
-- A tool for transforming CSS with plugins, often used in conjunction with Tailwind CSS for advanced styling workflows.
-
-#### **tailwindcss**
-
-- A utility-first CSS framework that provides pre-designed classes for building modern, responsive designs.
-
-#### **typescript**
-
-- A strongly typed programming language that builds on JavaScript, offering static type checking and improved developer tooling.
-
-#### **vite**
-
-- A fast, modern frontend build tool optimized for development and production. It supports hot module replacement and modern JavaScript features.
-</details>
-
-### Crucial Decisions
-
-<details>
-<summary>View</summary>
-</br>
-
-**Schema Design Options**
-Here are the options I considered for structuring the database:
-
-**Option 1: Separate Schemas for Surveys, Questions, and Answers**
-
-- Surveys have their own schema with metadata (e.g., title, description).
-- Questions are stored in a separate schema linked to surveys via surveyId.
-- Answers are stored in another schema, linked to both surveyId and questionId.
-  Best for scalability and flexibility.
-- Allows easy querying of specific questions or answers.
-
-**Option 2: Combined Schema for Surveys and Questions, Separate Schema for Answers:**
-
-- Surveys and their associated questions are embedded in one schema.
-- Answers have a separate schema with references to surveyId and questionId.
-- Reduces database reads but makes adding or editing questions more complex.
-
-**Option 3: Single Schema for Surveys, Questions, and Answers:**
-
-- Everything is stored in one schema with nested arrays.
-- Simplifies initial setup but leads to large, complex documents.
-- Poor scalability and performance for larger surveys.
-  Decision to Use Option 1
-
-I chose Option 1 because it’s the most efficient and professional design for a real-world app. It separates concerns, making it easier to add features or scale the app later. It also demonstrates my ability to design a well-structured, normalised, and scalable database, which is an important skill in full-stack development. This approach is ideal for a school project where I want to showcase my expertise.
-
 </details>
 
 ### **CMP1002-2.1: Demonstration of Code Flow Control**
@@ -943,9 +752,7 @@ This extensive testing process demonstrates a commitment to delivering a high-qu
 
 </details>
 
-CMP1002-5.2: Production testing
-
-## CMP1002-5.2: Production Testing
+## **CMP1002-5.2: Production Testing**
 
 <details>
 <summary>View</summary>
@@ -1167,7 +974,7 @@ Not all development routes are currently available in production, therefore only
 
 </details>
 
-## Trello Board Tracking
+## **CMP1002-7.4: Employ and utilise task delegation methodology**
 
 <details>
 <summary>View</summary>
@@ -1232,7 +1039,7 @@ Due to underestimating how long building the backend MVP would take, the fronten
 
 #### 2nd of December
 
-### Frontend:
+#### Frontend:
 
 - **Investigated Chakra UI**:
 
@@ -1252,7 +1059,7 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - **Fixed Client Errors**:
   - Addressed and resolved various client-side errors, ensuring smoother functionality.
 
-### Backend:
+#### Backend:
 
 - **Survey and Answer Routes**:
 
@@ -1275,7 +1082,7 @@ Due to underestimating how long building the backend MVP would take, the fronten
 
 #### 2nd of December
 
-### Frontend:
+#### Frontend:
 
 - **Investigated Chakra UI**:
 
@@ -1295,7 +1102,7 @@ Due to underestimating how long building the backend MVP would take, the fronten
 - **Fixed Client Errors**:
   - Addressed and resolved various client-side errors, ensuring smoother functionality.
 
-### Backend:
+#### Backend:
 
 - **Survey and Answer Routes**:
 
@@ -1472,3 +1279,37 @@ Due to underestimating how long building the backend MVP would take, the fronten
 ![20th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_20:12.png)
 
 </details>
+
+---
+
+## **Crucial Decisions**
+
+<details>
+<summary>View</summary>
+</br>
+
+**Schema Design Options**
+Here are the options I considered for structuring the database:
+
+**Option 1: Separate Schemas for Surveys, Questions, and Answers**
+
+- Surveys have their own schema with metadata (e.g., title, description).
+- Questions are stored in a separate schema linked to surveys via surveyId.
+- Answers are stored in another schema, linked to both surveyId and questionId.
+  Best for scalability and flexibility.
+- Allows easy querying of specific questions or answers.
+
+**Option 2: Combined Schema for Surveys and Questions, Separate Schema for Answers:**
+
+- Surveys and their associated questions are embedded in one schema.
+- Answers have a separate schema with references to surveyId and questionId.
+- Reduces database reads but makes adding or editing questions more complex.
+
+**Option 3: Single Schema for Surveys, Questions, and Answers:**
+
+- Everything is stored in one schema with nested arrays.
+- Simplifies initial setup but leads to large, complex documents.
+- Poor scalability and performance for larger surveys.
+  Decision to Use Option 1
+
+I chose Option 1 because it’s the most efficient and professional design for a real-world app. It separates concerns, making it easier to add features or scale the app later. It also demonstrates my ability to design a well-structured, normalised, and scalable database, which is an important skill in full-stack development. This approach is ideal for a school project where I want to showcase my expertise.
