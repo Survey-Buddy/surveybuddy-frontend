@@ -669,9 +669,8 @@ The application demonstrates extensive development testing, ensuring all feature
 #### **2. Frontend Testing with Vite**
 
 - **Vite's development server** was used extensively for frontend testing:
-  - Hot module replacement (HMR) enabled real-time feedback during UI development, ensuring a smooth user experience.
   - User flows were tested, such as survey creation, question addition, editing, and response viewing.
-  - Browser testing ensured the app performed consistently across different environments and screen sizes.
+  - Browser testing ensured the app performed consistently across different environments.
 
 #### **3. Combined Testing**
 
@@ -690,122 +689,225 @@ The application demonstrates extensive development testing, ensuring all feature
 
 This extensive testing process demonstrates a commitment to delivering a high-quality application that meets user expectations.
 
-Local Host Development Testing with Insomnia
+# Local Host Development Testing with Insomnia
 
-### Users
+## Users
 
-Signup / Register
-Method: POST
-Authorisation: NA
-Status: 201 Created
-URL Path: http://localhost:8080/users/signup
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/SignUp_LH.png)
+### Signup / Register
 
-Login
-Method: POST
-Authorisation: NA
-Status: 200 OK
-URL Path: http://localhost:8080/users/login
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/Login_LH.png)
+**Method:** POST  
+**Authorization:** NA  
+**Status:** 201 Created  
+**URL Path:** `http://localhost:8080/users/signup`  
+![Signup test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/SignUp_LH.png)
 
-### Surveys
+---
 
-New Survey
-Method: POST
-Authorisation: JWT Token
-Status: 201 Created
-URL Path: http://localhost:8080/surveys
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/NewSurvey_LH.png)
+### Login
 
-Get Survey
-Method: GET
-Authorisation: NA (for unregistered surveys)
-Status: 200 OK
-URL Path: http://localhost:8080/surveys/:surveyId
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/GetSurvey_LH.png)
+**Method:** POST  
+**Authorization:** NA  
+**Status:** 200 OK  
+**URL Path:** `http://localhost:8080/users/login`  
+![Login test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/Login_LH.png)
 
-Get Surveys
-Method: GET
-Authorisation: JWT Token
-Status: 200 OK
-URL Path: http://localhost:8080/surveys
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/GetSurveys_LH.png)
+---
 
-Update Survey
-Method: PATCH
-Authorisation: JWT Token
-Status: 201 Created
-URL Path: http://localhost:8080/surveys/:surveyId/editSurvey
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/UpdatedSurvey_LH.png)
+## Surveys
 
-Delete Survey
-Method: DELETE
-Authorisation: JWT Token
-Status: 200 OK
-URL Path: http://localhost:8080/surveys/:surveyId/deleteSurvey
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/DeleteSurvey_LH.png)
+### New Survey
 
-### Questions
+**Method:** POST  
+**Authorization:** JWT Token  
+**Status:** 201 Created  
+**URL Path:** `http://localhost:8080/surveys`  
+![New Survey test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/NewSurvey_LH.png)
 
-New Question
-Method: POST
-Authorisation: JWT Token
-Status: 201 Created
-URL Path: http://localhost:8080/surveys/:surveyId/questions
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/NewQuestion_LH.png)
+---
 
-Get Question
-Method: GET
-Authorisation: NA
-Status: 200 OK
-URL Path: http://localhost:8080/surveys/:surveyId/questions/:questionId
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/GetQuestion_LH.png)
+### Get Survey
 
-Get Questions
-Method: GET
-Authorisation: NA
-Status: 200 OK
-URL Path: http://localhost:8080/surveys/:surveyId/questions/:questionId/editQuestion
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/GetQuestions_LH.png)
+**Method:** GET  
+**Authorization:** NA (for unregistered surveys)  
+**Status:** 200 OK  
+**URL Path:** `http://localhost:8080/surveys/:surveyId`  
+![Get Survey test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/GetSurvey_LH.png)
 
-Update Question
-Method: PATCH
-Authorisation: JWT Token
-Status: 201 Created
-URL Path: http://localhost:8080/surveys/:surveyId
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/UpdateQuestion_LH.png)
+---
 
-Delete Question
-Method: DELETE
-Authorisation: JWT Token
-Status: 200 OK
-URL Path: http://localhost:8080/surveys/:surveyId/questions/:questionId/deleteQuestion
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/DeleteQuestion_LH.png)
+### Get Surveys
 
-### Answers
+**Method:** GET  
+**Authorization:** JWT Token  
+**Status:** 200 OK  
+**URL Path:** `http://localhost:8080/surveys`  
+![Get Surveys test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/GetSurveys_LH.png)
 
-Answers cannot be updated or deleted by anyone.
+---
 
-New Answer
-Method: POST
-Authorisation: NA
-Status: 201 Created
-URL Path: http://localhost:8080/answers/:surveyId/:questionId
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/NewAnswer_LH.png)
+### Update Survey
 
-Get Question Answers
-Method: GET
-Authorisation: JWT Token
-Status: 200 OK
-URL Path: http://localhost:8080/answers/:surveyId/:questionId
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/GetQuestionAnswers_LH.png)
+**Method:** PATCH  
+**Authorization:** JWT Token  
+**Status:** 201 Created  
+**URL Path:** `http://localhost:8080/surveys/:surveyId/editSurvey`  
+![Update Survey test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/UpdatedSurvey_LH.png)
 
-Get Survey Answers
-Method: GET
-Authorisation: JWT Token
-Status: 200 OK
-URL Path: http://localhost:8080/answers/:surveyId
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/GetSurveyAnswers_LH.png)
+---
+
+### Delete Survey
+
+**Method:** DELETE  
+**Authorization:** JWT Token  
+**Status:** 200 OK  
+**URL Path:** `http://localhost:8080/surveys/:surveyId/deleteSurvey`  
+![Delete Survey test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/DeleteSurvey_LH.png)
+
+---
+
+## Questions
+
+### New Question
+
+**Method:** POST  
+**Authorization:** JWT Token  
+**Status:** 201 Created  
+**URL Path:** `http://localhost:8080/surveys/:surveyId/questions`  
+![New Question test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/NewQuestion_LH.png)
+
+---
+
+### Get Question
+
+**Method:** GET  
+**Authorization:** NA  
+**Status:** 200 OK  
+**URL Path:** `http://localhost:8080/surveys/:surveyId/questions/:questionId`  
+![Get Question test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/GetQuestion_LH.png)
+
+---
+
+### Get Questions
+
+**Method:** GET  
+**Authorization:** NA  
+**Status:** 200 OK  
+**URL Path:** `http://localhost:8080/surveys/:surveyId/questions/:questionId/editQuestion`  
+![Get Questions test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/GetQuestions_LH.png)
+
+---
+
+### Update Question
+
+**Method:** PATCH  
+**Authorization:** JWT Token  
+**Status:** 201 Created  
+**URL Path:** `http://localhost:8080/surveys/:surveyId`  
+![Update Question test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/UpdateQuestion_LH.png)
+
+---
+
+### Delete Question
+
+**Method:** DELETE  
+**Authorization:** JWT Token  
+**Status:** 200 OK  
+**URL Path:** `http://localhost:8080/surveys/:surveyId/questions/:questionId/deleteQuestion`  
+![Delete Question test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/DeleteQuestion_LH.png)
+
+---
+
+## Answers
+
+### New Answer
+
+**Method:** POST  
+**Authorization:** NA  
+**Status:** 201 Created  
+**URL Path:** `http://localhost:8080/answers/:surveyId/:questionId`  
+![New Answer test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/NewAnswer_LH.png)
+
+---
+
+### Get Question Answers
+
+**Method:** GET  
+**Authorization:** JWT Token  
+**Status:** 200 OK  
+**URL Path:** `http://localhost:8080/answers/:surveyId/:questionId`  
+![Get Question Answers test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/GetQuestionAnswers_LH.png)
+
+---
+
+### Get Survey Answers
+
+**Method:** GET  
+**Authorization:** JWT Token  
+**Status:** 200 OK  
+**URL Path:** `http://localhost:8080/answers/:surveyId`  
+![Get Survey Answers test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/GetSurveyAnswers_LH.png)
+
+---
+
+## Authentication
+
+### Invalid Username or Password
+
+**Method:** POST  
+**Authorization:** NA  
+**Status:** 400 Bad Request  
+**URL Path:** `http://localhost:8080/userLogin`  
+![Invalid Username or Password test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/InvalidUsernameOrPw_LH.png)
+
+---
+
+### Missing Token
+
+**Method:** POST  
+**Authorization:** JWT Token (missing)  
+**Status:** 400 Bad Request  
+**URL Path:** `http://localhost:8080/user/Login`  
+![Missing Token test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/MissingToken_LH.png)
+
+---
+
+### Invalid Token
+
+**Method:** POST  
+**Authorization:** JWT Token (invalid)  
+**Status:** 403 Forbidden  
+**URL Path:** `http://localhost:8080/surveys`  
+![Invalid Token test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/InvalidToken_LH.png)
+
+---
+
+### Missing Required Field (email)
+
+**Method:** POST  
+**Authorization:** NA  
+**Status:** 400 Bad Request  
+**URL Path:** `http://localhost:8080/users/signup`  
+![Missing Required Field test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/MissingRequiredField_LH.png)
+
+---
+
+### Not The Creator
+
+**Method:** PATCH  
+**Authorization:** JWT Token (not creator)  
+**Status:** 403 Forbidden  
+**URL Path:** `http://localhost:8080/surveys/:surveyId`  
+![Not The Creator test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/NotTheCreator_LH.png)
+
+---
+
+### No Surveys Found
+
+**Method:** GET  
+**Authorization:** JWT Token  
+**Status:** 404 Not Found  
+**URL Path:** `http://localhost:8080/surveys`  
+![No Surveys Found test](surveybuddy-client/src/assets/testScreenShots/developmentInsomnia/NoSurveysFound_LH.png)
 
 </details>
 
@@ -863,115 +965,177 @@ Each video provides a step-by-step demonstration of the corresponding feature to
 
 Not all development routes are currently available in production, therefore only available routes will be displayed.
 
-### Users
+# Insomnia API Tests for SurveyBuddy
 
-Signup / Register
-Method: POST
-Authorisation: NA
-Status: 201 Created
-URL Path: https://surveybuddy-backend.onrender.com/users/signup
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/SignUp_SB.png)
+## Users
 
-Login
-Method: POST
-Authorisation: NA
-Status: 200 OK
-URL Path: https://surveybuddy-backend.onrender.com/users/login
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/Login_SB.png)
+### Signup / Register
 
-### Surveys
+**Method:** POST  
+**Authorization:** NA  
+**Status:** 201 Created  
+**URL Path:** `https://surveybuddy-backend.onrender.com/users/signup`  
+![Signup test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/SignUp_SB.png)
 
-New Survey
-Method: POST
-Authorisation: JWT Token
-Status: 201 Created
-URL Path: https://surveybuddy-backend.onrender.com/surveys
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/NewSurvey_SB.png)
+---
 
-Get Survey
-Method: GET
-Authorisation: NA (for unregistered surveys)
-Status: 200 OK
-URL Path: https://surveybuddy-backend.onrender.com/surveys/:surveyId
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/GetSurvey_SB.png)
+### Login
 
-Get Surveys
-Method: GET
-Authorisation: JWT Token
-Status: 200 OK
-URL Path: https://surveybuddy-backend.onrender.com/surveys
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/GetSurveys_SB.png)
+**Method:** POST  
+**Authorization:** NA  
+**Status:** 200 OK  
+**URL Path:** `https://surveybuddy-backend.onrender.com/users/login`  
+![Login test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/Login_SB.png)
 
-Update Survey
-Method: PATCH
-Authorisation: JWT Token
-Status: 201 Created
-URL Path: https://surveybuddy-backend.onrender.com/surveys/:surveyId/editSurvey
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/UpdateSurvey_SB.png)
+---
 
-Delete Survey
-Method: DELETE
-Authorisation: JWT Token
-Status: 200 OK
-URL Path: https://surveybuddy-backend.onrender.com/surveys/:surveyId/deleteSurvey
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/DeleteSurvey_SB.png)
+## Surveys
 
-### Questions
+### New Survey
 
-New Question
-Method: POST
-Authorisation: JWT Token
-Status: 201 Created
-URL Path: https://surveybuddy-backend.onrender.com/surveys/:surveyId/questions
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/NewQuestion_SB.png)
+**Method:** POST  
+**Authorization:** JWT Token  
+**Status:** 201 Created  
+**URL Path:** `https://surveybuddy-backend.onrender.com/surveys`  
+![New Survey test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/NewSurvey_SB.png)
 
-Get Question
-Method: GET
-Authorisation: NA
-Status: 200 OK
-URL Path: https://surveybuddy-backend.onrender.com/surveys/:surveyId/questions/:questionId
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/GetQuestion_SB.png)
+---
 
-Get Survey Questions
-Method: GET
-Authorisation: NA
-Status: 200 OK
-URL Path: https://surveybuddy-backend.onrender.com/surveys/:surveyId/questions
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/GetSurveyQuestions_SB.png)
+### Get Survey
 
-### Answers
+**Method:** GET  
+**Authorization:** NA (for unregistered surveys)  
+**Status:** 200 OK  
+**URL Path:** `https://surveybuddy-backend.onrender.com/surveys/:surveyId`  
+![Get Survey test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/GetSurvey_SB.png)
 
-Answers cannot be updated or deleted by anyone.
+---
 
-New Answer
-Method: POST
-Authorisation: NA
-Status: 201 Created
-URL Path: \https://surveybuddy-backend.onrender.com/answers/:surveyId/:questionId
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/NewAnswer_SB.png)
+### Get Surveys
 
-Get Question Answers
-Method: GET
-Authorisation: JWT Token
-Status: 200 OK
-URL Path: \https://surveybuddy-backend.onrender.com/answers/:surveyId/:questionId
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/GetQuestionAnswers_SB.png)
+**Method:** GET  
+**Authorization:** JWT Token  
+**Status:** 200 OK  
+**URL Path:** `https://surveybuddy-backend.onrender.com/surveys`  
+![Get Surveys test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/GetSurveys_SB.png)
 
-Get Survey Answers
-Method: GET
-Authorisation: JWT Token
-Status: 200 OK
-URL Path: \https://surveybuddy-backend.onrender.com/answers/:surveyId
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/GetSurveyAnswers_SB.png)
+---
 
-### Authentication
+### Update Survey
 
-Auth: Not Creator Response
-Method: DELETE
-Authorisation: JWT Token
-Status: 403 Forbidden
-URL Path: \https://surveybuddy-backend.onrender.com/surevys/:surveyId
-![Signup test screen shot](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/Auth_NotCreator_SB.png)
+**Method:** PATCH  
+**Authorization:** JWT Token  
+**Status:** 201 Created  
+**URL Path:** `https://surveybuddy-backend.onrender.com/surveys/:surveyId/editSurvey`  
+![Update Survey test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/UpdateSurvey_SB.png)
+
+---
+
+### Delete Survey
+
+**Method:** DELETE  
+**Authorization:** JWT Token  
+**Status:** 200 OK  
+**URL Path:** `https://surveybuddy-backend.onrender.com/surveys/:surveyId/deleteSurvey`  
+![Delete Survey test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/DeleteSurvey_SB.png)
+
+---
+
+## Questions
+
+### New Question
+
+**Method:** POST  
+**Authorization:** JWT Token  
+**Status:** 201 Created  
+**URL Path:** `https://surveybuddy-backend.onrender.com/surveys/:surveyId/questions`  
+![New Question test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/NewQuestion_SB.png)
+
+---
+
+### Get Question
+
+**Method:** GET  
+**Authorization:** NA  
+**Status:** 200 OK  
+**URL Path:** `https://surveybuddy-backend.onrender.com/surveys/:surveyId/questions/:questionId`  
+![Get Question test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/GetQuestion_SB.png)
+
+---
+
+### Get Survey Questions
+
+**Method:** GET  
+**Authorization:** NA  
+**Status:** 200 OK  
+**URL Path:** `https://surveybuddy-backend.onrender.com/surveys/:surveyId/questions`  
+![Get Survey Questions test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/GetSurveyQuestions_SB.png)
+
+---
+
+## Answers
+
+### New Answer
+
+**Method:** POST  
+**Authorization:** NA  
+**Status:** 201 Created  
+**URL Path:** `https://surveybuddy-backend.onrender.com/answers/:surveyId/:questionId`  
+![New Answer test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/NewAnswer_SB.png)
+
+---
+
+### Get Question Answers
+
+**Method:** GET  
+**Authorization:** JWT Token  
+**Status:** 200 OK  
+**URL Path:** `https://surveybuddy-backend.onrender.com/answers/:surveyId/:questionId`  
+![Get Question Answers test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/GetQuestionAnswers_SB.png)
+
+---
+
+### Get Survey Answers
+
+**Method:** GET  
+**Authorization:** JWT Token  
+**Status:** 200 OK  
+**URL Path:** `https://surveybuddy-backend.onrender.com/answers/:surveyId`  
+![Get Survey Answers test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/GetSurveyAnswers_SB.png)
+
+---
+
+## Auth
+
+### Auth: Not Creator Response
+
+**Method:** DELETE  
+**Authorization:** JWT Token  
+**Status:** 403 Forbidden  
+**URL Path:** `https://surveybuddy-backend.onrender.com/surveys/:surveyId`  
+![Not Creator Response test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/Auth_NotCreator_SB.png)
+
+---
+
+### Auth: Invalid Username or Password
+
+**Method:** POST  
+**Authorization:** NA  
+**Status:** 400 Bad Request  
+**URL Path:** `https://surveybuddy-backend.onrender.com/users/login`  
+![Invalid Username or Password test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/Auth_invalidUsernameOrPW.png)
+
+---
+
+### Auth: Invalid or Missing Token
+
+**Method:** POST  
+**Authorization:** JWT (Invalid)  
+**Status:** 403 Forbidden  
+**URL Path:** `https://surveybuddy-backend.onrender.com/surveys/:surveyId/editSurvey`  
+![Invalid or Missing Token test](surveybuddy-client/src/assets/testScreenShots/productionInsomniaTests/Auth_InvalidToken_SB.png)
+
+</details>
 
 ## Trello Board Tracking
 
