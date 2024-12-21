@@ -27,5 +27,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "pages", "lib"]
+  "include": ["src", "pages", "lib", "vitest.setup.ts"]
 }
