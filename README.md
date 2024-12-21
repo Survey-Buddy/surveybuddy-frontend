@@ -12,30 +12,62 @@
 
 ## Frontend
 
-- **[Vite](https://vitejs.dev/)**: A fast and modern build tool that provides a seamless development experience with features like hot module replacement (HMR).
-- **[React](https://reactjs.org/)**: A JavaScript library for building user interfaces with a component-based architecture.
-- **[ShadCN](https://shadcn.dev/)**: A component library that integrates Tailwind CSS and Radix UI primitives for building accessible and customizable UI elements.
-- **[Tailwind CSS](https://tailwindcss.com/)**: A utility-first CSS framework for creating modern, responsive designs directly in your HTML and JSX.
+- **[Vite](https://vitejs.dev/):** A fast build tool that improves development with instant updates and great performance.
+- **[React](https://reactjs.org/):** A JavaScript library for creating user interfaces in a reusable, component-based way.
+- **[ShadCN](https://shadcn.dev/):** A utility library combining Tailwind CSS and Radix UI components for accessible, responsive design.
+- **[Tailwind CSS](https://tailwindcss.com/):** A CSS framework for designing modern, responsive layouts using utility classes.
 
 ## Backend
 
-- **[Express](https://expressjs.com/)**: A lightweight and flexible Node.js framework for building APIs and server-side applications.
-- **[Node.js](https://nodejs.org/)**: A JavaScript runtime that enables server-side scripting and efficient handling of asynchronous operations.
+- **[Express](https://expressjs.com/):** A lightweight framework for building server-side APIs and applications in Node.js.
+- **[Node.js](https://nodejs.org/):** A JavaScript runtime environment for running server-side code.
 
 ## Database
 
-- **[MongoDB](https://www.mongodb.com/)**: A NoSQL database that stores data in flexible, JSON-like documents, ideal for dynamic and scalable applications.
+- **[MongoDB](https://www.mongodb.com/):** A NoSQL database for storing flexible, JSON-like documents that scale easily.
 
-## Other Tools
+## Additional Libraries
 
-- **[Radix UI](https://www.radix-ui.com/)**: Accessible, unstyled UI components for building custom design systems.
-- **[Framer Motion](https://www.framer.com/motion/)**: A declarative animation library for adding smooth and interactive animations to your app.
-- **[React Hook Form](https://react-hook-form.com/)**: A lightweight library for managing form state and validation with excellent performance.
-- **[Zod](https://zod.dev/)**: A TypeScript-first schema declaration and validation library for ensuring data consistency.
-- **[Lottie React](https://github.com/LottieFiles/lottie-react)**: A library for rendering high-quality vector animations in your React application.
-- **[Axios](https://axios-http.com/)**: A promise-based HTTP client for handling API requests efficiently.
-- **[Recharts](https://recharts.org/)**: A React charting library for creating interactive data visualizations.
-</details>
+### UI & Animations
+
+- **[Radix UI](https://www.radix-ui.com/):** Provides accessible, customisable, and unstyled components for building design systems.
+- **[Framer Motion](https://www.framer.com/motion/):** Adds smooth, declarative animations to your React app.
+- **[React Hook Form](https://react-hook-form.com/):** A lightweight library for managing forms and validations efficiently.
+- **[Zod](https://zod.dev/):** A schema validation library to ensure data consistency.
+- **[Lottie React](https://github.com/LottieFiles/lottie-react):** Displays vector animations for enhancing visual appeal.
+
+### Charts & Visualization
+
+- **[Recharts](https://recharts.org/):** A library for creating interactive data visualisations in React.
+
+### HTTP & State Management
+
+- **[Axios](https://axios-http.com/):** A promise-based HTTP client for handling API requests.
+- **[JS-Cookie](https://github.com/js-cookie/js-cookie):** A simple way to manage browser cookies.
+- **[jwt-decode](https://github.com/auth0/jwt-decode):** Decodes JSON Web Tokens (JWT) for authentication.
+
+---
+
+## Testing
+
+- **[Vitest](https://vitest.dev/):** A fast test runner and assertion library built for Vite and modern web apps.
+- **[Testing Library](https://testing-library.com/docs/react-testing-library/intro):** Provides utilities for testing React components by simulating user interactions.
+- **[JSDOM](https://github.com/jsdom/jsdom):** Emulates a browser environment in Node.js for testing purposes.
+- **[Mock Service Worker (MSW)](https://mswjs.io/):** Intercepts network requests for testing APIs without relying on real servers.
+- **[Axios Mock Adapter](https://github.com/ctimmerm/axios-mock-adapter):** Mocks Axios requests and responses for reliable API testing.
+
+---
+
+## Development Tools
+
+- **[TypeScript](https://www.typescriptlang.org/):** A strongly typed superset of JavaScript for catching bugs early and improving code quality.
+- **[ESLint](https://eslint.org/):** A tool for identifying and fixing coding issues to ensure consistent code quality.
+- **[Prettier](https://prettier.io/):** Automatically formats code for better readability and consistency.
+
+## Build & Deployment
+
+- **[Vite](https://vitejs.dev/):** Also handles production builds with optimized performance.
+- **[Tailwind CSS](https://tailwindcss.com/):** Uses PostCSS to generate efficient styles for production.
 
 ### **CMP1003-1.1: Demonstration of DRY (Don’t Repeat Yourself) Principles**
 
@@ -961,11 +993,9 @@ Below is an overview of the production testing process for the SurveyBuddy appli
 
 Each video provides a step-by-step demonstration of the corresponding feature to ensure clarity and ease of understanding for users and stakeholders.
 
-**surveybuddy.tech** Production Testing with Insomnia
+# Insomnia Production API Tests for SurveyBuddy
 
 Not all development routes are currently available in production, therefore only available routes will be displayed.
-
-# Insomnia API Tests for SurveyBuddy
 
 ## Users
 
