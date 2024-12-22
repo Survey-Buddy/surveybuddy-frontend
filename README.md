@@ -4,7 +4,7 @@
 
 ---
 
-### **CMP1003-1.1: Demonstration of DRY (Don’t Repeat Yourself) Principles**
+## **CMP1003-1.1: Demonstration of DRY (Don’t Repeat Yourself) Principles**
 
 <details>
 <summary>View</summary>
@@ -16,34 +16,28 @@ This project demonstrates excellent adherence to DRY principles by avoiding unne
 
 #### **1. Reusable Components**
 
-- Modular and reusable UI components, such as buttons, forms, modals, and navigation menus, were created.
-- **ShadCN** was used to build a consistent set of components, allowing for easy reuse across the application with configurable props.
+- Modular and reusable UI components, such as buttons, forms, cards, badges, and navigation menus, were created.
+- **ShadCN** components were used to build a consistent set of components, allowing for easy reuse across the application with configurable props.
 
 #### **2. Centralised Utility Functions**
 
-- A centralised Axios wrapper was implemented to manage all API calls, handling base URLs, headers, and error responses in one place.
 - Shared validation schemas using **Zod** ensured consistent and reusable validation for forms across the application.
 
 #### **3. Context and Global State Management**
 
-- Global state was managed using **React Context**, reducing the need for repeated state logic and simplifying component communication. This was applied to manage features such as user authentication and theme settings.
+- Global state was managed using **React Context**, reducing the need for repeated state logic and simplifying component communication. This was applied to manage features such as user authentication and user data.
 
-#### **4. Tailwind CSS and Styling**
+#### **4. Backend Code Reusability**
 
-- Conditional and dynamic class management was achieved with **class-variance-authority** and **clsx**, ensuring reusable and consistent styling across components.
-- A single Tailwind CSS configuration file was used to enforce consistent use of colours, spacing, and typography throughout the application.
-
-#### **5. Backend Code Reusability**
-
-- Middleware functions were created for common tasks such as authentication, role validation, and error handling, ensuring they could be reused across multiple routes.
+- Middleware functions were created for common tasks such as authentication, creator validation, and question formatting, ensuring they could be reused across multiple routes.
 - Modular MongoDB models, such as `Survey` and `User`, served as single sources of truth for database schema definitions.
-- Shared logic for CRUD operations was abstracted into helper functions, reducing repeated code in controllers.
 
-#### **6. Form Management**
+#### **5. Form Management**
 
 - **React Hook Form** was used to handle form state and validation in a consistent and reusable manner, improving code maintainability and reducing duplication.
+- Forms components were used for multiple purposes for creating a new survey and auto populated for editing survey data.
 
-#### **7. Routing**
+#### **6. Routing**
 
 - Dynamic and nested routes in **React Router** were utilised to avoid duplicating route definitions and ensure consistent parent-child relationships in the app's structure.
 
@@ -53,7 +47,7 @@ By following these approaches, the project ensures that every piece of functiona
 
 </details>
 
-### CMP1003-1.2: Appropriate use of libraries used in the app
+## CMP1003-1.2: Appropriate use of libraries used in the app
 
 <details>
 <summary>View</summary>
@@ -132,15 +126,15 @@ The application effectively demonstrates code flow control by utilising conditio
 #### **1. Conditional Logic**
 
 - Conditional statements are used to handle various application states and behaviours. Examples include:
-  - Checking if required fields are provided in the backend before processing API requests.
+  - Checking if required fields are provided before conditionally rendering forms.
   - Verifying user authentication and authorisation using middleware before allowing access to protected routes.
-  - Dynamically rendering UI elements based on user roles or data availability.
+  - Dynamically rendering UI elements based on if a user is signed in or data availability.
 
 #### **2. Loops and Iteration**
 
 - Iterative logic is applied in key areas of the application, such as:
   - Mapping over datasets to dynamically generate UI elements (e.g., survey lists, form inputs).
-  - Iterating over responses from the database to format or filter data for specific frontend needs.
+  - Iterating over responses from the database to format or filter data for specific question result charts and graphs.
 
 #### **3. Error Handling**
 
@@ -153,19 +147,21 @@ The application effectively demonstrates code flow control by utilising conditio
 - Asynchronous code is used extensively to handle operations like:
   - Fetching data from external APIs or the database using `async/await`.
   - Updating the UI in real-time after receiving responses from the server.
-  - Managing race conditions by awaiting specific operations before proceeding (e.g., user authentication before accessing dashboard data).
+  - Managing race conditions by awaiting specific operations before proceeding (e.g., user authentication before accessing homepage data).
 
 #### **5. Middleware for Controlled Flow**
 
 - Middleware is used in the backend to control the flow of requests:
   - Authenticating users and rejecting unauthorised access.
   - Validating request data and blocking invalid inputs before they reach the main logic.
+  - Formatting data conditionally such as question format.
 
 #### **6. Frontend State Control**
 
 - React's state management is used to handle UI and data flow efficiently:
-  - Loading states are implemented to control what is displayed while awaiting API responses.
-  - Context is used to manage global states, such as user data and theme preferences, ensuring a consistent flow of information across components.
+  - Loading states are implemented to control what is displayed while awaiting API responses (loading for example).
+  - Tab state it updated and data is passed to different schemas conditionally dependent on value of said state.
+  - Context is used to manage global states, such as user data, ensuring a consistent flow of information across components.
 
 ---
 
@@ -173,7 +169,7 @@ By implementing these strategies, the application ensures controlled, predictabl
 
 </details>
 
-### **CMP1002-2.2: Application of Object-Oriented Principles/Patterns**
+## **CMP1002-2.2: Application of Object-Oriented Principles/Patterns**
 
 <details>
 <summary>View</summary>
@@ -190,18 +186,18 @@ The application demonstrates superior use of object-oriented principles and patt
 
 #### **2. Inheritance**
 
-- Shared middleware functions (e.g., for authentication and role validation) act as a base layer for route-specific middleware, following an inheritance-like structure. For example:
+- Shared middleware functions (e.g., for authentication and validation) act as a base layer for route-specific middleware, following an inheritance-like structure. For example:
   - `isCreator` middleware extends basic authentication checks by adding role-specific logic.
 
 #### **3. Polymorphism**
 
 - Polymorphism is demonstrated in:
-  - **Frontend Reusability**: Reusable React components (e.g., buttons, modals, forms) adapt to different contexts using props, allowing a single component to handle multiple use cases.
+  - **Frontend Reusability**: Reusable React components (e.g., buttons, modals, forms) adapt to different contexts using props or conditional statements, allowing a single component to handle multiple use cases.
   - **Backend Methods**: Overriding default Mongoose schema methods (e.g., `toJSON`) for formatting database output to suit the application's requirements.
 
 #### **4. Abstraction**
 
-- **Utilities and Services**: Common logic, such as validation, API requests, and error handling, is abstracted into utility functions and shared services. This abstraction hides implementation details while exposing clear, reusable interfaces.
+- **Utilities and Services**: Common logic, such as validation, API requests, and types, are abstracted into utility functions and shared services. This abstraction hides implementation details while exposing clear, reusable interfaces.
 - **Routes**: Backend routing uses layered abstraction:
   - Routes define the entry points.
   - Middleware handles common processing (e.g., validation, authentication).
@@ -217,14 +213,14 @@ The application demonstrates superior use of object-oriented principles and patt
 
 - Each class, function, and module is designed to perform a single responsibility:
   - Controllers focus solely on business logic.
-  - Middleware handles authentication, validation, and error checking.
-  - React components handle specific UI elements without coupling logic.
+  - Middleware handles authentication, validation, formatting, and error checking.
+  - React components handle specific UI elements without coupling too much logic where possible.
 
 #### **7. Dependency Injection**
 
 - The app follows dependency injection principles:
-  - Middleware injects required data (e.g., `req.user`) into controllers.
-  - Components receive data and actions as props, promoting testability and flexibility.
+  - Middleware injects required data (e.g., `request.user`) into controllers.
+  - Components receive data and actions as props or via params, promoting testability and flexibility.
 
 #### **8. Positive Impact on Maintainability and Serviceability**
 
@@ -253,12 +249,12 @@ This project demonstrates excellent use of source control methodology, with cons
 
 - Over 150 commits were made across the frontend and backend repositories, reflecting consistent and focused development efforts.
 - Commits were made on nearly every day of the project, with only two days without commits, highlighting sustained progress and commitment.
-- Each commit represented a specific task or feature, ensuring clarity and traceability.
+- Each commit represented a specific task, update, fix or feature, ensuring clarity and traceability.
 
 #### **2. Structured Branching and Merging**
 
 - Feature branches were created for new functionality, and all changes were merged into the main branch upon completion and testing.
-- A clear branching strategy was used to separate work on features, fixes, and enhancements, ensuring the stability of the main branch.
+- A clear branching strategy was used to separate work on features, fixes, and testing ensuring the stability of the main branch.
 - Merges were performed regularly to keep the main branch up to date and to prevent conflicts.
 
 #### **3. Use of Pull Requests**
@@ -273,7 +269,7 @@ This project demonstrates excellent use of source control methodology, with cons
 
 #### **5. Frontend and Backend Source Control**
 
-- Commits were evenly distributed between the frontend and backend, with both repositories showing consistent activity and progress.
+- Commits were distributed between the frontend and backend, with both repositories showing consistent activity and progress.
 - Version control practices were applied uniformly across both sections, ensuring the same level of organisation and quality.
 
 #### **6. Source Control for Collaboration and Recovery**
@@ -364,39 +360,54 @@ The application demonstrates outstanding functionality, meeting and exceeding cl
 #### **1. Easy Navigation**
 
 - The app is designed with a clean and straightforward user interface, allowing users to easily access all functionalities without confusion.
-- A tab-based single-page system ensures a seamless and efficient workflow for survey creation and management.
+  ![Drop Down Menu](surveybuddy-client/src/assets/images/dropDownMenu.png)
+- A tab-based single-page system ensures a seamless and efficient workflow for multi format question creation and management.
+  ![Single Page Tabs](surveybuddy-client/src/assets/images/questionTabs.png)
 
 #### **2. Survey Creation**
 
 - Users can create new surveys with minimal effort, supported by a simple and intuitive process.
-- The use of a single-page tab system allows users to:
+- The use of a single-page questions tab system allows users to:
   - Add questions directly to a survey without navigating away from the current page.
   - View and manage all survey details in one place.
 
 #### **3. Visual Data Representation**
 
 - The app includes visual tools for analysing survey responses:
+
   - **Pie Chart**: Displays results for multiple-choice questions, offering a clear and engaging way to visualise response distribution.
+
+  ![Pie Chart](surveybuddy-client/src/assets/images/pieChart.png)
+
   - **Bar Graph**: Represents responses from range slider questions (e.g., 0-10 ratings), enabling users to easily identify trends.
+
+  ![Written Response List](surveybuddy-client/src/assets/images/writtenResponseList.png)
+
   - **List View**: Displays written responses in a clear, readable format, ensuring all data types are accessible.
+
+  ![Pie Chart](surveybuddy-client/src/assets/images/pieChart.png)
 
 #### **4. Editable and Deletable Surveys**
 
 - Surveys can be edited and updated, allowing users to adjust questions or settings after creation.
+  ![Update Alert](surveybuddy-client/src/assets/images/updateAlert.png)
+
 - Surveys are also deletable, providing flexibility in managing survey data.
+  ![Delete Alert](surveybuddy-client/src/assets/images/deleteAlert.png)
 
 #### **5. Copy Link Functionality**
 
 - The app includes auto-click link icons to copy survey URLs directly, making it effortless for users to share surveys with participants.
+  ![List with Link](surveybuddy-client/src/assets/images/listWithLink.png)
 
 ---
 
 #### **Impact on User Experience**
 
 - **Ease of Use**: Intuitive design ensures users can navigate and use the app without requiring training or documentation.
-- **Efficiency**: Single-page tabs streamline survey creation and management, reducing the time and effort needed for these tasks.
+- **Efficiency**: Single-page tabs streamline question creation and management, reducing the time and effort needed for these tasks.
 - **Data Analysis**: Built-in visualisations and response lists exceed expectations by offering powerful insights into survey results in a user-friendly manner.
-- **Flexibility**: The ability to edit, delete, and easily share surveys ensures the app adapts to the dynamic needs of its users.
+- **Flexibility**: The ability to edit, delete, and easily share surveys ensures the app adapts to the dynamic needs of its users.d
 
 This application not only meets client and user expectations but also exceeds them by providing a feature-rich, intuitive, and visually appealing solution for survey creation and analysis.
 
@@ -415,7 +426,10 @@ The application demonstrates a successful and professional deployment process, m
 #### **1. Cloud Hosting Services**
 
 - The frontend was successfully deployed on **Netlify**, ensuring fast, reliable, and globally distributed delivery of the application.
+  ![Netlify Deployment](surveybuddy-client/src/assets/images/netlifyDeployment.png)
+
 - The backend was deployed on **Render**, providing a scalable and secure platform for handling API requests and server-side functionality.
+  ![Render Deployment](surveybuddy-client/src/assets/images/renderDeployment.png)
 
 #### **2. Custom Domain Name**
 
@@ -431,7 +445,7 @@ The application demonstrates a successful and professional deployment process, m
 - **Environment variables** were utilised to securely manage sensitive information such as:
   - Database connection strings.
   - API keys.
-  - Authentication secrets.
+    ![Environment Variables](surveybuddy-client/src/assets/images/envVariables.png)
 - This approach ensures the secure and seamless management of configuration settings across different environments.
 
 ---
@@ -461,6 +475,7 @@ The application features a highly intuitive user interface, ensuring smooth and 
 
 - A clearly designed navigation bar provides users with easy access to all key areas of the application.
 - The navigation options are straightforward and labelled appropriately, ensuring users can move between sections without confusion.
+  ![Navbar](surveybuddy-client/src/assets/images/navbar.png)
 
 #### **2. Back Buttons**
 
@@ -509,7 +524,7 @@ The application demonstrates extensive development testing, ensuring all feature
 
 #### **2. Frontend Testing with Vite**
 
-- **Vite's development server** was used extensively for frontend testing:
+- **Vitest** was used extensively for frontend testing:
   - User flows were tested, such as survey creation, question addition, editing, and response viewing.
   - Browser testing ensured the app performed consistently across different environments.
 
@@ -800,6 +815,10 @@ Below is an overview of the production testing process for the SurveyBuddy appli
 
 Each video provides a step-by-step demonstration of the corresponding feature to ensure clarity and ease of understanding for users and stakeholders.
 
+### Client Testing
+
+A survey about dogs was tested with fellow students, who acted as clients since they are part of the app's target market. This testing demonstrated the app's user-friendliness and smooth survey flow. Multiple answers were recorded for each question, and all participants who began the survey completed all the questions. Additionally, students were provided with login access to view the survey data and create their own surveys. As a result, three new surveys were created by the students, highlighting the simplicity of survey and question creation for the target audience.
+
 # Insomnia Production API Tests for SurveyBuddy
 
 Not all development routes are currently available in production, therefore only available routes will be displayed.
@@ -980,6 +999,28 @@ Not all development routes are currently available in production, therefore only
 <summary>View</summary>
 </br>
 
+### Task Delegation and Kanban Workflow
+
+To effectively manage tasks, I utilised a Kanban board with tickets assigned to team members, labeled with difficulty levels and linked to corresponding Git commits. Beyond marking difficulty levels on the cards, I added labels for quick identification of specific areas that required work. Midway through the project, I introduced a high-level labeling system for better oversight—a practice I plan to implement from the start in future projects. Git commits were consistently tied to Kanban tickets and moved to the "done" column upon task completion, ensuring clear tracking of progress.
+
+#### Strengths and Approach
+
+My primary strength lies in backend development, so I began by creating the survey and question routes, models, and controllers. This approach allowed for seamless testing of backend routes from the frontend. Afterward, I transitioned to frontend development and allocated time to research, as working with new styling libraries required additional learning.
+
+#### Challenges and Adaptations
+
+This project was my first extensive experience in managing and estimating timelines for complex tasks. As such, multiple date adjustments were made to Kanban cards throughout the project. Additionally, learning TypeScript alongside completing project tasks was more challenging than anticipated. Despite the difficulties, I am pleased with the decision to use TypeScript, as it has significantly enhanced my technical skills and project outcomes.
+
+In conclusion, while the project presented challenges, the strategic use of Kanban for task delegation, combined with adaptive learning, contributed to the success of the project.
+
+---
+
+## Trello Board Kan-Ban Card Updates
+
+<details>
+<summary>View</summary>
+</br>
+
 #### 25th of November - Let The Build Begin!
 
 - Set up the backend skeleton and connected to MongoDB Atlas.
@@ -988,296 +1029,174 @@ Not all development routes are currently available in production, therefore only
 - Developed JWT functions for token generation.
 - Tested signup functionality using Insomnia.
 
-![25th Nov Trelllo](/surveybuddy-client/src/assets/trello/trello_25:11.png)
+![25th Nov Trello](/surveybuddy-client/src/assets/trello/trello_25:11.png)
 
 #### 27th of November
 
 - Built middleware to validate question and answer inputs.
-- Created newQuestion endpoint to add new questions to the database.
-- Implemented editQuestion endpoint to update specific fields of an existing question.
-- Fixed issue where updates were not saving correctly by adjusting findByIdAndUpdate logic.
-- Developed deleteQuestion endpoint to remove a question by ID.
+- Created `newQuestion` endpoint to add new questions to the database.
+- Implemented `editQuestion` endpoint to update specific fields of an existing question.
+- Fixed issue where updates were not saving correctly by adjusting `findByIdAndUpdate` logic.
+- Developed `deleteQuestion` endpoint to remove a question by ID.
 - Enhanced error handling with detailed response messages and server-side logging.
 - Tested all question-related endpoints for proper functionality.
 
-![27th Nov Trelllo](/surveybuddy-client/src/assets/trello/trello_27:11.png)
+![27th Nov Trello](/surveybuddy-client/src/assets/trello/trello_27:11.png)
 
 #### 28th of November
 
-- Implemented middleware to check if a question belongs to a specific survey (questionBelongsToSurvey).
+- Added middleware to check if a question belongs to a specific survey (`questionBelongsToSurvey`).
 - Updated survey and question schemas to better handle relationships between surveys and questions.
-- Added logic to handle the question format validation within the editQuestion route.
-- - Used findByIdAndUpdate to update questions with new data (question format, question text, and answer).
-- Added validation checks to ensure data integrity when editing questions (checking for missing fields).
-- Implemented checks to verify if a question exists before updating or deleting it.
-- Debugged and tested the functionality of updating and deleting questions with the correct logic in place.
-- Moved all MVP backend cards to the **DONE** column, will revisit in a few days to optimise code and introduce further middleware.
+- Improved `editQuestion` route logic to handle validation for missing fields and question format.
+- Debugged and tested updating and deleting questions for proper functionality.
+- Moved all backend MVP cards to the **DONE** column.
 
-Due to underestimating how long building the backend MVP would take, the frontend cards due today were assigned a new due date of the 4th of Decemeber. After finishing the backend the next sprint will be to get these cards complete. Since I am behind schedule and working hard on getting the backend complete, the time extension is in no way an issue.
+Due to underestimating how long building the backend MVP would take, frontend cards due today were rescheduled to December 4th.
 
-![28th Nov Trello Update](/surveybuddy-client/src/assets/trello/trello_28:11.png)
+![28th Nov Trello](/surveybuddy-client/src/assets/trello/trello_28:11.png)
 
 #### 1st of December
 
-**Debugged and Fixed Middleware Issues:**
+- Debugged and fixed middleware issues with `isCreator`.
+- Refactored `isCreator` middleware to dynamically handle model and field checking.
+- Ensured middleware validation works for both Survey and Question models.
+- Verified that only the creator can perform specific actions.
 
-- Troubleshooted issues with the isCreator middleware.
-- Ensured proper user validation for both Survey and Question models.
-- Corrected the handling of user ownership checks for different models.
-
-**Refactored isCreator Middleware:**
-
-- Improved the isCreator middleware to handle dynamic model and field checking.
-- Enhanced logic for checking the creator of a Question through the associated Survey.
-
-**Tested and Ensured Proper Model Checks:**
-
-- Made sure the middleware works correctly for both Survey and Question routes.
-- Verified that only the creator (based on userId) can perform specific actions.
-
-![1st Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_1:12.png)
+![1st Dec Trello](/surveybuddy-client/src/assets/trello/trello_1:12.png)
 
 #### 2nd of December
 
-#### Frontend:
+**Frontend:**
 
-- **Investigated Chakra UI**:
+- Researched Chakra UI and resolved `ChakraProvider` errors.
+- Decided to use ShadCN for responsive UI components.
+- Built a responsive navbar with ShadCN and state-driven toggle menus.
+- Fixed client-side errors for smoother functionality.
 
-  - Researched Chakra UI as a UI component library.
-  - Resolved errors related to ChakraProvider by including the `value` prop.
+**Backend:**
 
-- **Explored ShadCN**:
+- Developed routes for managing surveys and answers.
+- Applied dynamic middleware for validating request parameter IDs.
+- Tested API endpoints using Insomnia for functionality and data validation.
 
-  - Researched ShadCN for UI component options.
-  - Decided to use ShadCN to build a responsive navbar.
-
-- **Navbar Development**:
-
-  - Created a simple, responsive navbar using ShadCN components (`Box`, `Flex`, `Text`, and `Button`).
-  - Implemented a mobile-friendly design with a toggleable menu using state.
-
-- **Fixed Client Errors**:
-  - Addressed and resolved various client-side errors, ensuring smoother functionality.
-
-#### Backend:
-
-- **Survey and Answer Routes**:
-
-  - Developed backend routes for managing surveys and answers.
-  - Created routes for adding answers to specific survey questions and handling answer data.
-
-- **Testing with Insomnia**:
-
-  - Tested the survey API endpoints using Insomnia to ensure correct functionality.
-  - Checked responses, ensured data validation, and confirmed that routes worked as expected.
-
-- **Middleware Setup**:
-
-  - Applied dynamic middleware to validate IDs in request parameters (e.g., `surveyId`, `questionId`, `answerId`, `userId`).
-
-- **Database Integration**:
-  - Integrated MongoDB (or another database) to store survey data, answers, and user-related information.
-
-![2nd Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_2:12.png)
-
-#### 2nd of December
-
-#### Frontend:
-
-- **Investigated Chakra UI**:
-
-  - Researched Chakra UI as a UI component library.
-  - Resolved errors related to ChakraProvider by including the `value` prop.
-
-- **Explored ShadCN**:
-
-  - Researched ShadCN for UI component options.
-  - Decided to use ShadCN to build a responsive navbar.
-
-- **Navbar Development**:
-
-  - Created a simple, responsive navbar using ShadCN components (`Box`, `Flex`, `Text`, and `Button`).
-  - Implemented a mobile-friendly design with a toggleable menu using state.
-
-- **Fixed Client Errors**:
-  - Addressed and resolved various client-side errors, ensuring smoother functionality.
-
-#### Backend:
-
-- **Survey and Answer Routes**:
-
-  - Developed backend routes for managing surveys and answers.
-  - Created routes for adding answers to specific survey questions and handling answer data.
-
-- **Testing with Insomnia**:
-
-  - Tested the survey API endpoints using Insomnia to ensure correct functionality.
-  - Checked responses, ensured data validation, and confirmed that routes worked as expected.
-
-- **Middleware Setup**:
-
-  - Applied dynamic middleware to validate IDs in request parameters (e.g., `surveyId`, `questionId`, `answerId`, `userId`).
-
-- **Database Integration**:
-  - Integrated MongoDB (or another database) to store survey data, answers, and user-related information.
-
-![2nd Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_2:12.png)
+![2nd Dec Trello](/surveybuddy-client/src/assets/trello/trello_2:12.png)
 
 #### 3rd of December
 
-- Created a basic landing page for your app.
+- Created a basic landing page for the app.
 - Developed signup and login components using ShadCN.
-- Researched ShadCN to understand its capabilities and integrate it effectively.
-- Troubleshot and implemented a responsive footer that stays at the bottom of the page and spans the full width of the screen.
-- Resolved layout issues with images, ensuring proper scaling (e.g., setting an image to 70% size without pushing the footer).
-- Ensured consistent margins for grid components, maintaining balanced layouts.
-- Refined your app's router setup, making navigation seamless for future development.
+- Troubleshot and resolved layout issues with images and footers.
+- Refined the router setup for seamless navigation.
 
-![3rd Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_3:12.png)
+![3rd Dec Trello](/surveybuddy-client/src/assets/trello/trello_3:12.png)
 
 #### 5th of December
 
-- Completed the setup for routing and navigation across all pages.
-- Implemented links to the respective pages (e.g., Home, Surveys, Analytics, Targeted, etc.) using React Router.
-- Ensured that all pages are connected properly, and links are functioning as expected on the client-side.
-- Verified that navigation items in the header (e.g., Survey, About, Community) lead to the correct pages.
-- Created a responsive navigation menu with ShadCN and lucide-react icons for improved user interaction.
+- Set up routing and navigation for all pages.
+- Created responsive navigation with ShadCN and lucide-react icons.
+- Verified proper functionality of navigation links.
 
-![5th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_5:12.png)
+![5th Dec Trello](/surveybuddy-client/src/assets/trello/trello_5:12.png)
 
 #### 6th December
 
-- Created a combined login and registration form using React, TypeScript, and react-hook-form.
-- Implemented form validation using zod and integrated it with react-hook-form via zodResolver.
-- Sent POST requests to backend /signup and /login endpoints using axios.
-- Displayed success or error alerts upon form submission based on response status.
-- Implemented conditional rendering for login/register forms based on the isRegister state.
-- Managed form field validation errors and displayed relevant error messages on the UI.
-- Dynamically switched form header and button texts based on the isRegister flag.
-- Navigated to /home page upon successful form submission using useNavigate.
-- Integrated react-router-dom for navigation and passed query parameters (isRegister=true/false) to manage form state.
-- Used useLocation to extract URL query parameters for dynamic form switching.
-- Designed a responsive, user-friendly registration/login form with card-based layout.
-- Explored how to handle API response data types in TypeScript when using axios.
-- Researched how to use URLSearchParams to manage form state via URL parameters.
-- Applied TypeScript types for API responses and react-hook-form data to ensure type safety.
+- Built a combined login and registration form with react-hook-form and zod validation.
+- Handled API responses dynamically and displayed appropriate error/success alerts.
+- Designed a responsive, user-friendly card-based layout for forms.
 
-![6th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_6:12.png)
+![6th Dec Trello](/surveybuddy-client/src/assets/trello/trello_6:12.png)
 
 #### 7th December
 
-- Implemented and completed user client authentication.
-- Set up storing JWT tokens in cookies for enhanced security and ease of use.
-- Created a new SurveyCard component to dynamically display survey details.
-- Integrated the SurveyCard component with fetched survey data for better UI presentation.
-- Improved application logic by handling API responses and managing state effectively.
+- Implemented user client authentication with JWT tokens stored in cookies.
+- Developed a dynamic SurveyCard component to display survey details.
+- Integrated SurveyCard with fetched survey data.
 
-![7th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_7:12.png)
+![7th Dec Trello](/surveybuddy-client/src/assets/trello/trello_7:12.png)
 
 #### 8th December
 
-- Implemented survey list and card displays for better layout and presentation.
-- Created a Zod schema to validate survey inputs.
-- Integrated and imported Framer Motion for animations.
-- Completed a single community page.
-- Troubleshot UI issues with Tailwind.
+- Created survey list and card displays.
+- Added Zod schema validation for survey inputs.
+- Integrated Framer Motion for animations.
+- Troubleshot and resolved Tailwind UI issues.
 
-![8th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_8:12.png)
+![8th Dec Trello](/surveybuddy-client/src/assets/trello/trello_8:12.png)
 
 #### 9th December
 
-- Implemented a tabbed interface for survey question types (Written Response and Multiple Choice).
-- Added input fields for Written Response question type.
-- Added input fields for Multiple Choice question type (radio buttons).
-- Integrated basic tab functionality to switch between Written Response, Range Slider and Multiple Choice question inputs.
-- Applied Tailwind CSS for styling the tabs and inputs.
+- Added tabbed interfaces for survey question types.
+- Implemented input fields for multiple question types (Written Response, Range Slider, and Multiple Choice).
+- Styled tabs and inputs using Tailwind CSS.
 
-![9th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_9:12.png)
+![9th Dec Trello](/surveybuddy-client/src/assets/trello/trello_9:12.png)
 
 #### 11th December
 
-- Completed new Survey and Question forms that send data successfully to backend.
-- Completed survey completion page that dynamically maps questions to accordions to view. Will complete styling tomorrow and move card to done.
-- Fixed backend mongoose bugs so question data is stored properly.
+- Completed survey and question forms to send data to the backend.
+- Created a survey completion page with dynamically mapped questions in accordions.
+- Fixed Mongoose bugs for proper question data storage.
 
 #### 12th December
 
-- Completed survey completion card.
-- Fixed userContext not fetching user data before rendering.
-- Moved TypeScript learning into the _Done_ column.
-- Continued with Survey CRUD card and start on backend MVP testing.
-- Created account page skeleton and logout button to test signin and register userData functionality.
-- Gave Trello cards labels based on difficulty so level was visiable from a high level.
-- Gave Trello cards coloured covers based on frontend, backend, and logic.
+- Fixed userContext fetch issue for user data rendering.
+- Labeled Trello cards with difficulty and category for better task management.
+- Completed account page skeleton and logout button.
 
-![12th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_12:12.png)
+![12th Dec Trello](/surveybuddy-client/src/assets/trello/trello_12:12.png)
 
 #### 13th December
 
-- Completed Survey CRUD card.
-- Completed DRY Survey CRUD endpoints.
-- Created DRY survey card that can handle new survey creation and editable auto populated survey data to update.
-- Continued with backend MVP testing with Jest.
-- Extended the time on all remaining cards due to unforeseeable commitments that slowed development.
+- Refactored Survey CRUD endpoints and forms for improved DRY principles.
+- Extended deadlines on Trello cards due to unforeseen delays.
 
-![13th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_13:12.png)
+![13th Dec Trello](/surveybuddy-client/src/assets/trello/trello_13:12.png)
 
 #### 14th December
 
-- Implemented Jest and Superdry set up, DB connect, trial tests and teardown.
-- Create new MongoDB local database for testing and test environment.
-- Implemented POST, PATCH, DELETE and GET survey tests with edge cases.
-- Implemented signup testing with edge cases.
-- Fixed 40 TypeScript errors.
+- Set up Jest for testing with a local MongoDB test database.
+- Wrote tests for backend routes (POST, PATCH, DELETE, GET).
+- Fixed 40+ TypeScript errors.
 
-![14th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_14:12.png)
+![14th Dec Trello](/surveybuddy-client/src/assets/trello/trello_14:12.png)
 
 #### 15th December
 
-- Fixed all TypeScript errors.
-- Completed 'Deploy Frontend' card and moved to _Done_ column.
-- Added header data and logo.
-- Tested some basic colour and text size change on hover.
-- Tested colour pallets.
+- Finalised TypeScript error fixes.
+- Completed frontend deployment and added styling experiments.
 
-![15th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_15:12.png)
+![15th Dec Trello](/surveybuddy-client/src/assets/trello/trello_15:12.png)
 
 #### 17th December
 
-- Completed Survey Generation URL card and moved to _Done_ column. Implemented a link icon that auto copies the survey url when clicked.
-- Completed Survey Response Page card and moved it to the _Done_ column. This was extremely rewarding as it was difficult was produced lots of bugs.
-- Moved cards some cards in the _Done_ column to signed off, still keeping most in _Done_ because I plan to revisit them if I have time before submission.
+- Added survey generation URL functionality with a copy-to-clipboard link.
+- Completed the survey response page, resolving significant bugs.
 
-![17th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_17:12.png)
+![17th Dec Trello](/surveybuddy-client/src/assets/trello/trello_17:12.png)
 
 #### 18th December
 
-- Completed survey response data collection card and moved to _Done_ column.
-- Due to time constraints graphs and charts will be build with Shadcn, learning a new data visualisation technology would be detrimental to testing time.
-- Completed the range slider graph, question data still needs to be fetched and displayed.
+- Collected survey response data and built visualisations using ShadCN.
+- Implemented a range slider graph for question data.
 
-![18th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_18:12.png)
+![18th Dec Trello](/surveybuddy-client/src/assets/trello/trello_18:12.png)
 
 #### 19th December
 
-- Deployed teh backend on Render and moved the card to _Done_.
-- Fixed many cross deployment bugs.
-- Build multi choice answer pie graphs using Shadcn and written response answer list of cards. Moved Result data visualisation card to _Done_.
-- Conpleted a very simple contacts page (still needs email registration), and moved the card to _Done_.
-- Continued with Insomnia route testing and taking screenshots of responses for readme.
+- Deployed the backend on Render and fixed cross-deployment bugs.
+- Built multiple-choice answer pie graphs and a response page.
 
-![19th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_19:12.png)
+![19th Dec Trello](/surveybuddy-client/src/assets/trello/trello_19:12.png)
 
 #### 20th December
 
-- Fixed deployed back and front end bugs.
-- Added rubric documentation to readme.
-- Prepared presentation.
-- Registered a custom domain name for the app - surveybuddy.tech
-- Fixed survey link copy and paste bug.
+- Fixed deployment bugs for both frontend and backend.
+- Registered a custom domain for the app: surveybuddy.tech.
+- Finalised project presentation and prepared rubric documentation.
 
-![20th Dec Trello Update](/surveybuddy-client/src/assets/trello/trello_20:12.png)
+![20th Dec Trello](/surveybuddy-client/src/assets/trello/trello_20:12.png)
 
+</details>
 </details>
 
 ---
@@ -1313,3 +1232,71 @@ Here are the options I considered for structuring the database:
   Decision to Use Option 1
 
 I chose Option 1 because it’s the most efficient and professional design for a real-world app. It separates concerns, making it easier to add features or scale the app later. It also demonstrates my ability to design a well-structured, normalised, and scalable database, which is an important skill in full-stack development. This approach is ideal for a school project where I want to showcase my expertise.
+
+</details>
+
+### Future Features and Improvements
+
+<details>
+<summary>View</summary>
+</br>
+
+As the sole developer for this project, I was able to complete the MVP features. However, there are several potential enhancements that I plan to include in the future:
+
+- **Survey Response Data Visualisation**: Add graphical and chart-based data insights to improve survey analysis.
+- **Increased Backend Validation**: Implement stricter validation rules for improved data integrity and security.
+- **OAuth Integration**: Enable users to log in with third-party providers like Google or Facebook.
+- **App Reviews**: Allow users to leave feedback about the app for continuous improvement.
+- **Enhanced Account Page**: Add more features such as profile customisation, activity logs, and account settings.
+- **Survey Images**: Allow users to upload images for surveys.
+- **Question Images**: Include adding images to individual questions.
+- **Improved Styling**: Refine the app's user interface for a more polished and user-friendly experience.
+- **Analytics Page**: Create a dedicated page for analysing survey response data in detail.
+- **Targeted Response Page**: Build a feature for targeted respondent management and tracking.
+- **Cascading Data Deletion in MongoDB**: Ensure that when users, surveys, or questions are deleted, their related data is also removed automatically.
+- **More Effective Testing**: Expand unit, integration, and end-to-end testing for better app reliability.
+</details>
+
+### Acknowledgment of LLM Assistance
+
+<details>
+<summary>View</summary>
+</br>
+
+For this project, I used ChatGPT (model 4.0) as a learning tool to support my development process. Its primary purpose was to provide examples, clarify technical questions, and help refine various elements of the project, such as debugging code, improving grammar and punctuation in documentation, and creating initial test structures. All information provided by ChatGPT was reviewed and verified to ensure full understanding before being implemented in the code.
+
+#### Purpose of Using LLM
+
+- I used ChatGPT to accelerate my understanding of new concepts and unfamiliar technologies.
+- It served as a resource for debugging errors and providing concise explanations, allowing me to focus on implementing solutions efficiently.
+- ChatGPT supported me in improving my documentation by enhancing grammar, structure, and clarity.
+
+#### Limitations of LLM Usage
+
+- All final decisions regarding project structure, logic, and implementation were my own. ChatGPT was only used as a reference tool for clarification and improvement.
+- Generated suggestions were thoroughly reviewed and adapted to ensure they aligned with the project’s requirements and my own understanding.
+
+#### Impact on Learning
+
+- ChatGPT enabled me to solve complex coding challenges quickly, such as understanding TypeScript errors or optimising middleware functions.
+- It improved my ability to write clean and maintainable code by offering examples of best practices, which I reviewed and tailored to fit my project.
+- By using ChatGPT, I was able to enhance my workflow and focus on completing tasks more efficiently.
+
+#### Examples of Assistance
+
+- **Fixing Bugs:** Provided examples of resolving TypeScript and React errors.
+- **Testing Support:** Helped create skeleton tests for React components and backend endpoints using Jest and Vitest, ensuring proper structure.
+- **Documentation:** Enhanced README sections for improved grammar, clarity, and presentation, including markdown formatting.
+- **Code Suggestions:** Provided code snippets for debugging middleware and route validation, which I reviewed and adapted to ensure full functionality.
+
+#### Ethical and Academic Integrity
+
+- I adhered to academic integrity by ensuring that ChatGPT's suggestions were treated as learning tools rather than direct solutions.
+- All outputs were verified and modified to fit the specific requirements of the project, ensuring I had a full understanding of the concepts before integrating them into my work.
+- Final implementations, logic, and project decisions were my own.
+
+#### Reflection
+
+Using ChatGPT as a supplementary tool allowed me to focus on solving higher-level challenges while still learning the nuances of the technologies involved. The process strengthened my ability to adapt and refine solutions, ensuring that the final project reflects my personal learning and efforts.
+
+</details>
