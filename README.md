@@ -2,6 +2,10 @@
 
 ## Part B
 
+You can find the deployed SurveyBuddy App **[here](https://surveybuddy.tech/)**.
+
+---
+
 ### **CMP1003-1.1: Demonstration of DRY (Don’t Repeat Yourself) Principles**
 
 <details>
@@ -19,7 +23,7 @@ This project demonstrates excellent adherence to DRY principles by avoiding unne
 
 #### **2. Centralised Utility Functions**
 
-- Shared validation schemas using **Zod** ensured consistent and reusable validation for forms across the application.
+- I applied DRY principles by creating a shared functions file for API requests, ensuring consistent and reusable logic across the application. This centralisation reduced redundancy, improved maintainability, and promoted a single source of truth for common operations like data fetching and token handling.
 
 #### **3. Context and Global State Management**
 
@@ -34,10 +38,6 @@ This project demonstrates excellent adherence to DRY principles by avoiding unne
 
 - **React Hook Form** was used to handle form state and validation in a consistent and reusable manner, improving code maintainability and reducing duplication.
 - Forms components were used for multiple purposes for creating a new survey and auto populated for editing survey data.
-
-#### **6. Routing**
-
-- Dynamic and nested routes in **React Router** were utilised to avoid duplicating route definitions and ensure consistent parent-child relationships in the app's structure.
 
 ---
 
@@ -131,7 +131,7 @@ The application effectively demonstrates code flow control by utilising conditio
 #### **2. Loops and Iteration**
 
 - Iterative logic is applied in key areas of the application, such as:
-  - Mapping over datasets to dynamically generate UI elements (e.g., survey lists, form inputs).
+  - Mapping over datasets to dynamically generate UI elements (e.g., survey lists).
   - Iterating over responses from the database to format or filter data for specific question result charts and graphs.
 
 #### **3. Error Handling**
@@ -190,15 +190,14 @@ The application demonstrates superior use of object-oriented principles and patt
 #### **3. Polymorphism**
 
 - Polymorphism is demonstrated in:
-  - **Frontend Reusability**: Reusable React components (e.g., buttons, modals, forms) adapt to different contexts using props or conditional statements, allowing a single component to handle multiple use cases.
-  - **Backend Methods**: Overriding default Mongoose schema methods (e.g., `toJSON`) for formatting database output to suit the application's requirements.
+  - **Frontend Reusability**: Reusable React components (e.g., buttons, forms) adapt to different contexts using props or conditional statements, allowing a single component to handle multiple use cases.
 
 #### **4. Abstraction**
 
 - **Utilities and Services**: Common logic, such as validation, API requests, and types, are abstracted into utility functions and shared services. This abstraction hides implementation details while exposing clear, reusable interfaces.
 - **Routes**: Backend routing uses layered abstraction:
   - Routes define the entry points.
-  - Middleware handles common processing (e.g., validation, authentication).
+  - Middleware handles common processing (e.g., validation, formatting, authentication).
   - Controllers handle the core business logic.
 
 #### **5. Modular Design**
@@ -523,7 +522,7 @@ The application demonstrates extensive development testing, ensuring all feature
 #### **2. Frontend Testing with Vite**
 
 - **Vitest** was used extensively for frontend testing:
-  - User flows were tested, such as survey creation, question addition, editing, and response viewing.
+  - User context, survey API functions, signup / login and other components were thoroughly tested.
   - Browser testing ensured the app performed consistently across different environments.
 
 #### **3. Combined Testing**
@@ -1246,12 +1245,22 @@ Due to underestimating how long building the backend MVP would take, frontend ca
 
 ![20th Dec Trello](/surveybuddy-client/src/assets/trello/trello_20:12.png)
 
+#### 22th December
+
+- Completed backend testing card.
+- Completed frontend testing card.
+- Finalised readme for submission.
+
+![22th Dec Trello](/surveybuddy-client/src/assets/trello/trello_22:12.png)
+
+**Assignment Complete!!** 🎉🎉🎉
+
 </details>
 </details>
 
 ---
 
-## **Crucial Decisions**
+### **Crucial Decisions**
 
 <details>
 <summary>View</summary>
