@@ -2,9 +2,7 @@
 
 ## Part B
 
----
-
-## **CMP1003-1.1: Demonstration of DRY (Don’t Repeat Yourself) Principles**
+### **CMP1003-1.1: Demonstration of DRY (Don’t Repeat Yourself) Principles**
 
 <details>
 <summary>View</summary>
@@ -47,7 +45,7 @@ By following these approaches, the project ensures that every piece of functiona
 
 </details>
 
-## CMP1003-1.2: Appropriate use of libraries used in the app
+### CMP1003-1.2: Appropriate use of libraries used in the app
 
 <details>
 <summary>View</summary>
@@ -169,7 +167,7 @@ By implementing these strategies, the application ensures controlled, predictabl
 
 </details>
 
-## **CMP1002-2.2: Application of Object-Oriented Principles/Patterns**
+### **CMP1002-2.2: Application of Object-Oriented Principles/Patterns**
 
 <details>
 <summary>View</summary>
@@ -429,7 +427,7 @@ The application demonstrates a successful and professional deployment process, m
   ![Netlify Deployment](surveybuddy-client/src/assets/images/netlifyDeployment.png)
 
 - The backend was deployed on **Render**, providing a scalable and secure platform for handling API requests and server-side functionality.
-  ![Render Deployment](surveybuddy-client/src/assets/images/renderDeployment.png)
+  ![Render Deployment](surveybuddy-client/src/assets/images/renderDeploy.png)
 
 #### **2. Custom Domain Name**
 
@@ -767,7 +765,7 @@ This extensive testing process demonstrates a commitment to delivering a high-qu
 
 </details>
 
-## **CMP1002-5.2: Production Testing**
+### **CMP1002-5.2: Production Testing**
 
 <details>
 <summary>View</summary>
@@ -993,7 +991,59 @@ Not all development routes are currently available in production, therefore only
 
 </details>
 
-## **CMP1002-7.4: Employ and utilise task delegation methodology**
+### Formal Testing Framework Utilisation
+
+<details>
+<summary>View</summary>
+</br>
+
+Throughout the project, I implemented a formal testing framework to ensure the application's reliability and robustness. Here’s how testing was structured:
+
+#### Comprehensive Testing Suite:
+
+- **Backend Testing**:
+  - Developed a suite of **unit tests** for key backend functions, including database operations and API route handlers.
+  - Utilised **integration tests** to simulate real-world workflows, such as survey creation, question management, and answer submission.
+  - Achieved detailed test coverage for **error handling**, ensuring edge cases were accounted for and properly managed.
+    ![Backend Testing](surveybuddy-client/src/assets/images/backendTesting.png)
+- **Frontend Testing**:
+  - Wrote unit tests for React components, focusing on UI behavior and state management.
+  - Conducted integration tests to validate workflows like user authentication and survey interactions.
+    ![Frontend Testing](surveybuddy-client/src/assets/images/FrontEndTesting.png)
+
+#### Coverage Goals:
+
+- **Code Coverage**:
+  - Maintained a high standard for coverage, with detailed reports generated to highlight areas for improvement.
+  - Though 90% coverage wasn’t reached due to time constraints, significant progress was made toward this benchmark and future testing will be implemented after submission.
+
+#### Examples of Tested Scenarios:
+
+1. **User Authentication**:
+   - Verified that users could sign up, log in, and access protected routes.
+   - Tested JWT token handling in both backend and frontend.
+2. **Survey Workflow**:
+   - Ensured end-to-end functionality for creating surveys, adding questions, and submitting answers.
+   - Validated cascading relationships between surveys, questions, and answers.
+3. **Frontend UI**:
+   - Confirmed proper rendering of dynamic components such as Survey Cards and responsive navigation.
+   - Tested validation and error states for forms (though functions like isValid and other rendering constraints made this difficult).
+
+#### Reflection and Next Steps:
+
+While a robust testing framework was established, additional time would have allowed further refinement. Future iterations will focus on:
+
+- Expanding the test suite to cover all edge cases.
+- Achieving at least 90% code coverage as a project standard.
+- Incorporating advanced end-to-end tests to simulate user flows more comprehensively.
+
+By utilising formal testing practices, the project demonstrated strong foundations in reliability and user experience assurance.
+
+I have recognised front end testing as an area where I need improvement, and I am committed to making it my top learning priority in the coming months to ensure future projects are more robust and thoroughly validated. Given this was my first experience with testing, I am satisfied with my effort, and should I have opted for an app with less features, or worked with another team member, this would have given me adequate time to meet the 90% required threshold.
+
+</details>
+
+### **CMP1002-7.4: Employ and utilise task delegation methodology**
 
 <details>
 <summary>View</summary>
@@ -1015,7 +1065,7 @@ In conclusion, while the project presented challenges, the strategic use of Kanb
 
 ---
 
-## Trello Board Kan-Ban Card Updates
+### Trello Board Kan-Ban Card Updates
 
 <details>
 <summary>View</summary>
