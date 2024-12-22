@@ -55,7 +55,7 @@ export const UserDataProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     updateUserData();
-    // Listen for token updates (e.g., in localStorage)
+    // Listen for token updates
     const tokenChangeHandler = () => updateUserData();
     window.addEventListener("storage", tokenChangeHandler);
 

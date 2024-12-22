@@ -6,11 +6,11 @@ import {
   getSurveys,
   getSurveyData,
   deleteSurvey,
-} from "@/utils/surveyUtils/surveyApi";
-import { getToken } from "@/utils/jwtToken";
-import BASE_URL from "@/config/apiConfig";
+} from "../../utils/surveyUtils/surveyFunctions";
+import { getToken } from "../../utils/jwtToken";
+import BASE_URL from "../../config/apiConfig";
 
-vi.mock("@/utils/jwtToken");
+vi.mock("../../utils/jwtToken");
 
 describe("Survey API Utils", () => {
   let mock;

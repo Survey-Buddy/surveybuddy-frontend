@@ -1,14 +1,18 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
-import { UserDataProvider, useUserData } from "../context/userContext";
-import { getToken, decodeJWT, isUserLoggedIn } from "../utils/jwtToken";
+import { UserDataProvider, useUserData } from "../../context/userContext";
+import { getToken, decodeJWT, isUserLoggedIn } from "../../utils/jwtToken";
 import { vi } from "vitest";
 
 // Mock the JWT-related utility functions
-vi.mock("../utils/jwtToken", () => ({
-  getToken: vi.fn(),
-  decodeJWT: vi.fn(),
-  isUserLoggedIn: vi.fn(),
+vi.mock("../../utils/jwtToken", () => ({
+  getToken: vi.fn(() => "mockToken"),
+  decodeJWT: vi.fn(() => ({
+    userId: "123",
+    username: "testUser",
+    email: "test@example.com",
+  })),
+  isUserLoggedIn: vi.fn(() => true),
 }));
 
 describe("UserDataProvider and useUserData", () => {
