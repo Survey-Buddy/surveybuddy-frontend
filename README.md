@@ -2,7 +2,9 @@
 
 ## Part B
 
-You can find the deployed SurveyBuddy App **[here](https://surveybuddy.tech/)**.
+⭐ View the deployed SurveyBuddy App ➡️ **[Here](https://surveybuddy.tech/)**.
+
+⭐ View the Trello Board ➡️ **[Here](https://trello.com/b/ipwhYFXj/survey-buddy-part-b)**.
 
 ---
 
