@@ -6,6 +6,8 @@
 
 ⭐ View the Trello Board ➡️ **[Here](https://trello.com/b/ipwhYFXj/survey-buddy-part-b)**.
 
+⭐ View Part A of the Assignment ➡️ **[Here](https://github.com/Survey-Buddy/Part-A-Research-and-Analysis)**
+
 ---
 
 ### **CMP1003-1.1: Demonstration of DRY (Don’t Repeat Yourself) Principles**
