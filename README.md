@@ -6,9 +6,11 @@
 
 ⭐ View the project management Trello board ➡️ **[Here](https://trello.com/b/ipwhYFXj/survey-buddy-part-b)**.
 
-⭐ View part A of the assignment ➡️ **[Here](https://github.com/Survey-Buddy/Part-A-Research-and-Analysis)**
-
 ⭐ View the SurveyBuddy backend repository ➡️ **[Here](https://github.com/Survey-Buddy/surveybuddy-backend)**
+
+⭐ View the SurveyBuddy MVP overall run through presentation ➡️ **[Here](https://www.loom.com/share/01e4867c9b7748bfbf22be6763a2e492?sid=058e5a46-2a0c-426d-8e0e-923f7591fd5b)**
+
+⭐ View part A of the assignment ➡️ **[Here](https://github.com/Survey-Buddy/Part-A-Research-and-Analysis)**
 
 ---
 
