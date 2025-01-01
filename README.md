@@ -2,11 +2,13 @@
 
 ## Part B
 
-⭐ View the deployed SurveyBuddy App ➡️ **[Here](https://surveybuddy.tech/)**.
+⭐ View the deployed SurveyBuddy application ➡️ **[Here](https://surveybuddy.tech/)**.
 
-⭐ View the Trello Board ➡️ **[Here](https://trello.com/b/ipwhYFXj/survey-buddy-part-b)**.
+⭐ View the project management Trello board ➡️ **[Here](https://trello.com/b/ipwhYFXj/survey-buddy-part-b)**.
 
-⭐ View Part A of the Assignment ➡️ **[Here](https://github.com/Survey-Buddy/Part-A-Research-and-Analysis)**
+⭐ View part A of the assignment ➡️ **[Here](https://github.com/Survey-Buddy/Part-A-Research-and-Analysis)**
+
+⭐ View the SurveyBuddy backend repository ➡️ **[Here](https://github.com/Survey-Buddy/surveybuddy-backend)**
 
 ---
 
