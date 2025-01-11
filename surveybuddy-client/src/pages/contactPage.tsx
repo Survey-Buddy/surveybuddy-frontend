@@ -17,7 +17,8 @@ const ContactPage = () => {
   const sendEmail = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // Add your email sending logic here
+    // Currently inactive
+
     alert(
       "Apologize, but messaging is currently unavailable. Please contact us directly at thomas.h.martin89@gmail.com"
     );
