@@ -19,14 +19,22 @@ import { loginSchema, registerSchema } from "@/utils/userUtils/userSchema";
 import BASE_URL from "@/config/apiConfig";
 
 export function RegisterForm() {
+  // Hook to access the current location which includes the URL
   const location = useLocation();
+  // Hook to navigate to different routes
   const navigate = useNavigate();
+  // Creates a new URLSearchParams object to work with query params
   const urlParams = new URLSearchParams(location.search);
+  // Fetches the value of the 'isRegister' query param and checks false
   const isRegister = urlParams.get("isRegister") === "true";
+
   const { updateUserData } = useUserData();
 
+  // If registered use register shema, if not, use login schema
   const schema = isRegister ? registerSchema : loginSchema;
 
+  // Use react-hook-form to handle form state and validation
+  // Type check using User interface
   const {
     register,
     handleSubmit,

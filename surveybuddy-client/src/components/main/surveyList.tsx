@@ -14,10 +14,14 @@ import { format } from "date-fns";
 import { Survey } from "../../utils/surveyUtils/surveyTypes";
 import CopyToClipboard from "./copyToClipboard";
 
+// SurveyList component props interface
 interface SurveyListProps {
+  // Component expects an array of Survey objects
   surveys: Survey[];
 }
 
+// React Functional Component that uses SurveyListProps for type checking
+// Destructures surveys prop for easy access
 export const SurveyList: React.FC<SurveyListProps> = ({ surveys }) => {
   return (
     <ScrollArea className="h-[auto] w-[600px] rounded-md border p-4">

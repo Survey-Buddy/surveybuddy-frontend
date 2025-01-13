@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import CopyToClipboard from "./copyToClipboard";
 
+// SurveyCard component props interface
 interface SurveyCardProps {
   _id: string;
   name: string;
@@ -15,7 +16,9 @@ interface SurveyCardProps {
   endDate: string;
 }
 
+// React Functional Component that uses SurveyCardProps for type checking
 export const SurveyCard: React.FC<SurveyCardProps> = ({
+  // Destructures props for easy access
   _id,
   name,
   description,

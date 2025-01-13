@@ -27,10 +27,12 @@ import {
 import { Survey } from "../../utils/surveyUtils/surveyTypes";
 import schema from "@/utils/surveyUtils/surveySchema";
 
+// NewSurveyCard component props interface
 interface NewSurveyCardProps {
   propsSurveyData?: Survey | null;
 }
 
+// Define structure of form fields used in the survey form
 interface SurveyFormFields {
   name: string;
   description: string;
@@ -40,6 +42,7 @@ interface SurveyFormFields {
   endDate: string;
 }
 
+// Extract and destructure propsSurveyData (instead of 'props') from NewSurveyCardProps
 export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -61,7 +64,7 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
   useEffect(() => {
     if (surveyData) {
       console.log("Populating form with survey data:", surveyData);
-      // Populate fields with surveyData
+      // Populate fields with surveyData using setValue
       setValue("name", surveyData.name);
       setValue("description", surveyData.description || "");
       setValue("purpose", surveyData.purpose || "other");
