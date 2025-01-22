@@ -6,10 +6,8 @@ import LandingPage from "./pages/landingPage";
 import SurveysPage from "./pages/surveysPage";
 import LoginPage from "./pages/loginSignup";
 import RegisterPage from "./pages/registerPage";
-import TargetedPage from "./pages/targetedPage";
 import ContactPage from "./pages/contactPage";
 import HomePage from "./pages/homePage";
-import MarketingPage from "./pages/marketingPage";
 import NewSurveyPage from "./pages/NewSurveyPage";
 import QuestionPage from "./pages/questionPage";
 import SurveyPage from "./pages/surveyPage";
@@ -55,8 +53,6 @@ function App() {
                 path="/surveys/:surveyId/:questionId/results"
                 element={<QuestionResultsPage />}
               />
-              <Route path="/targeted" element={<TargetedPage />} />
-              <Route path="/marketing" element={<MarketingPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route
                 path="/surveys/:surveyId/complete"

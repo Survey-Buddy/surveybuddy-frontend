@@ -1,34 +1,16 @@
 import { Link } from "react-router-dom";
 
+// Footer component
+
 export const Footer1 = () => {
+  // Navigation footer items
   const navigationItems = [
     {
-      title: "",
+      title: "Home",
       to: "/",
-      description: "",
     },
-    // {
-    //   title: "Our Surveys",
-    //   description:
-    //     "SurveyBuddy is a simple and intuitive full-stack web application designed to streamline survey creation, sharing, and data collection.",
-    //   items: [
-    //     {
-    //       title: "Analytics",
-    //       to: "/analytcis",
-    //     },
-    //     {
-    //       title: "Use Cases",
-    //       to: "/usecases",
-    //     },
-    //     {
-    //       title: "Respondents",
-    //       to: "/respondents",
-    //     },
-    //   ],
-    // },
     {
       title: "Company",
-
       items: [
         {
           title: "About us",
@@ -67,17 +49,13 @@ export const Footer1 = () => {
             </div>
           </div>
           <div className="grid lg:grid-cols-3 gap-10 items-start">
+            {/* Map navigation items to footer */}
             {navigationItems.map((item) => (
               <div
                 key={item.title}
                 className="flex text-base gap-1 flex-col items-start "
               >
                 <div className="flex flex-col gap-2 ">
-                  {/* <div>
-                    <p>Contact</p>
-                    <p>About</p>
-                  </div> */}
-
                   {item.to ? (
                     <Link
                       to={item.to}
@@ -88,6 +66,7 @@ export const Footer1 = () => {
                   ) : (
                     <p className="text-xl  ">{item.title}</p>
                   )}
+                  {/* Map nested array links to footer */}
                   {item.items &&
                     item.items.map((subItem) => (
                       <Link

@@ -12,6 +12,7 @@ import { Menu, MoveRight, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+// Define structure for navigation items
 type NavigationItem = {
   title: string;
   description?: string;
@@ -19,9 +20,14 @@ type NavigationItem = {
   items?: { title: string; href: string }[];
 };
 
+// Navbar Componet
+// ** Section into smaller components
+
 export const Header1 = () => {
+  // Get user data from context
   const { userData } = useUserData();
-  console.log("navbar log:", userData);
+
+  // Nav items for signed in and not signed in users
   const signedInNavigationItems: NavigationItem[] = [
     {
       title: "Home",
@@ -40,14 +46,6 @@ export const Header1 = () => {
           title: "New Survey",
           href: "/surveys/newsurvey",
         },
-        // {
-        //   title: "Respondents",
-        //   href: "/respondents",
-        // },
-        // {
-        //   title: "Analytics",
-        //   href: "/analytics",
-        // },
       ],
     },
     {
@@ -58,14 +56,7 @@ export const Header1 = () => {
           title: "About Us",
           href: "/about",
         },
-        // {
-        //   title: "Fundraising",
-        //   href: "/fundraising",
-        // },
-        // {
-        //   title: "Marketing",
-        //   href: "/marketing",
-        // },
+
         {
           title: "Contact",
           href: "/contact",
@@ -82,14 +73,6 @@ export const Header1 = () => {
           title: "About Us",
           href: "/about",
         },
-        // {
-        //   title: "Fundraising",
-        //   href: "/fundraising",
-        // },
-        // {
-        //   title: "Marketing",
-        //   href: "/investors",
-        // },
         {
           title: "Contact",
           href: "/contact",
@@ -98,13 +81,18 @@ export const Header1 = () => {
     },
   ];
 
+  // State to toggle the hamburger menu
   const [isOpen, setOpen] = useState(false);
+
+  // Dynamically set nav items based on if user is signed in
   const navigationItems = userData
     ? signedInNavigationItems
     : notSignedInNavigationItems;
+
   return (
     <header className="w-full z-40 fixed top-0 left-0 bg-background ">
       <div className="container relative mx-auto min-h-20 flex gap-4 flex-row lg:grid lg:grid-cols-3 items-center">
+        {/* Desktop navigation menu */}
         <div className="justify-start items-center gap-4 lg:flex hidden flex-row">
           <NavigationMenu className="flex justify-start items-start">
             <NavigationMenuList className="flex justify-start gap-4 flex-row">
@@ -192,6 +180,7 @@ export const Header1 = () => {
             </div>
           )}
         </div>
+        {/* Mobile navigation menu */}
         <div className="flex w-12 shrink lg:hidden items-end justify-end">
           <Button variant="ghost" onClick={() => setOpen(!isOpen)}>
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

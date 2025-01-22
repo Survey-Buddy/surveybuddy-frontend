@@ -11,37 +11,44 @@ interface DecodedToken {
 
 // Get the token from cookies
 export const getToken = (): string | undefined => {
-  // Cookies.get retrieves the value of jwtToken from cookies
+  // Retrieve value of jwtToken from cookies
   return Cookies.get("jwtToken");
 };
 
 // Set the token to cookies and decode it
 export const setToken = (
   token: string,
+  // Call back function to update user data
   updateUserData: () => void
 ): DecodedToken => {
   // Set the token in cookies with a 7 day expiration
   Cookies.set("jwtToken", token, { expires: 7 });
+
+  // Decode token and extract payload
   const decoded = jwtDecode<DecodedToken>(token);
+
+  // Call function to refresh user data
   updateUserData();
+
+  // Return decoded token
   return decoded;
 };
 
 // Remove the token from cookies
 export const removeToken = (): void => {
-  // Remove jwtToken from cookies
+  // Delete jwtToken from cookies
   Cookies.remove("jwtToken");
 };
 
-// Decode the JWT token
+// Decode the JWT token to extract payload
 export const decodeJWT = (token: string): DecodedToken | null => {
   try {
-    // Use jwtDecode to decode the token and return its payload
+    // Decode the token and return its payload
     return jwtDecode(token);
   } catch (error) {
     // Log any errors in case decoding fails
     console.error("Error decoding JWT token", error);
-    return null; // Return null if decoding fails
+    return null;
   }
 };
 
@@ -49,9 +56,11 @@ export const decodeJWT = (token: string): DecodedToken | null => {
 export const isTokenExpired = (token: string): boolean => {
   // Decode the token to get its payload
   const decoded = decodeJWT(token);
-  // If decoding fails (decoded is null), treat token as expired
+
+  // If decoding fails, treat token as expired
   if (!decoded) return true;
-  // Get current time in seconds and check if the token's expiration time is in the past
+
+  // Check if tokens expirtation is in the past
   const currentTime = Date.now() / 1000;
   return !!decoded.exp && decoded.exp < currentTime;
 };
@@ -60,6 +69,7 @@ export const isTokenExpired = (token: string): boolean => {
 export const isUserLoggedIn = (): boolean => {
   // Retrieve the token from cookies
   const token = getToken();
-  // Validate the token's valsidity
+
+  // Check if token exists and is not expired
   return !!token && !isTokenExpired(token);
 };
