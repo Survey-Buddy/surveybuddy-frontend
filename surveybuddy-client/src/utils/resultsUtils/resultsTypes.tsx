@@ -1,3 +1,5 @@
+// Define structure of Answer object
+
 export interface Answer {
   writtenResponseAnswer?: string;
   rangeSliderAnswer?: number;

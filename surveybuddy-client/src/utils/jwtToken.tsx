@@ -1,18 +1,17 @@
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
+// Define structure of DecodedToken object
 interface DecodedToken {
   userId: string;
   username: string;
-  // firstName: string;
-  // lastName: string;
   email: string;
   exp: number;
 }
 
 // Get the token from cookies
 export const getToken = (): string | undefined => {
-  // Cookies.get retrieves the value of 'jwtToken' from cookies
+  // Cookies.get retrieves the value of jwtToken from cookies
   return Cookies.get("jwtToken");
 };
 
@@ -21,7 +20,7 @@ export const setToken = (
   token: string,
   updateUserData: () => void
 ): DecodedToken => {
-  // Set the token in cookies with a 7-day expiration
+  // Set the token in cookies with a 7 day expiration
   Cookies.set("jwtToken", token, { expires: 7 });
   const decoded = jwtDecode<DecodedToken>(token);
   updateUserData();
@@ -30,7 +29,7 @@ export const setToken = (
 
 // Remove the token from cookies
 export const removeToken = (): void => {
-  // Remove 'jwtToken' from cookies
+  // Remove jwtToken from cookies
   Cookies.remove("jwtToken");
 };
 

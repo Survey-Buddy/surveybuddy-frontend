@@ -1,3 +1,5 @@
+// Define structure of Survey object
+
 export interface Survey {
   _id: string;
   name: string;

@@ -3,12 +3,18 @@ import { Answer } from "./resultsTypes";
 import BASE_URL from "../../config/apiConfig";
 import { getToken } from "../jwtToken";
 
-// Define ApiResponse<T>
+// Define generic API response type
+
 type ApiResponse<T> = {
+  // If call was successful
   success: boolean;
+  // Data return from API
   data: T;
+  // Optional message from API
   message?: string;
 };
+
+// Function to create a new specific question answer
 
 export async function newAnswer(
   answer: string | number,
@@ -16,13 +22,12 @@ export async function newAnswer(
   questionId: string
 ): Promise<ApiResponse<Answer> | null> {
   try {
-    // <Answer> ensures response is typed as Answer
+    // POST request to save new answer
     const response = await axios.post<ApiResponse<Answer>>(
       `${BASE_URL}/answers/${surveyId}/${questionId}`,
       { answer }
     );
-
-    console.log("Answer successfully created!", response.data);
+    // Return response data
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -34,11 +39,15 @@ export async function newAnswer(
   }
 }
 
+// Function to fetch all answers for specific survey
+
 export async function getAllSurveyAnswers(
   surveyId: string
 ): Promise<ApiResponse<Answer[]> | null> {
   try {
+    // Get auth token to send in header
     const token = getToken();
+    // GET request to fetch all answers for survey
     const response = await axios.get<ApiResponse<Answer[]>>(
       `${BASE_URL}/answers/${surveyId}`,
       {
@@ -48,7 +57,6 @@ export async function getAllSurveyAnswers(
       }
     );
 
-    console.log("Survey answers: ", response);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -60,12 +68,15 @@ export async function getAllSurveyAnswers(
   }
 }
 
+// Function to fetch answers for a specific question
+
 export async function getQuestionAnswers(
   surveyId: string,
   questionId: string
 ): Promise<ApiResponse<Answer> | null> {
   try {
     const token = getToken();
+    // GET request to fetch answers for specific question
     const response = await axios.get<ApiResponse<Answer>>(
       `${BASE_URL}/answers/${surveyId}/${questionId}`,
       {

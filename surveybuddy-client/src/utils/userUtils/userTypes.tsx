@@ -1,3 +1,5 @@
+// Define structure of User object
+
 export interface User {
   name: string;
   email: string;
