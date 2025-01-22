@@ -1,12 +1,16 @@
 import { useState } from "react";
-
 import { Badge } from "@/components/ui/badge";
 import { GripVertical } from "lucide-react";
 
+// About Page Component
+
 export const AboutPage = () => {
+  // State for percentage of image shown
   const [inset, setInset] = useState<number>(50);
+  // Track if mouse down
   const [onMouseDown, setOnMouseDown] = useState<boolean>(false);
 
+  // Shadcn click and drag image component logic
   const onMouseMove = (e: React.MouseEvent | React.TouchEvent) => {
     if (!onMouseDown) return;
 
@@ -20,9 +24,11 @@ export const AboutPage = () => {
     }
 
     const percentage = (x / rect.width) * 100;
+    // Update state with percentage of image
     setInset(percentage);
   };
 
+  // Render content
   return (
     <div className="w-full py-20 lg:py-40">
       <div className="container mx-auto">
@@ -53,6 +59,7 @@ export const AboutPage = () => {
               and efficient.
             </p>
           </div>
+          {/* Shancn interactive image feature */}
           <div className="pt-12 w-full">
             <div
               className="relative aspect-video w-full h-full overflow-hidden rounded-2xl select-none"
@@ -91,7 +98,7 @@ export const AboutPage = () => {
                 className="absolute left-0 top-0 z-10 w-full h-full aspect-video rounded-2xl select-none border"
                 style={{
                   clipPath: "inset(0 0 0 " + inset + "%)",
-                  backgroundColor: "#94ED12", // Add your background color here
+                  backgroundColor: "#94ED12",
                 }}
               />
               <img

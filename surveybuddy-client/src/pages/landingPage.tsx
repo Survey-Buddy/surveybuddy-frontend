@@ -4,38 +4,44 @@ import { Mail, MoveRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
+// Landing Page Component
+
 const LandingPage = () => {
+  // State to track rotating title from titles array
   const [titleNumber, setTitleNumber] = useState(0);
   const titles = useMemo(
     () => ["amazing", "new", "simple", "beautiful", "smart", "intuiative"],
-    []
+    [] // Initalise once
   );
 
+  // Change title every two seconds
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (titleNumber === titles.length - 1) {
+        // reset to start when reaches end
         setTitleNumber(0);
       } else {
+        // Move to next title
         setTitleNumber(titleNumber + 1);
       }
     }, 2000);
+
+    // Clean up timeout on unmount
     return () => clearTimeout(timeoutId);
   }, [titleNumber, titles]);
 
+  // Render landing page
   return (
     <div className="w-full">
       <div className="container mx-auto">
         <div className="flex gap-8 py-20 lg:py-40 items-center justify-center flex-col">
-          <div>
-            {/* <Button variant="secondary" size="sm" className="gap-4">
-              View use cases <MoveRight className="w-4 h-4" />
-            </Button> */}
-          </div>
           <div className="flex gap-4 flex-col">
             <h1 className="text-5xl md:text-7xl max-w-2xl tracking-tighter text-center font-regular">
               <span className="text-spektr-cyan-50 text-pink-600">
                 SurveyBuddy
               </span>
+
+              {/* Shadcn rotating title annimation */}
               <span className="relative flex w-full justify-center overflow-hidden text-center md:pb-4 md:pt-1">
                 &nbsp;
                 {titles.map((title, index) => (
@@ -69,6 +75,7 @@ const LandingPage = () => {
               effortlessly.
             </p>
           </div>
+          {/* Buttons for contact and signup */}
           <div className="flex flex-row gap-3">
             <Link to="/contact">
               <Button size="lg" className="gap-4" variant="outline">

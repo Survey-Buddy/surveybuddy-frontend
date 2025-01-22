@@ -2,10 +2,13 @@ import React from "react";
 import Lottie from "lottie-react";
 import celebrationAnimation from "../../public/assets/images/animations/Animation - 1734324538876.json";
 
+// Survey Completion Page Component
+
 const SurveyCompletionPage: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <div>
+        {/* Celebration annimation of giraffe riding unicycle */}
         <Lottie
           animationData={celebrationAnimation}
           loop={true}

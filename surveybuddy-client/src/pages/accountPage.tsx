@@ -4,10 +4,15 @@ import { Button } from "@/components/ui/button";
 import { removeToken } from "@/utils/jwtToken";
 import { useNavigate } from "react-router-dom";
 
+// Account page component
+
 const AccountPage: React.FC = () => {
+  // Get user data from user context
   const { userData, updateUserData } = useUserData();
+  // UseNavigation hook for navigating routes
   const navigate = useNavigate();
 
+  // Handles logout process
   const handleLogOut = () => {
     try {
       if (userData) {
@@ -18,8 +23,9 @@ const AccountPage: React.FC = () => {
         alert(`Successfully logged out. We hope to see you again soon!`);
       }
 
-      // Remove the token and update user date
+      // Remove the stored auth token
       removeToken();
+      // Clear the userData context
       updateUserData();
 
       // Navigate to the landing page
@@ -30,6 +36,7 @@ const AccountPage: React.FC = () => {
     }
   };
 
+  // Render Account Page
   return (
     <>
       <div className="mt-[10%] flex flex-col items-center gap-4">
@@ -42,6 +49,8 @@ const AccountPage: React.FC = () => {
       <Button className={"mt-[10%]"} onClick={handleLogOut}>
         Logout
       </Button>
+
+      {/* Future features to implement */}
       {/* <Button>Update Info</Button>
       <Button>Reset Password</Button> */}
     </>

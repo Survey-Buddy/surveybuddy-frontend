@@ -18,12 +18,19 @@ import { Survey } from "@/utils/surveyUtils/surveyTypes";
 import CopyToClipboard from "@/components/main/copyToClipboard";
 import { Question } from "@/utils/questionUtils/questionTypes";
 
+// Display Specific Survey Details Component
+
 const SurveyPage: React.FC = () => {
+  // Extract survey id from url params
   const { surveyId } = useParams<{ surveyId: string }>();
+  // Store survey data state
   const [surveyData, setSurveyData] = useState<Survey | null>(null);
+  // Store question data state
   const [questionData, setQuestionData] = useState<Question[]>([]);
+  // useNavigate hook to navigate to new route
   const navigate = useNavigate();
 
+  // Fetch survey data when the component mounts or surveyId changes
   useEffect(() => {
     const fetchSurveyData = async () => {
       if (!surveyId) {
@@ -32,12 +39,10 @@ const SurveyPage: React.FC = () => {
       }
       try {
         const data = await getSurveyData(surveyId);
-        console.log("Raw survey data:", data);
-
         if (data) {
+          // Format and map survey data
           let formattedEndDate: string;
-
-          // Validate and format endDate to be a string
+          // Validate and format endDate to be a string to fix TS error
           if (data.endDate && !isNaN(Date.parse(data.endDate))) {
             formattedEndDate = new Date(data.endDate).toISOString();
           } else {
@@ -45,7 +50,7 @@ const SurveyPage: React.FC = () => {
             formattedEndDate = "Unknown";
           }
 
-          // Validate and format endDate to be a string
+          // Validate and format endDate to be a string to fix TS error
           const formattedDate =
             data.date && !isNaN(Date.parse(data.date))
               ? new Date(data.date).toISOString()
@@ -59,6 +64,7 @@ const SurveyPage: React.FC = () => {
           };
 
           console.log("Mapped survey data:", mappedData);
+          // Set formatted survey data to state
           setSurveyData(mappedData);
         }
       } catch (error) {
@@ -68,6 +74,7 @@ const SurveyPage: React.FC = () => {
     fetchSurveyData();
   }, [surveyId]);
 
+  // Fetch survey questions when component mounts or survey id changes
   useEffect(() => {
     const fetchQuestionsData = async () => {
       if (!surveyId) {
@@ -85,10 +92,10 @@ const SurveyPage: React.FC = () => {
         console.error("Error fetching survey data: ", error);
       }
     };
-
     fetchQuestionsData();
   }, [surveyId]);
 
+  // Delete survey data
   const handleDelete = async (surveyId: string) => {
     const userConfirmed = window.confirm(
       "Are you sure you want to delete this survey? All survey and question data will be lost."
@@ -104,6 +111,7 @@ const SurveyPage: React.FC = () => {
     }
   };
 
+  // Function to format question types
   const questionFormatResponse = (questionFormat: string): string => {
     if (questionFormat === "multiChoice") {
       return "Multiple Choice";
@@ -148,6 +156,7 @@ const SurveyPage: React.FC = () => {
                 >
                   Survey
                 </Link>
+                {/* Formatting dates to fix TS errors */}
                 <p>
                   End{" "}
                   {surveyData?.formattedEndDate &&
@@ -181,9 +190,6 @@ const SurveyPage: React.FC = () => {
                   <Link to={`/surveys/${surveyId}/edit`}>
                     <Button>Edit</Button>
                   </Link>
-                  {/* <Link to={`/surveys/${surveyId}/analytics`}>
-                    <Button>Analytics</Button>
-                  </Link> */}
                   <p>
                     {surveyData?.organisation
                       ? `Organisation: ${surveyData.organisation}`
@@ -200,11 +206,6 @@ const SurveyPage: React.FC = () => {
                       : ""}
                   </p>
                 </div>
-              </div>
-              <div className="">
-                {/* <Button className="gap-4" variant="outline">
-                  Any questions? Reach out <PhoneCall className="w-4 h-4" />
-                </Button> */}
               </div>
             </div>
           </div>
@@ -238,4 +239,5 @@ const SurveyPage: React.FC = () => {
     </div>
   );
 };
+
 export default SurveyPage;

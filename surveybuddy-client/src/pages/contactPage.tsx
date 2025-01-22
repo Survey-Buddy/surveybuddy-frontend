@@ -11,24 +11,28 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+// Contact Page Component
+
 const ContactPage = () => {
+  // Referencing the form element to reset
   const formRef = useRef<HTMLFormElement | null>(null);
 
+  // Function to handle form submission email data
   const sendEmail = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // Currently inactive
-
+    // Currently inactive due to assignment time constraints
     alert(
       "Apologize, but messaging is currently unavailable. Please contact us directly at thomas.h.martin89@gmail.com"
     );
 
-    // Reset the form
+    // Reset the form fields after submit
     if (formRef.current) {
       formRef.current.reset();
     }
   };
 
+  // Render the contact page
   return (
     <section className="flex flex-col items-center mt-[10%] justify-center py-12 px-4">
       <Card className="w-full max-w-2xl shadow-lg">
@@ -40,6 +44,8 @@ const ContactPage = () => {
           </CardDescription>
         </CardHeader>
 
+        {/* Contact form */}
+        {/* Make seperate component */}
         <form ref={formRef} onSubmit={sendEmail} className="space-y-4 px-6">
           <CardContent>
             <Input
