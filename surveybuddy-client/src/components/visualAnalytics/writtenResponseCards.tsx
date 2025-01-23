@@ -5,17 +5,21 @@ import { getQuestionData } from "@/utils/questionUtils/questionFunctions";
 import { useParams } from "react-router-dom";
 import { Question } from "@/utils/questionUtils/questionTypes";
 
+// Written Reponse List for Specific Question
+
 export function WrittenResponsesList() {
   const { surveyId, questionId } = useParams<{
     surveyId: string;
     questionId: string;
   }>();
 
+  // State variables for loading status, error messages, question details, and answers
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [questionData, setQuestionData] = useState<Question | null>(null);
   const [answers, setAnswers] = useState<string[]>([]);
 
+  // Fetch question and answers data when component mounts of ids change
   useEffect(() => {
     if (!surveyId || !questionId) {
       console.error("Survey ID or Question ID is required but missing.");
@@ -23,6 +27,7 @@ export function WrittenResponsesList() {
       return;
     }
 
+    // Fetch details of the question
     const fetchQuestionData = async () => {
       try {
         const questionDataResponse = await getQuestionData(
@@ -39,6 +44,7 @@ export function WrittenResponsesList() {
       }
     };
 
+    // Fetch written responses for the question
     const fetchAnswers = async () => {
       try {
         const response = await getQuestionAnswers(surveyId, questionId);
@@ -64,11 +70,15 @@ export function WrittenResponsesList() {
       }
     };
 
+    // Call data fetching functions
     fetchQuestionData();
     fetchAnswers();
   }, [surveyId, questionId]);
 
+  // Display loading while waiting for fetched data
   if (loading) return <p>Loading...</p>;
+
+  // Display error message if error during data fetch
   if (error) return <p>{error}</p>;
 
   return (
@@ -76,6 +86,7 @@ export function WrittenResponsesList() {
       <Card className="w-full max-w-2xl">
         <CardHeader>
           <CardTitle>Written Responses</CardTitle>
+          {/* Display question */}
           <p className="text-muted-foreground">{questionData?.question}</p>
         </CardHeader>
         <CardContent>

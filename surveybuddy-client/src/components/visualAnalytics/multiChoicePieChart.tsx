@@ -1,5 +1,5 @@
 import { Pie, PieChart } from "recharts";
-import React from "react";
+import { useEffect, useState } from "react";
 
 import {
   Card,
@@ -20,26 +20,32 @@ import { getQuestionData } from "@/utils/questionUtils/questionFunctions";
 import { useParams } from "react-router-dom";
 import { Question } from "@/utils/questionUtils/questionTypes";
 
+// Multi Choice Pie Chart Component
+// Taken from Shadcn and edited to suit functionality
+
 export function MultiChoicePieChart() {
   const { surveyId, questionId } = useParams<{
     surveyId: string;
     questionId: string;
   }>();
 
-  const [loading, setLoading] = React.useState<boolean>(true);
-  // const [error, setError] = React.useState<string | null>(null);
-  const [questionData, setQuestionData] = React.useState<Question | null>();
-  const [chartData, setChartData] = React.useState<
+  // State variables to track loading, question data, and chart data
+  const [loading, setLoading] = useState<boolean>(true);
+  const [questionData, setQuestionData] = useState<Question | null>();
+  const [chartData, setChartData] = useState<
     { browser: string; answers: number; fill: string }[]
   >([]);
 
-  React.useEffect(() => {
+  // Fetch question and answer data when the component mounts or
+  // when surveyId / questionId changes
+  useEffect(() => {
     if (!surveyId || !questionId) {
       console.error("Survey ID or Question ID is required but missing.");
       setLoading(false);
       return;
     }
 
+    // Fecth question data
     const fetchQuestionData = async () => {
       try {
         const questionDataResponse = await getQuestionData(
@@ -47,9 +53,6 @@ export function MultiChoicePieChart() {
           questionId
         );
         setLoading(true);
-        // setError(null);
-
-        console.log("Q data response", questionDataResponse);
 
         if (questionDataResponse) {
           console.log("Fetched question answers:", questionDataResponse);
@@ -57,16 +60,15 @@ export function MultiChoicePieChart() {
         setQuestionData(questionDataResponse);
       } catch (error) {
         console.error("Error fetching question answers:", error);
-        // setError("An error occurred while fetching question answers.");
       } finally {
         setLoading(false);
       }
     };
 
+    // Fetch answers of the previously fetched question
     const fetchData = async () => {
       try {
         setLoading(true);
-        // setError(null);
 
         console.log(
           "Fetching question answers for surveyId and questionId:",
@@ -85,6 +87,7 @@ export function MultiChoicePieChart() {
           // Define the allowed keys for counts
           type AnswerKeys = "answerA" | "answerB" | "answerC" | "answerD";
 
+          // Initalise answer counts for each multi choice option
           const counts: Record<AnswerKeys, number> = {
             answerA: 0,
             answerB: 0,
@@ -92,16 +95,14 @@ export function MultiChoicePieChart() {
             answerD: 0,
           };
 
+          // Count answers from teh response
           answers.forEach((item: { answer: string }) => {
-            // Use a type guard to ensure item.answer matches one of the keys
             if (item.answer in counts) {
               counts[item.answer as AnswerKeys]++;
             }
           });
 
-          console.log("Answer counts:", counts);
-
-          // Update chart answer data dynamically
+          // Get data ready for chart
           const updatedChartData = [
             {
               browser: "answerA",
@@ -125,23 +126,25 @@ export function MultiChoicePieChart() {
             },
           ];
 
+          // Update chart data
           setChartData(updatedChartData);
         } else {
           console.error("Failed to fetch question answers.");
-          // setError(response?.message || "Failed to fetch question answers.");
         }
       } catch (error) {
         console.error("Error fetching question answers:", error);
-        // setError("An error occurred while fetching question answers.");
       } finally {
         setLoading(false);
       }
     };
 
+    // Fetch question data
     fetchQuestionData();
+    // Fetch answer data
     fetchData();
   }, [surveyId, questionId]);
 
+  // Config for the chart
   const chartConfig = {
     visitors: {
       label: "Answers",
@@ -169,18 +172,21 @@ export function MultiChoicePieChart() {
     },
   } satisfies ChartConfig;
 
+  // Loading state while waiting for fetched data
   if (loading) return <p>Loading...</p>;
-  // if (error) return <p>{error}</p>;
 
   return (
     <div className="flex justify-center">
       <Card className="flex flex-col ml-[20%] mr-[20%] w-[100%] max-h-[800px]">
+        {/* Card header displaying the question */}
         <CardHeader className="items-center p-16 pb-0">
           <CardTitle className="text-xl">Multiple Choice Pie Chart</CardTitle>
           <CardDescription className="text-lg">
             {questionData?.question}
           </CardDescription>
         </CardHeader>
+
+        {/* Chart content */}
         <CardContent className="flex-1 pb-0">
           <ChartContainer
             config={chartConfig}
@@ -191,6 +197,7 @@ export function MultiChoicePieChart() {
                 content={<ChartTooltipContent hideLabel={false} />}
               />
               {/* Takes a list of objects [ {answerA: number}. {answerB: number}] */}
+              {/* Pie chart displaying the answer data */}
               <Pie
                 data={chartData}
                 dataKey="answers"
@@ -202,6 +209,8 @@ export function MultiChoicePieChart() {
             </PieChart>
           </ChartContainer>
         </CardContent>
+
+        {/* Additional card footer info */}
         <CardFooter className="flex-col gap-2 text-sm">
           <div className="leading-none text-muted-foreground text-center">
             Total responses since creation. Hover over chart for results.

@@ -27,12 +27,12 @@ import {
 import { Survey } from "../../utils/surveyUtils/surveyTypes";
 import schema from "@/utils/surveyUtils/surveySchema";
 
-// NewSurveyCard component props interface
+// NewSurveyCard props interface
 interface NewSurveyCardProps {
   propsSurveyData?: Survey | null;
 }
 
-// Define structure of form fields used in the survey form
+// Interface for survey form fields
 interface SurveyFormFields {
   name: string;
   description: string;
@@ -42,15 +42,21 @@ interface SurveyFormFields {
   endDate: string;
 }
 
+// Creating or Editing Survey Component
+
 // Extract and destructure propsSurveyData (instead of 'props') from NewSurveyCardProps
 export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
+  // Hook for navigating routes
   const navigate = useNavigate();
+  // Hook to access location state
   const location = useLocation();
+  // Get survey id from route params
   const { surveyId } = useParams<{ surveyId: string }>();
 
-  // Get surveyData from props or location state
+  // Get surveyData from props or location state or null (TS error fix)
   const surveyData = propsSurveyData || location.state?.surveyData || null;
 
+  // Setup form with validation
   const {
     register,
     handleSubmit,
@@ -61,9 +67,9 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
     mode: "onChange",
   });
 
+  // Populate form fields if editing an existing survey
   useEffect(() => {
     if (surveyData) {
-      console.log("Populating form with survey data:", surveyData);
       // Populate fields with surveyData using setValue
       setValue("name", surveyData.name);
       setValue("description", surveyData.description || "");
@@ -74,10 +80,11 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
     }
   }, [propsSurveyData, surveyData, setValue]);
 
+  // Handle form submission
   const onSubmit = async (data: FieldValues) => {
     try {
-      schema.parse(data); // Validate the form data
-      console.log("Validation Passed:", data);
+      // Validate the form data
+      schema.parse(data);
 
       if (surveyData && surveyId) {
         // Update an existing survey
@@ -87,6 +94,7 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
         navigate(`/surveys/${surveyId}`);
       } else {
         // Create a new survey
+        // Format data to fix TS date errors
         const formattedData = {
           ...data,
           date: data.date ? data.date.toISOString() : new Date().toISOString(),
@@ -99,8 +107,7 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
         alert("Survey created successfully!");
 
         if (createdSurvey?._id) {
-          // Redirect to create questions for the new survey
-
+          // Redirect user to create questions for the new survey
           navigate(`/surveys/${createdSurvey._id}/questions/1`);
         }
       }
@@ -180,8 +187,6 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="public">Public</SelectItem>
-                  {/* <SelectItem value="registered">Registered</SelectItem>
-                  <SelectItem value="inviteOnly">Invite Only</SelectItem> */}
                 </SelectContent>
               </Select>
             </div>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { getQuestionAnswers } from "@/utils/resultsUtils/answerFunction";
 import { useParams } from "react-router-dom";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
@@ -15,26 +15,33 @@ import { Answer } from "@/utils/resultsUtils/resultsTypes";
 import { getQuestionData } from "@/utils/questionUtils/questionFunctions";
 import { Question } from "@/utils/questionUtils/questionTypes";
 
+// Bar Chart for Range Slider Data Visualisation
+// Taken from Shadcn and edited to suit functionality
+
 export function ResponseBarChart() {
   const { surveyId, questionId } = useParams<{
     surveyId: string;
     questionId: string;
   }>();
 
-  const [loading, setLoading] = React.useState<boolean>(true);
-  //   const [error, setError] = React.useState<string | null>(null);
-  const [questionData, setQuestionData] = React.useState<Question | null>();
-  const [chartData, setChartData] = React.useState<
+  // Loading status state
+  const [loading, setLoading] = useState<boolean>(true);
+  // Question data state
+  const [questionData, setQuestionData] = useState<Question | null>();
+  // Bar chart data state
+  const [chartData, setChartData] = useState<
     { value: number; count: number }[]
   >([]);
 
-  React.useEffect(() => {
+  // Fetch question and answer data when id change
+  useEffect(() => {
     if (!surveyId || !questionId) {
       console.error("Survey ID or Question ID is required but missing.");
       setLoading(false);
       return;
     }
 
+    // Fetch question details
     const fetchQuestionData = async () => {
       try {
         const questionDataResponse = await getQuestionData(
@@ -42,7 +49,6 @@ export function ResponseBarChart() {
           questionId
         );
         setLoading(true);
-        // setError(null);
 
         if (questionDataResponse) {
           console.log("Fetched question answers:", questionDataResponse);
@@ -50,16 +56,15 @@ export function ResponseBarChart() {
         setQuestionData(questionDataResponse);
       } catch (error) {
         console.error("Error fetching question answers:", error);
-        // setError("An error occurred while fetching question answers.");
       } finally {
         setLoading(false);
       }
     };
 
+    // Fetch answers for the question
     const fetchData = async () => {
       try {
         setLoading(true);
-        // setError(null);
 
         const response = await getQuestionAnswers(surveyId, questionId);
 
@@ -74,6 +79,7 @@ export function ResponseBarChart() {
               (rangeScore: number) => rangeScore >= 0 && rangeScore <= 10
             );
 
+          // Count occurrences of each score of 1-10
           const counts = Array.from({ length: 11 }, (_, scoreValue) => ({
             value: scoreValue,
             count: answers.filter(
@@ -81,7 +87,7 @@ export function ResponseBarChart() {
             ).length,
           }));
 
-          // Set processed data to state
+          // Update chart data
           setChartData(counts);
         } else {
           console.error("Failed to fetch question answers.");
@@ -98,18 +104,20 @@ export function ResponseBarChart() {
     fetchData();
   }, [surveyId, questionId]);
 
+  // Display loading while data is fetched
   if (loading) return <p>Loading...</p>;
-  //   if (error) return <p>{error}</p>;
 
   return (
     <div className="flex justify-center ">
       <Card className="w-auto h-auto">
+        {/* Card Header displays question details */}
         <CardHeader>
           <CardTitle>{questionData?.question}</CardTitle>
           <CardDescription>Displaying Range Slider Responses</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-row justify-center align-center">
+            {/* BarChart to visualize range slider responses */}
             <BarChart
               data={chartData}
               width={500}
@@ -122,17 +130,7 @@ export function ResponseBarChart() {
               }}
             >
               <CartesianGrid vertical={false} />
-              <XAxis
-              // dataKey="value"
-              // tickLine={false}
-              // tickMargin={10}
-              // axisLine={false}
-              // label={{
-              //   value: "Range Value",
-              //   position: "insideBottom",
-              //   offset: -20,
-              // }}
-              />
+              <XAxis />
               <YAxis
                 label={{
                   value: "Count",
@@ -149,6 +147,8 @@ export function ResponseBarChart() {
               ></Bar>
             </BarChart>
           </div>
+
+          {/* Display range slider labels based on range description */}
           <div className="ml-[13%] mt-[0]">
             {questionData?.rangeDescription === "no" ? (
               <div className="flex justify-between w-full">

@@ -1,6 +1,8 @@
-import * as React from "react"
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
-import { cn } from "@/lib/utils"
+// This UI component was copied from the Shadcn website,
+// it has not been edited by me beyond fixing TypeScript errors
 
 const Textarea = React.forwardRef<
   HTMLTextAreaElement,
@@ -15,8 +17,8 @@ const Textarea = React.forwardRef<
       ref={ref}
       {...props}
     />
-  )
-})
-Textarea.displayName = "Textarea"
+  );
+});
+Textarea.displayName = "Textarea";
 
-export { Textarea }
+export { Textarea };

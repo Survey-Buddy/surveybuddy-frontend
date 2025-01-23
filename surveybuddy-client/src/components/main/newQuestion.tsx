@@ -29,13 +29,22 @@ import {
 import { Question } from "@/utils/questionUtils/questionTypes";
 import { createQuestion } from "@/utils/questionUtils/questionFunctions";
 
+// New Survey Question Component
+// ** Needs breaking down into smaller components, such as for each question type
+
 export function NewQuestionCard() {
+  // Set active tab state to determine schema
   const [activeTab, setActiveTab] = useState("writtenResponse");
+  // Hook for navigating routes
   const navigate = useNavigate();
+  // Get survey id from URL params
   const { surveyId } = useParams();
+  // Track question number state
   const [questionNum, setQuestionNum] = useState(1);
+  // Default range slider choice to fix TS error
   const [radioChoice, setRadioChoice] = useState("no");
 
+  // Function to dynamically return the correct schema based on active tab state
   const getSchema = () => {
     if (activeTab === "writtenResponse") return writtenResponseSchema;
     if (activeTab === "multiChoice") return multiChoiceSchema;
@@ -43,7 +52,7 @@ export function NewQuestionCard() {
     return writtenResponseSchema;
   };
 
-  // Initialise form with dynamic schema depending on question type
+  // Initialise form with dynamic schema
   const {
     register,
     handleSubmit,
@@ -51,45 +60,13 @@ export function NewQuestionCard() {
     formState: { errors, isValid },
     setValue,
   } = useForm<Question>({
+    // Zod for schema validation
     resolver: zodResolver(getSchema()),
-    mode: "onChange", // Trigger validation on every change
+    // Validate on every change
+    mode: "onChange",
   });
 
-  //   const onSubmit = useCallback(
-  //     async (data: Question, event: React.FormEvent<HTMLFormElement>) => {
-  //       const buttonValue = (event.nativeEvent as SubmitEvent)
-  //         .submitter as HTMLButtonElement;
-
-  //       data.answer = radioChoice as "no" | "notAtAll" | "disagree";
-
-  //       try {
-  //         const payload: Question = { ...data, surveyId, questionNum };
-  //         console.log("Creating question: ", payload);
-
-  //         const response = await createQuestion(payload);
-
-  //         if (response) {
-  //           console.log("Question created successfully: ", response);
-
-  //           setQuestionNum((prev) => prev + 1);
-
-  //           // Navigate dynamically based on the value of the button when clicked
-  //           if (buttonValue.value === "nextQuestion") {
-  //             navigate(`/surveys/${surveyId}/questions/${questionNum}`);
-  //           }
-
-  //           if (buttonValue.value === "surveySubmit") {
-  //             navigate(`/surveys/${surveyId}`);
-  //           }
-
-  //           reset();
-  //         }
-  //       } catch (error) {
-  //         console.error("Error during question submission: ", error);
-  //       }
-  //     },
-  //     [navigate, surveyId, reset, questionNum, radioChoice]
-  //   );
+  // Function to handle form submit
   const onSubmit = async (
     data: Question,
     event: React.FormEvent<HTMLFormElement>
@@ -97,21 +74,25 @@ export function NewQuestionCard() {
     const buttonValue = (event.nativeEvent as SubmitEvent)
       .submitter as HTMLButtonElement;
 
+    // Assign range slider description to fix TS error
     data.rangeDescription = radioChoice as "no" | "notAtAll" | "disagree";
 
     try {
       const payload: Question = { ...data, surveyId, questionNum };
       console.log("Creating question: ", payload);
 
+      // Create question API call function with payload
       const response = await createQuestion(payload);
 
       if (response) {
         console.log("Question created successfully: ", response);
 
+        // Increment question number
         setQuestionNum((prev) => prev + 1);
-
+        // Reset the form
         reset();
 
+        // Navigate based on clicked button
         if (buttonValue.value === "nextQuestion") {
           navigate(`/surveys/${surveyId}/questions/${questionNum}`);
         }
@@ -126,21 +107,19 @@ export function NewQuestionCard() {
   };
 
   // Wrap handleSubmit to manually inject the event
+  // TS error fix
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     handleSubmit((data) => onSubmit(data, event))(event);
   };
 
+  // Reset the form when active tab changes
   useEffect(() => {
     reset();
   }, [reset, activeTab]);
 
-  useEffect(() => {
-    console.log(activeTab);
-  }, [activeTab]);
-
+  // Sync radio choice with the form value to fix TS error
   useEffect(() => {
     setValue("rangeDescription", radioChoice as "no" | "notAtAll" | "disagree");
-    console.log(radioChoice);
   }, [radioChoice, setValue]);
 
   return (
@@ -149,6 +128,7 @@ export function NewQuestionCard() {
       className="w-[600px]"
       onValueChange={(value) => setActiveTab(value)}
     >
+      {/* Tabs for question types */}
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="writtenResponse">Written Response</TabsTrigger>
         <TabsTrigger value="multiChoice">Multi Choice</TabsTrigger>

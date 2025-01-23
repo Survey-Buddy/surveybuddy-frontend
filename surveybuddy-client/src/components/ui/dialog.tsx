@@ -1,10 +1,11 @@
 "use client";
-
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-
 import { cn } from "@/lib/utils";
+
+// This UI component was copied from the Shadcn website,
+// it has not been edited by me beyond fixing TypeScript errors
 
 const Dialog = DialogPrimitive.Root;
 

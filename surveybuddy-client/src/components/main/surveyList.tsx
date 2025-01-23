@@ -3,7 +3,6 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -14,20 +13,24 @@ import { format } from "date-fns";
 import { Survey } from "../../utils/surveyUtils/surveyTypes";
 import CopyToClipboard from "./copyToClipboard";
 
-// SurveyList component props interface
+// Props interface for Survey List Component
 interface SurveyListProps {
-  // Component expects an array of Survey objects
+  // Expects an array of Survey
   surveys: Survey[];
 }
 
-// React Functional Component that uses SurveyListProps for type checking
-// Destructures surveys prop for easy access
+// Survey List Component
+
+// Functional Component to display a list of surveys in a table
+// Destructure surveys prop for easy access
 export const SurveyList: React.FC<SurveyListProps> = ({ surveys }) => {
   return (
+    // Scrollable container
     <ScrollArea className="h-[auto] w-[600px] rounded-md border p-4">
       <Table className="mt-10">
         <TableCaption>A list of your recent surveys.</TableCaption>
 
+        {/* Table header column names */}
         <TableHeader>
           <TableRow>
             <TableHead className="">Name</TableHead>
@@ -39,6 +42,7 @@ export const SurveyList: React.FC<SurveyListProps> = ({ surveys }) => {
           </TableRow>
         </TableHeader>
 
+        {/* Table body displaying survey data */}
         <TableBody>
           {surveys.map((survey) => (
             <TableRow key={survey._id}>
@@ -59,6 +63,8 @@ export const SurveyList: React.FC<SurveyListProps> = ({ surveys }) => {
                   ? format(new Date(survey.endDate), "MMMM dd, yyyy")
                   : "No end date"}
               </TableCell>
+
+              {/* Copy survey link to clipboard */}
               <TableCell>
                 <CopyToClipboard
                   textToCopy={`https://surveybuddy.tech/surveys/${survey._id}/response/1`}
@@ -67,8 +73,6 @@ export const SurveyList: React.FC<SurveyListProps> = ({ surveys }) => {
             </TableRow>
           ))}
         </TableBody>
-
-        <TableFooter></TableFooter>
       </Table>
     </ScrollArea>
   );

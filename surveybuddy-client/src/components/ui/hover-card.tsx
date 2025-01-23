@@ -1,7 +1,9 @@
 import * as React from "react";
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
-
 import { cn } from "../../lib/utils";
+
+// This UI component was copied from the Shadcn website,
+// it has not been edited by me beyond fixing TypeScript errors
 
 const HoverCard = HoverCardPrimitive.Root;
 

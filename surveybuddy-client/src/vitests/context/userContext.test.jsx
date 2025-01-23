@@ -16,6 +16,7 @@ vi.mock("../../utils/jwtToken", () => ({
 }));
 
 describe("UserDataProvider and useUserData", () => {
+  // Test component to use the UserData context
   const TestComponent = () => {
     const { userData, updateUserData } = useUserData();
 
@@ -29,6 +30,7 @@ describe("UserDataProvider and useUserData", () => {
     );
   };
 
+  // Helper function to render the component with the provider
   const renderWithProvider = () =>
     render(
       <UserDataProvider>
@@ -37,6 +39,7 @@ describe("UserDataProvider and useUserData", () => {
     );
 
   afterEach(() => {
+    // Reset mock values after each test
     vi.clearAllMocks();
   });
 
@@ -48,12 +51,15 @@ describe("UserDataProvider and useUserData", () => {
       email: "test@example.com",
     };
 
+    // Set up mocks to simulate a logged in user
     getToken.mockReturnValue(mockToken);
     isUserLoggedIn.mockReturnValue(true);
     decodeJWT.mockReturnValue(mockDecodedData);
 
+    // Render component with provider
     renderWithProvider();
 
+    // Wait for user to be displayed
     await waitFor(() =>
       expect(screen.getByTestId("user-data").textContent).toBe(
         JSON.stringify(mockDecodedData)
@@ -62,17 +68,21 @@ describe("UserDataProvider and useUserData", () => {
   });
 
   it("sets user data to null when not logged in", async () => {
+    // Set up mocks to simulate logged out user
     getToken.mockReturnValue(null);
     isUserLoggedIn.mockReturnValue(false);
 
+    // Render component with provider
     renderWithProvider();
 
+    // Wait for user data to be set to null
     await waitFor(() =>
       expect(screen.getByTestId("user-data").textContent).toBe("No user data")
     );
   });
 
   it("updates user data when updateUserData is called", async () => {
+    // Mock token and decoded data
     const mockToken = "mockToken";
     const mockDecodedData = {
       userId: "123",
@@ -80,15 +90,20 @@ describe("UserDataProvider and useUserData", () => {
       email: "test@example.com",
     };
 
+    // Simulate no token, then token after updateUserData
     getToken
-      .mockReturnValueOnce(null) // Initial state: no token
-      .mockReturnValueOnce(mockToken); // After calling updateUserData
+      // Initial token initially
+      .mockReturnValueOnce(null)
+      // After calling updateUserData
+      .mockReturnValueOnce(mockToken);
 
     isUserLoggedIn.mockReturnValue(true);
     decodeJWT.mockReturnValue(mockDecodedData);
 
+    // Render component with provider
     renderWithProvider();
 
+    // Check that user data is updated after the click
     await waitFor(() =>
       expect(screen.getByTestId("user-data").textContent).toBe("No user data")
     );
@@ -103,6 +118,7 @@ describe("UserDataProvider and useUserData", () => {
   });
 
   it("removes user data when token is removed from localStorage", async () => {
+    // Mock token and decoded data
     const mockToken = "mockToken";
     const mockDecodedData = {
       userId: "123",
@@ -110,23 +126,28 @@ describe("UserDataProvider and useUserData", () => {
       email: "test@example.com",
     };
 
+    // Set mocks for initial state
     getToken.mockReturnValue(mockToken);
     isUserLoggedIn.mockReturnValue(true);
     decodeJWT.mockReturnValue(mockDecodedData);
 
+    // Render component with provider
     renderWithProvider();
 
+    // Verify that user data is displayed
     await waitFor(() =>
       expect(screen.getByTestId("user-data").textContent).toBe(
         JSON.stringify(mockDecodedData)
       )
     );
 
+    // Simulate token removal
     getToken.mockReturnValue(null);
 
-    // Simulate a `storage` event to trigger updateUserData
+    // Simulate a storage event to trigger update
     window.dispatchEvent(new Event("storage"));
 
+    // Verify user dat is removed after event
     await waitFor(() =>
       expect(screen.getByTestId("user-data").textContent).toBe("No user data")
     );

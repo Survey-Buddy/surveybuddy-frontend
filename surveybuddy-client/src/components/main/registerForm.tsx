@@ -18,22 +18,24 @@ import { User } from "@/utils/userUtils/userTypes";
 import { loginSchema, registerSchema } from "@/utils/userUtils/userSchema";
 import BASE_URL from "@/config/apiConfig";
 
+// Registration and Login Component
+
 export function RegisterForm() {
-  // Hook to access the current location which includes the URL
+  // Get current URL and query params
   const location = useLocation();
   // Hook to navigate to different routes
   const navigate = useNavigate();
-  // Creates a new URLSearchParams object to work with query params
+  // Parse query params
   const urlParams = new URLSearchParams(location.search);
-  // Fetches the value of the 'isRegister' query param and checks false
+  // Fetches the value of the 'isRegister' query param and checks if truthy
   const isRegister = urlParams.get("isRegister") === "true";
-
+  // Update user data in context
   const { updateUserData } = useUserData();
 
   // If registered use register shema, if not, use login schema
   const schema = isRegister ? registerSchema : loginSchema;
 
-  // Use react-hook-form to handle form state and validation
+  // Initialise form with validation
   // Type check using User interface
   const {
     register,
@@ -41,29 +43,35 @@ export function RegisterForm() {
     formState: { errors, isValid },
   } = useForm<User>({ resolver: zodResolver(schema), mode: "onChange" });
 
+  // Handle form submission
   const onSubmit = async (data: User) => {
     try {
+      // Endpoint based on if user is registered
       const endpoint = isRegister
         ? `${BASE_URL}/users/signup`
         : `${BASE_URL}/users/login`;
-
+      // POST request
       const response = await axios.post(endpoint, data);
       if (!response) {
         throw new Error("Client did not recieve a response.");
       }
 
-      console.log("Login / register response: ", response);
-
+      // Extract username and token by destructuring
       const { username, token } = response.data;
+      // Store username in localstorage
       localStorage.setItem("Username", username);
 
+      // Save token and update user
       setToken(token, updateUserData);
-      console.log("username is: ", username);
+
       const message = isRegister
-        ? `Welcome to SurveyBuddy, ${username}!`
-        : `Welcome back to SurveyBuddy, ${username}!`;
+        ? // New user
+          `Welcome to SurveyBuddy, ${username}!`
+        : // Returning user
+          `Welcome back to SurveyBuddy, ${username}!`;
 
       alert(message);
+      // Navigate to user home page
       navigate("/home");
     } catch (error) {
       if (isAxiosError(error)) {
@@ -77,6 +85,7 @@ export function RegisterForm() {
 
   return (
     <Card className="mx-auto max-w-sm">
+      {/* Header */}
       <CardHeader>
         <CardTitle className="text-2xl">
           {isRegister ? "Register" : "Login"}
@@ -87,6 +96,8 @@ export function RegisterForm() {
             : "Enter your login details."}
         </CardDescription>
       </CardHeader>
+
+      {/* Form Content */}
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4">
@@ -100,10 +111,6 @@ export function RegisterForm() {
                     type="text"
                     placeholder="Username"
                     {...register("username")}
-                    // value={formData.userName}
-                    // onChange={(event) => setFormData({
-                    //   ...formData, userName: event.target.value
-                    // })}
                   />
 
                   {errors.username && (
@@ -117,10 +124,6 @@ export function RegisterForm() {
                     type="text"
                     placeholder="First Name"
                     {...register("firstName")}
-                    // value={formData.firstName}
-                    // onChange={(event) => setFormData({
-                    //   ...formData, firstName: event.target.value
-                    // })}
                   />
 
                   {errors.firstName && (
@@ -134,10 +137,6 @@ export function RegisterForm() {
                     type="text"
                     placeholder="Last Name"
                     {...register("lastName")}
-                    // value={formData.lastName}
-                    // onChange={(event) => setFormData({
-                    //   ...formData, lastName: event.target.value
-                    // })}
                   />
                   {errors.lastName && (
                     <p className="text-red-500">{errors.lastName.message}</p>
@@ -146,7 +145,7 @@ export function RegisterForm() {
               </>
             )}
 
-            {/* Common Fields */}
+            {/* Common fields for both registration and login */}
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -155,10 +154,6 @@ export function RegisterForm() {
                 placeholder="m@example.com"
                 required
                 {...register("email", { required: true, minLength: 6 })}
-                // value={formData.email}
-                // onChange={(event) => setFormData({
-                //   ...formData, email: event.target.value
-                // })}
               />
               {errors.email && (
                 <p className="text-red-500">{errors.email.message}</p>
@@ -167,6 +162,7 @@ export function RegisterForm() {
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
+                {/* Future Feature */}
                 {/* <Link href="#" className="ml-auto inline-block text-sm underline">
                 Forgot your password?
               </Link> */}
@@ -176,10 +172,6 @@ export function RegisterForm() {
                 type="password"
                 required
                 {...register("password")}
-                // value={formData.password}
-                // onChange={(event) => setFormData({
-                //   ...formData, password: event.target.value
-                // })}
               />
 
               {errors.password && (
@@ -190,9 +182,6 @@ export function RegisterForm() {
             <Button disabled={!isValid} type="submit" className="w-full">
               Submit
             </Button>
-            {/* <Button variant="outline" className="w-full">
-              Login with Google
-            </Button> */}
           </div>
         </form>
         <div className="mt-4 text-center text-sm">
@@ -203,9 +192,6 @@ export function RegisterForm() {
           >
             {isRegister ? "Login" : "Register"}
           </Link>
-          {/* <Link href="#" className="underline">
-            Sign up
-          </Link> */}
         </div>
       </CardContent>
     </Card>
