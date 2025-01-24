@@ -4,7 +4,7 @@ import celebrationAnimation from "../../public/assets/images/animations/Animatio
 
 // Survey Completion Page Component
 
-const SurveyCompletionPage: React.FC = () => {
+export const SurveyCompletionPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <div>

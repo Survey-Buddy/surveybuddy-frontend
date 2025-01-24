@@ -23,7 +23,7 @@ interface SurveyListProps {
 
 // Functional Component to display a list of surveys in a table
 // Destructure surveys prop for easy access
-export const SurveyList: React.FC<SurveyListProps> = ({ surveys }) => {
+export const SurveyList = ({ surveys }: SurveyListProps) => {
   return (
     // Scrollable container
     <ScrollArea className="h-[auto] w-[600px] rounded-md border p-4">

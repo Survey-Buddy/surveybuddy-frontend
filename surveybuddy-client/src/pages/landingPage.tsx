@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 // Landing Page Component
 
-const LandingPage = () => {
+export const LandingPage = () => {
   // State to track rotating title from titles array
   const [titleNumber, setTitleNumber] = useState(0);
   const titles = useMemo(

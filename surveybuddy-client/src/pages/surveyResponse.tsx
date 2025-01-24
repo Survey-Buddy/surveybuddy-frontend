@@ -34,7 +34,7 @@ import { newAnswer } from "@/utils/resultsUtils/answerFunction";
 // Display and Answer Question Component Page
 // ** Needs to be broken into smaller components
 
-const SurveyQuestionPage: React.FC = () => {
+export const SurveyQuestionPage = () => {
   // Get survey id and question number from URL params
   const { surveyId, questionNum } = useParams<{
     surveyId: string;

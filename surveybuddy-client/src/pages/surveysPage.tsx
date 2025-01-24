@@ -8,7 +8,7 @@ import { Survey } from "@/utils/surveyUtils/surveyTypes";
 
 // User Surveys Page
 
-const SurveysPage: React.FC = () => {
+export const SurveysPage = () => {
   // Store surveys data in state
   const [surveys, setSurveys] = useState<Survey[]>([]);
   // Track whether is loading or not

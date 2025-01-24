@@ -23,7 +23,7 @@ import { Question } from "@/utils/questionUtils/questionTypes";
 // Multi Choice Pie Chart Component
 // Taken from Shadcn and edited to suit functionality
 
-export function MultiChoicePieChart() {
+export const MultiChoicePieChart = () => {
   const { surveyId, questionId } = useParams<{
     surveyId: string;
     questionId: string;
@@ -219,4 +219,4 @@ export function MultiChoicePieChart() {
       </Card>
     </div>
   );
-}
+};

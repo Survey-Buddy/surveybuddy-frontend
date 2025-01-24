@@ -20,7 +20,7 @@ import { Question } from "@/utils/questionUtils/questionTypes";
 
 // Display Specific Survey Details Component
 
-const SurveyPage: React.FC = () => {
+export const SurveyPage = () => {
   // Extract survey id from url params
   const { surveyId } = useParams<{ surveyId: string }>();
   // Store survey data state

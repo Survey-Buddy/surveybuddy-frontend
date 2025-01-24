@@ -32,7 +32,7 @@ import { createQuestion } from "@/utils/questionUtils/questionFunctions";
 // New Survey Question Component
 // ** Needs breaking down into smaller components, such as for each question type
 
-export function NewQuestionCard() {
+export const NewQuestionCard = () => {
   // Set active tab state to determine schema
   const [activeTab, setActiveTab] = useState("writtenResponse");
   // Hook for navigating routes
@@ -321,4 +321,4 @@ export function NewQuestionCard() {
       </form>
     </Tabs>
   );
-}
+};

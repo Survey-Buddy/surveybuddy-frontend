@@ -20,7 +20,7 @@ import BASE_URL from "@/config/apiConfig";
 
 // Registration and Login Component
 
-export function RegisterForm() {
+export const RegisterForm = () => {
   // Get current URL and query params
   const location = useLocation();
   // Hook to navigate to different routes
@@ -196,4 +196,4 @@ export function RegisterForm() {
       </CardContent>
     </Card>
   );
-}
+};

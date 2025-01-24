@@ -17,7 +17,7 @@ interface DatePickerProps {
 
 // Select Date Component
 
-export function DatePicker({ onChange }: DatePickerProps) {
+export const DatePicker = ({ onChange }: DatePickerProps) => {
   // Store selected date in state
   const [date, setDate] = React.useState<Date>();
 
@@ -57,4 +57,4 @@ export function DatePicker({ onChange }: DatePickerProps) {
       </PopoverContent>
     </Popover>
   );
-}
+};

@@ -8,7 +8,7 @@ interface CopyToClipboardProps {
 
 // Component to copy survey link to clipboard
 
-const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ textToCopy }) => {
+export const CopyToClipboard = ({ textToCopy }: CopyToClipboardProps) => {
   // State to track if text has been copied successfully
   const [copied, setCopied] = useState(false);
 
@@ -28,7 +28,7 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ textToCopy }) => {
 
   return (
     <div className="flex items-center gap-2">
-      <button onClick={handleCopy} area-label="Copy to clipboard">
+      <button onClick={handleCopy} aria-label="Copy to clipboard">
         {/* Change icon color based on state if text is copied */}
         {copied ? (
           <Link2 className="w-6 h-6 text-green-500" />

@@ -45,7 +45,7 @@ interface SurveyFormFields {
 // Creating or Editing Survey Component
 
 // Extract and destructure propsSurveyData (instead of 'props') from NewSurveyCardProps
-export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
+export const NewSurveyCard = ({ propsSurveyData }: NewSurveyCardProps) => {
   // Hook for navigating routes
   const navigate = useNavigate();
   // Hook to access location state
@@ -226,4 +226,4 @@ export function NewSurveyCard({ propsSurveyData }: NewSurveyCardProps) {
       </CardContent>
     </Card>
   );
-}
+};

@@ -6,7 +6,7 @@ import { Survey } from "../utils/surveyUtils/surveyTypes";
 
 // Edit Survey Page Component
 
-const EditSurveyPage: React.FC = () => {
+export const EditSurveyPage = () => {
   // State to store existing survey data
   const [surveyData, setSurveyData] = useState<Survey | null>(null);
   // State to store the surveyId from URL parms

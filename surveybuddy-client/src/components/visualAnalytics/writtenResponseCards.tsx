@@ -7,7 +7,7 @@ import { Question } from "@/utils/questionUtils/questionTypes";
 
 // Written Reponse List for Specific Question
 
-export function WrittenResponsesList() {
+export const WrittenResponsesList = () => {
   const { surveyId, questionId } = useParams<{
     surveyId: string;
     questionId: string;
@@ -107,6 +107,6 @@ export function WrittenResponsesList() {
       </Card>
     </div>
   );
-}
+};
 
 export default WrittenResponsesList;

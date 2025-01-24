@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 // Account page component
 
-const AccountPage: React.FC = () => {
+export const AccountPage = () => {
   // Get user data from user context
   const { userData, updateUserData } = useUserData();
   // UseNavigation hook for navigating routes

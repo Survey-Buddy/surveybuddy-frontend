@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 
 // Login Form Component
 
-export function LoginForm() {
+export const LoginForm = () => {
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
@@ -54,4 +54,4 @@ export function LoginForm() {
       </CardContent>
     </Card>
   );
-}
+};

@@ -18,7 +18,7 @@ import { Question } from "@/utils/questionUtils/questionTypes";
 // Bar Chart for Range Slider Data Visualisation
 // Taken from Shadcn and edited to suit functionality
 
-export function ResponseBarChart() {
+export const ResponseBarChart = () => {
   const { surveyId, questionId } = useParams<{
     surveyId: string;
     questionId: string;
@@ -180,4 +180,4 @@ export function ResponseBarChart() {
       </Card>
     </div>
   );
-}
+};

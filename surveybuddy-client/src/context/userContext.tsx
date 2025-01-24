@@ -22,18 +22,20 @@ const UserDataContext = createContext<UserDataContextType | undefined>(
 );
 
 // Custom hook to access user data within components
-export function useUserData(): UserDataContextType {
+export const useUserData = (): UserDataContextType => {
   const context = useContext(UserDataContext);
   if (!context) {
     // Must wrap the component in App.tsx
     throw new Error("useUserData must be used within a UserDataProvider");
   }
   return context;
-}
+};
 
 // Component to provide user data to other child components in component tree
-export const UserDataProvider: React.FC<{ children: React.ReactNode }> = ({
+export const UserDataProvider = ({
   children,
+}: {
+  children: React.ReactNode;
 }) => {
   // State to store current user data for components to access
   const [userData, setUserData] = useState<UserData | null>(null);

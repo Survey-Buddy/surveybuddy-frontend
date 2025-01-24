@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 // Home page component
 
-function HomePage() {
+export const HomePage = () => {
   // Access user data from user context
   const { userData } = useUserData();
   // State to track loading
@@ -45,6 +45,6 @@ function HomePage() {
       </main>
     </>
   );
-}
+};
 
 export default HomePage;
